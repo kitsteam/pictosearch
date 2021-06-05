@@ -1,0 +1,11 @@
+{
+  "short_name": "Pictogram Viewer",
+  "name": "Pictogram Viewer and Configurator",
+  "icons": [
+
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
