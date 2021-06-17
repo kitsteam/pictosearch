@@ -77,7 +77,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
                         style={{ position: 'absolute', top: 0, left: 0, maxWidth: '100%' }} />
                     <TitleBox>
                         <Box flexGrow={1} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant="h4">{title}</Typography>
+                            <Typography variant="h4" align="center">{title}</Typography>
                         </Box>
                         <Box p={1} sx={{ position: 'absolute', bottom: 0, left: 0 }}>
                             <Stack spacing={1} direction="row">
