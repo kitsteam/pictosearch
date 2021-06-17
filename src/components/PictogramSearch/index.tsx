@@ -41,7 +41,7 @@ const PictogramSearch: React.FC<Props> = () => {
       title: typeof item.keywords[0] === 'string' || !item.keywords[0] ? item.keywords[0] : item.keywords[0].keyword
     })) : undefined;
 
-  const autosuggestOptions = value ? keywords.data.filter(keyword => keyword.startsWith(value)) : [];
+  const autosuggestOptions = value ? keywords.data.filter(keyword => keyword.toLowerCase().startsWith(value.toLowerCase())) : [];
 
   const isLoading = !!query && result.isLoading && !result.error;
 
