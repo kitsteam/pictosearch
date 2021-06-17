@@ -19,7 +19,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language }) => {
     return (
         <Box paddingTop={3} paddingBottom={3}>
             {numberOfPages > 1 && <Box display="flex" justifyContent="center">
-                <Pagination count={numberOfPages} page={page} onChange={(ev, page) => setPage(page)} />
+                <Pagination count={numberOfPages} page={page} onChange={(ev, page) => { page && setPage(page) }} />
             </Box>}
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
