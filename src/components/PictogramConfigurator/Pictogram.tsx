@@ -169,6 +169,15 @@ const Pictogram: React.FC<Props> = (props) => {
         y: borderWidth,
     };
 
+    const bottomLeftIcon = {
+        x: borderWidth,
+        y: stageSize - borderWidth - iconSize,
+    };
+    const bottomRightIcon = {
+        x: stageSize - borderWidth - iconSize,
+        y: stageSize - borderWidth - iconSize,
+    };
+
     const width = (stageSize - 2 * borderWidth);
     const height = stageSize - 2 * borderWidth;
 
@@ -217,8 +226,8 @@ const Pictogram: React.FC<Props> = (props) => {
                     </Group>}
 
                     {tense !== Tense.present && <Group>
-                        {tense === Tense.past && <PastIcon tenseColor={tenseColor} {...leftIcon} />}
-                        {tense === Tense.future && <FutureIcon tenseColor={tenseColor} {...rightIcon} />}
+                        {tense === Tense.past && <PastIcon tenseColor={tenseColor} {...bottomLeftIcon} />}
+                        {tense === Tense.future && <FutureIcon tenseColor={tenseColor} {...bottomRightIcon} />}
                     </Group>}
 
                     {identifier !== Identifier.none && <Group>
