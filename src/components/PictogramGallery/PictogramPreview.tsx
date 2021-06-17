@@ -82,7 +82,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
                         <Box p={1} sx={{ position: 'absolute', bottom: 0, left: 0 }}>
                             <Stack spacing={1} direction="row">
                                 <IconButton onClick={onDownload}><DownloadIcon style={{ color: 'white' }} /></IconButton>
-                                {!!ClipboardItem && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
+                                {!!(window as any).ClipboardItem && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
                             </Stack>
                         </Box>
                     </TitleBox>

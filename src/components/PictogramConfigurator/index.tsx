@@ -183,7 +183,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     });
   }
 
-  const canCopyToClipboard = !!ClipboardItem;
+  const canCopyToClipboard = !!(window as any).ClipboardItem;
 
   return (
     <Box sx={{ backgroundColor: '#f8f9fa', padding: { sm: 0, md: 3 }, }}>
