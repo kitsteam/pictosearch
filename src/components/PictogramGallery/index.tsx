@@ -26,10 +26,10 @@ const PictogramGallery: React.FC<Props> = ({ items, language }) => {
                     <PictogramPreview id={item.id} title={item.title} language={language} />
                 </Grid>)}
             </Grid>
-            {numberOfPages > 1 && <Box m={3} display="flex" justifyContent="center">
+            {numberOfPages > 1 && <Box mt={3} mb={3} display="flex" justifyContent="center">
                 <Pagination count={numberOfPages} page={page} onChange={(ev, page) => setPage(page)} />
             </Box>}
-            {items.length > itemsPerPageSelection[0] && <Box display="flex" justifyContent="flex-end" mt={-3}>
+            {items.length > itemsPerPageSelection[0] && <Box display="flex" justifyContent="flex-end" sx={{ marginTop: { xs: 0, sm: -3 } }}>
                 <FormControl size="small" sx={{ minWidth: '80px' }}>
                     <InputLabel id="per-page-label">Pro Seite</InputLabel>
                     <Select labelId="per-page-label" value={itemsPerPage} onChange={ev => setItemsPerPage(parseInt(ev.target.value.toString(), 10))} label="Pro Seite">
