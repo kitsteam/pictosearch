@@ -2,13 +2,13 @@
   "name": "pictogram-viewer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "pictogram",
   "license": "MIT",
   "author": {
     "name": "Klaus Herberth",
     "email": "klaus@jsxc.org"
   },
   "dependencies": {
+    "@craco/craco": "^6.1.2",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.4.2",
@@ -37,7 +37,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "craco build",
+    "pack": "tar -czf wp-pictogram-viewer.tar.gz js arasaac-pictogram-viewer.php",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -6,13 +6,13 @@ import BackIcon from '@material-ui/icons/ArrowLeft';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, Reducer } from 'react';
 import { usePictogram } from '../../hooks/network';
-import BackgroundOptions, { backgroundColors } from './options/BackgroundOptions';
-import BorderOptions, { borderColors } from './options/BorderOptions';
-import ColorizedOptions, { SkinColor, HairColor } from './options/ColorizedOptions';
-import IdentifierOptions, { Identifier, IdentifierPosition, identifierColors } from './options/IdentifierOptions';
-import PluralOptions, { pluralColors } from './options/PluralOptions';
+import BackgroundOptions from './options/BackgroundOptions';
+import BorderOptions from './options/BorderOptions';
+import ColorizedOptions from './options/ColorizedOptions';
+import IdentifierOptions, { Identifier, IdentifierPosition } from './options/IdentifierOptions';
+import PluralOptions from './options/PluralOptions';
 import TextOptions, { fontFamilies } from './options/TextOptions';
-import VerbalTenseOptions, { Tense, tenseColors } from './options/VerbalTenseOptions';
+import VerbalTenseOptions, { Tense } from './options/VerbalTenseOptions';
 import Pictogram from './Pictogram';
 import LanguageSelection from '../LanguageSelection';
 import CrossOutOptions from './options/CrossOutOptions';
@@ -21,6 +21,7 @@ import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
+import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
 
 
 declare const ClipboardItem: any;
@@ -184,7 +185,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const canCopyToClipboard = !!ClipboardItem;
 
   return (
-    <Box sx={{ backgroundColor: '#f8f9fa', padding: {sm: 0, md: 3}, }}>
+    <Box sx={{ backgroundColor: '#f8f9fa', padding: { sm: 0, md: 3 }, }}>
       <Box mb={3}>
         <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>Zurück</Button>
       </Box>
@@ -233,7 +234,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
                 <VerbalTenseOptions {...tenseParams} />
 
-                <IdentifierOptions {...identifierParams} />
+                {false && <IdentifierOptions {...identifierParams} />}
               </Stack>
             </AccordionDetails>
           </Accordion>
