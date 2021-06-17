@@ -6,6 +6,9 @@ const theme = createTheme({
         primary,
         secondary,
     },
+    typography: {
+        htmlFontSize: parseInt(window.getComputedStyle(document.documentElement).fontSize, 10),
+    },
 });
 
 export default theme;
