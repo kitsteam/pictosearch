@@ -74,7 +74,7 @@ const languages = [
     // APRIL: // web 77%, admin 90%, pictograms 0%
     {
       code: 'de',
-      text: 'Deutsche',
+      text: 'Deutsch',
       translated: false,
       needTranslators: true,
     },
