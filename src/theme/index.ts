@@ -9,6 +9,15 @@ const theme = createTheme({
     typography: {
         htmlFontSize: parseInt(window.getComputedStyle(document.documentElement).fontSize, 10),
     },
+    components: {
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                    border: '0 !important',
+                },
+            }
+        }
+    }
 });
 
 export default theme;
