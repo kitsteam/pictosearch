@@ -22,6 +22,7 @@ import ZoomOptions from './options/ZoomOptions';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
+import MetaData from './MetaData'
 
 
 declare const ClipboardItem: any;
@@ -206,6 +207,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>&copy; Das abgebildete piktographische Symbol ist Eigentum der
             Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
             das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.</Typography>
+
+          {pictogram.data && <Box sx={{display: {xs: 'none', md: 'block'}}}><MetaData data={pictogram.data} /></Box>}
         </Box>
         <Box flexGrow={1}>
           <Accordion {...accordionParams('panel-0')}>
@@ -266,6 +269,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
               </Stack>
             </AccordionDetails>
           </Accordion>
+
+          {pictogram.data && <Box sx={{display: {xs: 'block', md: 'none'}}} mt={3}><MetaData data={pictogram.data} /></Box>}
         </Box>
       </Stack>
     </Box>

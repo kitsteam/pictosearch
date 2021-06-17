@@ -9,7 +9,7 @@ const passiveOptions = {
     dedupingInterval: 10000,
 }
 
-type IPictogramResponse = {
+export type IPictogramResponse = {
     schematic: boolean,
     sex: boolean,
     violence: boolean,
@@ -20,7 +20,7 @@ type IPictogramResponse = {
     downloads: number,
     categories: string[],
     synsets: string[],
-    tags: string,
+    tags: string[],
     _id: number,
     keywords: {
         keyword: string,
