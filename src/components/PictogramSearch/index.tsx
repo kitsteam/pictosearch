@@ -5,6 +5,7 @@ import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory, useLocation } from 'react-router-dom';
+import logoArasaac from './logo_ARASAAC.png';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -94,9 +95,14 @@ const PictogramSearch: React.FC<Props> = () => {
 
       {items && <PictogramGallery items={items} language={language} />}
 
-      <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>&copy; Die angezeigten piktographischen Symbole sind Eigentum der
-        Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-        das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.</Typography>
+      <Box m={2}>
+        <Link href="http://www.arasaac.org">
+          <img src={logoArasaac} alt="Logo ARASSAC" />
+        </Link>
+        <Typography variant="body2" sx={{ opacity: 0.6 }}>&copy; Die angezeigten piktographischen Symbole sind Eigentum der
+          Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
+          das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.</Typography>
+      </Box>
     </>
   )
 }
