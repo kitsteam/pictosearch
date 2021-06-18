@@ -61,7 +61,7 @@ To release a new version a few things should be done:
 
 * Bump the version in `package.json`
 * Add a version header field in `arasaac-pictogram-viewer.php`, like `* Version:           0.1.0`
-* Run `yarn build && yarn pack`
+* Run `yarn build && yarn run pack`
 * Create a signed commit `git commit -S -am "release 0.1.0 :tada:"`
 * Push all commits `git push`
 * Create a [new Github release](https://github.com/kitsteam/wp-pictogram-viewer/releases/new) and attach the previous packed archive
