@@ -61,6 +61,5 @@
     "result_plural": "Hemos encontrado {{count}} pictogramas relativos a \"{{query}}\".",
     "displayNew": "En la parte inferior te mostramos los últimos {{number}} pictogramas.",
     "license": "Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para <1>ARASAAC</1>, que los distribuye bajo Licencia Creative Commons <3>BY-NC-SA</3>."
-  },
-  "search_term": "buscar término"
+  }
 }
