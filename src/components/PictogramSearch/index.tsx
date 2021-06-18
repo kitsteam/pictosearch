@@ -6,6 +6,7 @@ import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@material-ui/icons/Search';
 import { useHistory, useLocation } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
+import { Trans, useTranslation } from 'react-i18next';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -16,7 +17,8 @@ type Props = {
 }
 
 const PictogramSearch: React.FC<Props> = () => {
-  const [language, setLanguage] = useState(navigator.language.split('-')[0]);
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language.split('-')[0]);
   const keywords = useKeywords(language);
   const newPictograms = useNewPictograms(language);
 
@@ -72,22 +74,22 @@ const PictogramSearch: React.FC<Props> = () => {
                 noOptionsText=""
                 renderInput={(params) => <TextField
                   {...params}
-                  label="Suchbegriff" />}
+                  label={t('search.term')} />}
               />
             </Grid>
             <Grid item>
-              <Button disabled={!value || isLoading} variant="contained" type="submit" startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>Suche</Button>
+              <Button disabled={!value || isLoading} variant="contained" type="submit" startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>{t('search.action')}</Button>
             </Grid>
           </Grid>
         </form>
 
         <Box>
           {isLoading ?
-            <Typography variant="body1"><CircularProgress size="1em" color="inherit" /> Die Suche nach "{query}" läuft...</Typography>
+            <Typography variant="body1"><CircularProgress size="1em" color="inherit" /> {t('search.loading', { query })}</Typography>
             : (
               <>
-                {result.data && <Typography variant="body1">Es wurden {result.data.length} Piktogramme bei der Suche nach "{query}" gefunden.</Typography>}
-                {!result.data && newPictograms.data && <Typography variant="body1">Es werden die {newPictograms.data.length} neusten Piktogramme angezeigt.</Typography>}
+                {result.data && <Typography variant="body1">{t('search.result', { count: result.data.length, query })}</Typography>}
+                {!result.data && newPictograms.data && <Typography variant="body1">{t('search.displayNew', { number: newPictograms.data.length })}</Typography>}
               </>
             )}
         </Box>
@@ -99,9 +101,13 @@ const PictogramSearch: React.FC<Props> = () => {
         <Link href="http://www.arasaac.org">
           <img src={logoArasaac} alt="Logo ARASSAC" />
         </Link>
-        <Typography variant="body2" sx={{ opacity: 0.6 }}>&copy; Die angezeigten piktographischen Symbole sind Eigentum der
-          Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-          das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.</Typography>
+        <Typography variant="body2" sx={{ opacity: 0.6 }}>&copy;{' '}
+          <Trans i18nKey="search.license">
+            Die angezeigten piktographischen Symbole sind Eigentum der
+            Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
+            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.
+          </Trans>
+        </Typography>
       </Box>
     </>
   )

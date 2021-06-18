@@ -1,5 +1,6 @@
 import { Box, Typography, Stack, Slider, FormLabel, Collapse } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { borderColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
 
@@ -11,10 +12,11 @@ type Props = {
 }
 
 const BorderOptions: React.FC<Props> = ({ borderWidth, borderColor, setBorderColor, setBorderWidth }) => {
+    const { t } = useTranslation();
 
     return (
         <Box>
-            <Typography variant="subtitle2">Rahmen</Typography>
+            <Typography variant="subtitle2">{t('config.border')}</Typography>
             <Stack spacing={2} sx={{ marginLeft: 3, marginTop: 2 }}>
                 <Box>
                     <Box sx={{ paddingLeft: 3, paddingRight: 4, marginTop: 2 }}>
@@ -23,7 +25,7 @@ const BorderOptions: React.FC<Props> = ({ borderWidth, borderColor, setBorderCol
                 </Box>
                 <Collapse in={borderWidth > 0}>
                     <Box>
-                        <FormLabel>Rahmenfarbe</FormLabel>
+                        <FormLabel>{t('config.borderColor')}</FormLabel>
                         <Box sx={{ maxWidth: 550, marginTop: 1 }}>
                             <ColorSelection color={borderColor} colors={borderColors} onChangeComplete={color => setBorderColor(color.hex)} />
                         </Box>

@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import WideSwitchLabel from '../WideSwitchLabel';
 
 type Props = {
@@ -8,9 +9,11 @@ type Props = {
 }
 
 const ResolutionOptions: React.FC<Props> = ({enabled, onChange}) => {
+    const { t } = useTranslation();
+
     return (
         <Box>
-            <WideSwitchLabel label="Hohe Auflösung" checked={enabled} onChange={onChange} />
+            <WideSwitchLabel label={t('config.highResolution')} checked={enabled} onChange={onChange} />
         </Box>
     )
 }

@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import WideSwitchLabel from '../WideSwitchLabel';
 
 type Props = {
@@ -8,9 +9,11 @@ type Props = {
 }
 
 const DragAndDropOptions: React.FC<Props> = ({ dragAndDrop, setDragAndDrop }) => {
+    const { t } = useTranslation();
+
     return (
         <Box>
-            <WideSwitchLabel label="Ziehen und ablegen" checked={dragAndDrop} onChange={checked => setDragAndDrop(checked)} />
+            <WideSwitchLabel label={t('config.dragAndDrop')} checked={dragAndDrop} onChange={checked => setDragAndDrop(checked)} />
         </Box>
     )
 }

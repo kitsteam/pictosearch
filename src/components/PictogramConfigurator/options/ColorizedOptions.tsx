@@ -1,6 +1,7 @@
 import { Box, Stack, FormLabel } from '@material-ui/core';
 import React from 'react';
 import { Color } from 'react-color';
+import { useTranslation } from 'react-i18next';
 import { SkinColor, HairColor } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
 import WideSwitchLabel from '../WideSwitchLabel';
@@ -17,13 +18,15 @@ type Props = {
 }
 
 const ColorizedOptions: React.FC<Props> = ({ colorized, skinColor, skin, hairColor, hair, setColorized, setSkinColor, setHairColor }) => {
+    const { t } = useTranslation();
+
     return (
         <Box>
-            <WideSwitchLabel checked={colorized} onChange={setColorized} label="Koloriert" />
+            <WideSwitchLabel checked={colorized} onChange={setColorized} label={t('config.colorized')}/>
 
             {colorized && (skin || hair) && <Stack spacing={2} sx={{ marginLeft: 3, marginTop: 2 }}>
                 {skin && <Box>
-                    <FormLabel>Hautfarbe</FormLabel>
+                    <FormLabel>{t('config.skinColor')}</FormLabel>
                     <Box sx={{ maxWidth: 550, marginTop: 1 }}>
                         <ColorSelection
                             color={skinColor as unknown as Color}
@@ -32,7 +35,7 @@ const ColorizedOptions: React.FC<Props> = ({ colorized, skinColor, skin, hairCol
                     </Box>
                 </Box>}
                 {hair && <Box>
-                    <FormLabel>Haarfarbe</FormLabel>
+                    <FormLabel>{t('config.hairColor')}</FormLabel>
                     <Box sx={{ maxWidth: 550, marginTop: 1 }}>
                         <ColorSelection
                             color={hairColor as unknown as Color}

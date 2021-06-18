@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import languages from '../data/languages';
 
 const availableLanguages = languages.map(language => language.code);
@@ -9,16 +10,23 @@ type Props = {
     onChange: (language: string) => void,
 }
 
-const LanguageSelection: React.FC<Props> = ({selected, onChange}) => {
+const LanguageSelection: React.FC<Props> = ({ selected, onChange }) => {
+    const { t, i18n } = useTranslation();
 
     if (!availableLanguages.includes(selected)) {
-        onChange('de');
+        onChange('en');
+    }
+
+    const onChangeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+
+        onChange(lang);
     }
 
     return (
         <FormControl size="small">
-            <InputLabel id="">Sprache</InputLabel>
-            <Select labelId="" value={selected} label="Sprache" onChange={ev => onChange(ev.target.value)}>
+            <InputLabel id="">{t('language')}</InputLabel>
+            <Select labelId="" value={selected} label={t('language')} onChange={ev => onChangeLanguage(ev.target.value)}>
                 {languages.map(language => <MenuItem key={language.code} value={language.code}>{language.text}</MenuItem>)}
             </Select>
         </FormControl>

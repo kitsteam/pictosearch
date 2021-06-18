@@ -23,6 +23,7 @@ import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
 import MetaData from './MetaData'
+import { Trans, useTranslation } from 'react-i18next';
 
 
 declare const ClipboardItem: any;
@@ -51,8 +52,13 @@ type IAction = { type: string, value?: any };
 type IState = typeof initialTextState;
 
 const PictogramConfigurator: React.FC<Props> = (props) => {
+  const { t, i18n } = useTranslation();
   const { id: paramId, language } = useParams<{ id: string, language: string }>();
   const pictogramId = parseInt(paramId, 10);
+
+  if (i18n.language !== language) {
+    i18n.changeLanguage(language);
+  }
 
   const stageRef = useRef<Konva.Stage>(null);
   const [autocompleteLanguage, setAutocompleteLanguage] = useState(language);
@@ -188,7 +194,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   return (
     <Box sx={{ backgroundColor: '#f8f9fa', padding: { sm: 0, md: 3 }, }}>
       <Box mb={3}>
-        <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>Zurück</Button>
+        <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
       </Box>
       <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }}
         spacing={4}>
@@ -199,21 +205,24 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             <Pictogram {...pictogramParams} />
 
             <Stack spacing={1} direction="row" padding={2}>
-              <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>Herunterladen</Button>
-              {canCopyToClipboard && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">Kopieren</Button>}
+              <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
+              {canCopyToClipboard && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
             </Stack>
           </Paper>
 
-          <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>&copy; Das abgebildete piktographische Symbol ist Eigentum der
-            Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.</Typography>
+          <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>&copy;{' '}
+            <Trans i18nKey="config.license">Das abgebildete piktographische Symbol ist Eigentum der
+              Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
+              das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.
+            </Trans>
+          </Typography>
 
-          {pictogram.data && <Box sx={{display: {xs: 'none', md: 'block'}}}><MetaData data={pictogram.data} /></Box>}
+          {pictogram.data && <Box sx={{ display: { xs: 'none', md: 'block' } }}><MetaData data={pictogram.data} /></Box>}
         </Box>
         <Box flexGrow={1}>
           <Accordion {...accordionParams('panel-0')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Design</Typography>
+              <Typography>{t('config.design')}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
@@ -227,7 +236,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           </Accordion>
           <Accordion {...accordionParams('panel-1')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Zusatz</Typography>
+              <Typography>{t('config.addition')}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
@@ -243,21 +252,21 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           </Accordion>
           <Accordion {...accordionParams('panel-2')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Textoptionen</Typography>
+              <Typography>{t('config.textOptions')}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
                 <LanguageSelection selected={autocompleteLanguage} onChange={setAutocompleteLanguage} />
 
-                <TextOptions label="Text oben" data={{ ...textTop, keywords }} dispatch={dispatchTextTop} />
+                <TextOptions label={t('config.textTop')} data={{ ...textTop, keywords }} dispatch={dispatchTextTop} />
 
-                <TextOptions label="Text unten" data={{ ...textBottom, keywords }} dispatch={dispatchTextBottom} />
+                <TextOptions label={t('config.textBottom')} data={{ ...textBottom, keywords }} dispatch={dispatchTextBottom} />
               </Stack>
             </AccordionDetails>
           </Accordion>
           <Accordion {...accordionParams('panel-3')}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Erweiterte Optionen</Typography>
+              <Typography>{t('config.additionalOptions')}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
@@ -270,7 +279,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionDetails>
           </Accordion>
 
-          {pictogram.data && <Box sx={{display: {xs: 'block', md: 'none'}}} mt={3}><MetaData data={pictogram.data} /></Box>}
+          {pictogram.data && <Box sx={{ display: { xs: 'block', md: 'none' } }} mt={3}><MetaData data={pictogram.data} /></Box>}
         </Box>
       </Stack>
     </Box>

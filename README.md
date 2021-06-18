@@ -44,6 +44,18 @@ After you installed the plugin you have to go to your Wordpress admin dashboard
 and enable it. If done so, you can integrate the search and configuration dialog
 to every page with the shortcode `[arasaac-pictogram-viewer]`.
 
+## :performing_arts: Adding new translations
+Currently this application is available in german and english. To add another
+language, the following steps have to been taken:
+
+* add the language short code to the `locales` short code in `i18next-parser.config.js`
+* run `yarn i18next`
+* translate everything in `src/locales/SHORT_CODE/translation.json`
+* include the new data file in `src/locales/index.ts` like the existing
+
+If a new translatable key is added to the code, `yarn i18next` will add it to all
+language files.
+
 ## :nerd_face: Release guide
 To release a new version a few things should be done:
 

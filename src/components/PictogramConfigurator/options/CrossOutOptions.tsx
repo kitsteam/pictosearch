@@ -1,5 +1,6 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import WideSwitchLabel from '../WideSwitchLabel';
 
 type Props = {
@@ -8,9 +9,11 @@ type Props = {
 }
 
 const CrossOutOptions: React.FC<Props> = ({ crossedOut, setCrossedOut }) => {
+    const { t } = useTranslation();
+
     return (
         <Box>
-            <WideSwitchLabel label="Durchgestrichen" checked={crossedOut} onChange={checked => setCrossedOut(checked)} />
+            <WideSwitchLabel label={t('config.crossOut')} checked={crossedOut} onChange={checked => setCrossedOut(checked)} />
         </Box>
     )
 }

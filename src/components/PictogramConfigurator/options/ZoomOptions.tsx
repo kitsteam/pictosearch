@@ -1,5 +1,6 @@
 import { Box, FormLabel, Grid, InputAdornment, Slider, Stack, TextField, Typography } from '@material-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
     zoom: number,
@@ -7,13 +8,15 @@ type Props = {
 }
 
 const ZoomOptions: React.FC<Props> = ({ zoom, setZoom }) => {
+    const { t } = useTranslation();
+
     return (
         <Box>
-            <Typography variant="subtitle2">Zoom</Typography>
+            <Typography variant="subtitle2">{t('config.zoom')}</Typography>
 
             <Stack spacing={2} sx={{ marginLeft: 3, marginTop: 2 }}>
                 <Box>
-                    <FormLabel>Zoomstufe</FormLabel>
+                    <FormLabel>{t('config.zoomStep')}</FormLabel>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs>
                             <Slider value={zoom} onChange={(ev, newValue) => setZoom(newValue as number)} step={10} min={-90} max={200} />
