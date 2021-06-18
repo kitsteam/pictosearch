@@ -27,7 +27,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language }) => {
                 </Grid>)}
             </Grid>
             {numberOfPages > 1 && <Box mt={3} mb={3} display="flex" justifyContent="center">
-                <Pagination count={numberOfPages} page={page} onChange={(ev, page) => setPage(page)} />
+                <Pagination count={numberOfPages} page={page} onChange={(ev, page) => { page && setPage(page) }} />
             </Box>}
             {items.length > itemsPerPageSelection[0] && <Box display="flex" justifyContent="flex-end" sx={{ marginTop: { xs: 0, sm: -3 } }}>
                 <FormControl size="small" sx={{ minWidth: '80px' }}>
