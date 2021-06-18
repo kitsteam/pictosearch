@@ -3,6 +3,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from "react-i18next";
 import translation_de from "./de/translation.json";
 import translation_en from "./en/translation.json";
+import translation_es from "./es/translation.json";
 
 i18next
   .use(LanguageDetector)
@@ -17,6 +18,9 @@ i18next
       },
       en: {
         translation: translation_en,
+      },
+      es: {
+        translation: translation_es,
       },
     },
   });
