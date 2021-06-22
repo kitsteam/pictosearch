@@ -17,6 +17,9 @@ const TitleBox = styled(Box)(({ theme }) => `
 
     h4 {
         color: ${theme.palette.primary.contrastText};
+        padding: ${theme.spacing(1)};
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     :hover {
