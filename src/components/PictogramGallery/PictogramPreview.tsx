@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import CopyIcon from '@material-ui/icons/FileCopy';
+import Clipboard from '../../utils/Clipboard';
 
 const TitleBox = styled(Box)(({ theme }) => `
     display: flex;
@@ -30,8 +31,6 @@ const TitleBox = styled(Box)(({ theme }) => `
         background-color: rgba(255,255,255,0.3);
     }
 `);
-
-declare const ClipboardItem: any;
 
 type Props = {
     id: number,
@@ -61,11 +60,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
         ev.stopPropagation();
         ev.preventDefault();
 
-        fetch(src).then((response) => response.blob()).then((blob) => {
-            (navigator.clipboard as any).write([new ClipboardItem({
-                'image/png': blob,
-            })])
-        });
+        Clipboard.copyImage(src);
     }
 
     return (
@@ -85,7 +80,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
                         <Box p={1} sx={{ position: 'absolute', bottom: 0, left: 0 }}>
                             <Stack spacing={1} direction="row">
                                 <IconButton onClick={onDownload}><DownloadIcon style={{ color: 'white' }} /></IconButton>
-                                {!!(window as any).ClipboardItem && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
+                                {Clipboard.hasSupport() && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
                             </Stack>
                         </Box>
                     </TitleBox>

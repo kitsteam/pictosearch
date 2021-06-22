@@ -24,9 +24,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
 import MetaData from './MetaData'
 import { Trans, useTranslation } from 'react-i18next';
+import Clipboard from '../../utils/Clipboard';
 
-
-declare const ClipboardItem: any;
 
 enum Resolution {
   low = 500,
@@ -182,14 +181,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const onCopyTopClipboard = () => {
     const data = getDataUrl();
 
-    data && fetch(data).then((response) => response.blob()).then((blob) => {
-      (navigator.clipboard as any).write([new ClipboardItem({
-        'image/png': blob,
-      })])
-    });
+    data && Clipboard.copyImage(data);
   }
-
-  const canCopyToClipboard = !!(window as any).ClipboardItem;
 
   return (
     <Box sx={{ backgroundColor: '#f8f9fa', padding: { sm: 0, md: 3 }, }}>
@@ -206,7 +199,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
             <Stack spacing={1} direction="row" padding={2}>
               <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
-              {canCopyToClipboard && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
+              {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
             </Stack>
           </Paper>
 
