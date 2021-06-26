@@ -12,7 +12,7 @@ const App: React.FC<Props> = () => {
 
 
   return (
-    <Container fixed sx={{ backgroundColor: '#f8f9fa', padding: {xs: 1, sm: 3}, }}>
+    <Container fixed>
       <HashRouter>
         <Switch>
           <Route exact path="/">
