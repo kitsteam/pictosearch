@@ -185,7 +185,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   }
 
   return (
-    <Box sx={{ backgroundColor: '#f8f9fa', padding: { sm: 0, md: 3 }, }}>
+    <Box>
       <Box mb={3}>
         <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
       </Box>
