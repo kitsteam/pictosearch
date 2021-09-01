@@ -11,7 +11,7 @@ type Props = {
 }
 
 const MetaData: React.FC<Props> = ({ data }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     if (!data) {
         return <></>;
@@ -24,13 +24,23 @@ const MetaData: React.FC<Props> = ({ data }) => {
             {categories.length > 0 && <>
                 <Typography variant="subtitle2" gutterBottom={true}>{t('meta.categories')}</Typography>
                 <Box mb={2}>
-                    {categories.map(category => <LinkChip key={category} label={category} />)}
+                    {categories.map(category => {
+                        const categoryKey = `category.${category.replaceAll(' ', '-')}`;
+                        const hasTranslation = i18n.exists(categoryKey) && !!t(categoryKey);
+
+                        return <LinkChip key={category} label={hasTranslation ? t(categoryKey) : category} />;
+                    })}
                 </Box>
             </>}
             {tags.length > 0 && <>
                 <Typography variant="subtitle2" gutterBottom={true}>{t('meta.tags')}</Typography>
                 <Box mb={2}>
-                    {tags.map(tag => <LinkChip key={tag} label={tag} />)}
+                    {tags.map(tag => {
+                        const categoryKey = `category.${tag.replaceAll(' ', '-')}`;
+                        const hasTranslation = i18n.exists(categoryKey) && !!t(categoryKey);
+
+                        return <LinkChip key={tag} label={hasTranslation ? t(categoryKey) : tag} />;
+                    })}
                 </Box>
             </>}
         </>
