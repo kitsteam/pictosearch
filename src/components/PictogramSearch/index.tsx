@@ -105,7 +105,7 @@ const PictogramSearch: React.FC<Props> = () => {
           <Trans i18nKey="search.license">
             Die angezeigten piktographischen Symbole sind Eigentum der
             Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative-Commons-Lizenz BY-NC-SA</Link> weitergibt.
+            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative-Commons-Lizenz BY-NC-SA 4.0</Link> weitergibt.
           </Trans>
         </Typography>
       </Box>
