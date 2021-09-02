@@ -60,7 +60,7 @@
     "result": "Es wurde ein Piktogramm bei der Suche nach \"{{query}}\" gefunden.",
     "result_plural": "Es wurden {{count}} Piktogramme bei der Suche nach \"{{query}}\" gefunden.",
     "displayNew": "Es werden die {{number}} neusten Piktogramme angezeigt.",
-    "license": "Die angezeigten piktographischen Symbole sind Eigentum der Regierung von Aragón und wurden von Sergio Palao für <1>ARASAAC</1> erstellt, das sie unter der <3>Creative-Commons-Lizenz BY-NC-SA</3> weitergibt."
+    "license": "Die angezeigten piktographischen Symbole sind Eigentum der Regierung von Aragón und wurden von Sergio Palao für <1>ARASAAC</1> erstellt, das sie unter der <3>Creative-Commons-Lizenz BY-NC-SA 4.0</3> weitergibt."
   },
   "category": {
     "movement": "Bewegung",
