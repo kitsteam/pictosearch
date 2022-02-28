@@ -194,7 +194,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
             <Stack spacing={1} direction="row" padding={2}>
               <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
-              {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
+              {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={onCopyTopClipboard} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
             </Stack>
           </Paper>
 
