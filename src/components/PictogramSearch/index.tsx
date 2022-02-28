@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, CircularProgress, Grid, Link, Paper, TextField, Typography, useMediaQuery } from '@mui/material';
+import { Autocomplete, Box, Button, CircularProgress, Grid, IconButton, Link, Paper, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import LanguageSelection from '../LanguageSelection';
 import PictogramGallery from '../PictogramGallery';
@@ -24,6 +24,7 @@ const PictogramSearch: React.FC<Props> = () => {
 
   const history = useHistory();
   const queryParams = useQuery();
+  const largeScreen = useMediaQuery<Theme>(theme => theme.breakpoints.up('sm'));
 
   const query = queryParams.get('q') || '';
 
@@ -78,7 +79,21 @@ const PictogramSearch: React.FC<Props> = () => {
               />
             </Grid>
             <Grid item>
-              <Button disabled={!value || isLoading} variant="contained" type="submit" startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>{t('search.action')}</Button>
+              {largeScreen ?
+                <Button
+                  disabled={!value || isLoading}
+                  variant="contained"
+                  type="submit"
+                  startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>
+                  {t('search.action')}
+                </Button>
+                :
+                <IconButton
+                  disabled={!value || isLoading}
+                  type="submit">
+                  {isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}
+                </IconButton>
+              }
             </Grid>
           </Grid>
         </form>
