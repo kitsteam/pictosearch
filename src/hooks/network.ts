@@ -1,4 +1,10 @@
+import { useMemo } from "react";
 import useSWR from 'swr';
+import { Resolution } from "../components/PictogramConfigurator";
+import { HairColor, SkinColor } from "../data/colors";
+
+export const apiBaseUrl = process.env.REACT_APP_API || 'https://api.arasaac.org/api';
+export const apiIdentifierBaseUrl = process.env.REACT_APP_API_IMAGES || 'https://static.arasaac.org/images';
 
 const fetcher = (...args: any[]) => fetch(args[0], args[1]).then(res => res.json());
 
@@ -33,7 +39,7 @@ export type IPictogramResponse = {
 }
 
 export function usePictogram(language: string, id: number): { error: any, isLoading: boolean, data?: IPictogramResponse } {
-    const { data, error } = useSWR<IPictogramResponse>(`https://api.arasaac.org/api/pictograms/${language}/${id}`, fetcher, passiveOptions);
+    const { data, error } = useSWR<IPictogramResponse>(`${apiBaseUrl}/pictograms/${language}/${id}`, fetcher, passiveOptions);
 
     return {
         error,
@@ -63,7 +69,7 @@ type IPictogramNewResponse = {
 }[];
 
 export function useNewPictograms(language: string): { error: any, isLoading: boolean, data?: IPictogramNewResponse } {
-    const { data, error } = useSWR<IPictogramNewResponse>(`https://api.arasaac.org/api/pictograms/${language}/new/${limit}`, fetcher, passiveOptions);
+    const { data, error } = useSWR<IPictogramNewResponse>(`${apiBaseUrl}/pictograms/${language}/new/${limit}`, fetcher, passiveOptions);
 
     return {
         error,
@@ -80,7 +86,7 @@ type IKeywordResponse = {
 }
 
 export function useKeywords(language: string): { error: any, isLoading: boolean, data: string[] } {
-    const { data, error } = useSWR<IKeywordResponse>(`https://api.arasaac.org/api/keywords/${language}`, fetcher, passiveOptions);
+    const { data, error } = useSWR<IKeywordResponse>(`${apiBaseUrl}/keywords/${language}`, fetcher, passiveOptions);
 
     return {
         error,
@@ -113,11 +119,26 @@ type ISearchResultResponse = {
 }[]
 
 export function useSearch(language: string, query: string): { error: any, isLoading: boolean, data?: ISearchResultResponse } {
-    const { data, error } = useSWR<ISearchResultResponse>(query ? `https://api.arasaac.org/api/pictograms/${language}/search/${encodeURIComponent(query)}` : null, fetcher, passiveOptions);
+    const { data, error } = useSWR<ISearchResultResponse>(query ? `${apiBaseUrl}/pictograms/${language}/search/${encodeURIComponent(query)}` : null, fetcher, passiveOptions);
 
     return {
         error,
         isLoading: !data,
         data,
     }
+}
+
+export function usePictogramUrl(pictogramId: number, colorized: boolean, resolution: Resolution, skinColor: SkinColor, hairColor: HairColor): URL {
+    const url = useMemo(() => {
+        const url = new URL(`${apiBaseUrl}/pictograms/${pictogramId}`);
+        url.searchParams.append('download', 'false');
+        url.searchParams.append('color', colorized.toString());
+        url.searchParams.append('resolution', resolution.toString());
+        url.searchParams.append('skin', SkinColor[skinColor]);
+        url.searchParams.append('hair', HairColor[hairColor]);
+
+        return url;
+    }, [pictogramId, colorized, resolution, skinColor, hairColor]);
+
+    return url;
 }

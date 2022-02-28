@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
 import Clipboard from '../../utils/Clipboard';
+import { apiBaseUrl } from "../../hooks/network";
 
 const TitleBox = styled(Box)(({ theme }) => `
     display: flex;
@@ -40,7 +41,7 @@ type Props = {
 
 const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
     const [isLoading, setLoading] = useState(true);
-    const src = `https://api.arasaac.org/api/pictograms/${id}`;
+    const src = `${apiBaseUrl}/pictograms/${id}`;
 
     const onDownload = (ev: React.MouseEvent) => {
         ev.stopPropagation();

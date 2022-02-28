@@ -56,6 +56,17 @@ language, the following steps have to been taken:
 If a new translatable key is added to the code, `yarn i18next` will add it to all
 language files.
 
+## :train2: Protect user privacy
+To protect the privacy of users, you can configure a proxy for all endpoints.
+
+1. Configure a proxy for `https://api.arasaac.org/api` and
+   `https://static.arasaac.org/images`. E.g. use can use [mod_proxy] (`ProxyPass
+   "/api" "https://api.arasaac.org/api"`).
+2. Set the environment variables `REACT_APP_API` and `REACT_APP_API_IMAGES` to
+   the new absolute proxy url. The easiest way to do so, is to copy the file
+   `.env` to `.env.local` and modify it accordantly.
+3. Rebuild the project.
+
 ## :nerd_face: Release guide
 To release a new version a few things should be done:
 

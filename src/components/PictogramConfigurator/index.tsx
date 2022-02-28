@@ -5,7 +5,7 @@ import CopyIcon from '@mui/icons-material/FileCopy';
 import BackIcon from '@mui/icons-material/ArrowLeft';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, Reducer } from 'react';
-import { usePictogram } from '../../hooks/network';
+import { usePictogram, usePictogramUrl } from '../../hooks/network';
 import BackgroundOptions from './options/BackgroundOptions';
 import BorderOptions from './options/BorderOptions';
 import ColorizedOptions from './options/ColorizedOptions';
@@ -27,7 +27,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
 
 
-enum Resolution {
+export enum Resolution {
   low = 500,
   high = 2500,
 }
@@ -129,12 +129,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const [zoom, setZoom] = useState(0);
   const [dragAndDrop, setDragAndDrop] = useState(false);
 
-  const url = new URL(`https://api.arasaac.org/api/pictograms/${pictogramId}`);
-  url.searchParams.append('download', 'false');
-  url.searchParams.append('color', colorized.toString());
-  url.searchParams.append('resolution', resolution.toString());
-  url.searchParams.append('skin', SkinColor[skinColor]);
-  url.searchParams.append('hair', HairColor[hairColor]);
+  const url = usePictogramUrl(pictogramId, colorized, resolution, skinColor, hairColor);
 
   const title = pictogram.data?.keywords ? pictogram.data?.keywords[0]?.keyword : '';
   const pictogramParams = {

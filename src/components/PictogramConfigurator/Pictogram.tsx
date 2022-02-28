@@ -3,6 +3,7 @@ import Konva from 'konva';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Image, Rect, Line, Group, Text } from 'react-konva';
 import useImage from 'use-image';
+import { apiIdentifierBaseUrl } from "../../hooks/network";
 import { Identifier, IdentifierPosition } from './options/IdentifierOptions';
 import { FontStyle } from './options/TextOptions';
 import { Tense } from './options/VerbalTenseOptions';
@@ -14,7 +15,6 @@ const crossedOutColor = 'red';
 const crossedOutWidth = 20;
 const pluralWidth = 16;
 const iconSize = 55;
-const identifierBaseUrl = 'https://static.arasaac.org/images/identifiers';
 
 function PastIcon({ tenseColor, x, y }: { tenseColor: string, x: number, y: number }) {
     const strokeWidth = 16;
@@ -83,7 +83,7 @@ function FutureIcon({ tenseColor, x, y }: { tenseColor: string, x: number, y: nu
 }
 
 function IdentifierIcon({ identifier, identifierColor, x, y }: { identifier: Identifier, identifierColor: string, x: number, y: number }) {
-    const url = `${identifierBaseUrl}/${Identifier[identifier]}_${identifierColor.replace(/^#/, '')}.png`;
+    const url = `${apiIdentifierBaseUrl}/identifiers/${Identifier[identifier]}_${identifierColor.replace(/^#/, '')}.png`;
     const [image] = useImage(url, 'Anonymous');
 
     return <Image image={image} x={x} y={y} width={iconSize} height={iconSize} />
