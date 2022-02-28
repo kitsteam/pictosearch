@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from "@mui/material";
 import { primary, secondary } from "../data/colors";
 
 const theme = createTheme({

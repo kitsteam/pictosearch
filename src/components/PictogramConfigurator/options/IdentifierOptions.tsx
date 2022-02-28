@@ -1,4 +1,4 @@
-import { Box, Stack, FormControl, InputLabel, Select, MenuItem, FormLabel, Collapse } from '@material-ui/core';
+import { Box, Stack, FormControl, InputLabel, Select, MenuItem, FormLabel, Collapse } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { identifierColors } from '../../../data/colors';
@@ -50,7 +50,7 @@ const IdentifierOptions: React.FC<Props> = ({ identifier, identifierPosition, id
                     </FormControl>
                     <FormControl fullWidth size="small">
                         <InputLabel id="">{t('config.position')}</InputLabel>
-                        <Select labelId="" value={identifierPosition} onChange={ev => setIdentifierPosition(ev.target.value)} label={t('config.position')}>
+                        <Select labelId="" value={identifierPosition} onChange={ev => setIdentifierPosition(ev.target.value as IdentifierPosition)} label={t('config.position')}>
                             <MenuItem value={IdentifierPosition.left}>{t('config.left')}</MenuItem>
                             <MenuItem value={IdentifierPosition.right}>{t('config.right')}</MenuItem>
                         </Select>

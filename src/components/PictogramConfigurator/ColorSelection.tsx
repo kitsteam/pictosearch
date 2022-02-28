@@ -1,4 +1,4 @@
-import { experimentalStyled } from '@material-ui/core/styles';
+import { experimentalStyled } from '@mui/material/styles';
 import { CirclePicker } from 'react-color';
 
 const ColorSelection = experimentalStyled(CirclePicker)(({theme}) => ({

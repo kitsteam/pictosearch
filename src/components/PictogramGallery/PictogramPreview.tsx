@@ -1,9 +1,9 @@
-import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@material-ui/core';
-import { experimentalStyled as styled, alpha } from '@material-ui/core/styles';
+import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@mui/material';
+import { experimentalStyled as styled, alpha } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import CopyIcon from '@material-ui/icons/FileCopy';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import CopyIcon from '@mui/icons-material/FileCopy';
 import Clipboard from '../../utils/Clipboard';
 
 const TitleBox = styled(Box)(({ theme }) => `

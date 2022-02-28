@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import PictogramConfigurator from './components/PictogramConfigurator';

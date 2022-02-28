@@ -1,9 +1,9 @@
-import { Autocomplete, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, TextField, Typography } from '@material-ui/core';
+import { Autocomplete, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
 import WideSwitchLabel from '../WideSwitchLabel';
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import { fontColors } from '../../../data/colors';
 import { useTranslation } from 'react-i18next';
 
@@ -64,7 +64,7 @@ const TextOptions: React.FC<Props> = ({ label, data, dispatch }) => {
                     />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
-                    <FormControlLabel control={<Switch checked={style.uppercase} onChange={ev => setUppercase(ev.target.checked)} />} label={t('config.upperCase')} />
+                    <FormControlLabel control={<Switch checked={style.uppercase} onChange={ev => setUppercase(ev.target.checked)} />} label={t('config.upperCase') as string} />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
                     <Typography onClick={() => setShowFormatting(!showFormatting)} sx={{ cursor: 'pointer', ...style, fontSize: 'inherit' }}>

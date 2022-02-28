@@ -1,9 +1,9 @@
-import { Autocomplete, Box, Button, CircularProgress, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import { Autocomplete, Box, Button, CircularProgress, Grid, Link, Paper, TextField, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import LanguageSelection from '../LanguageSelection';
 import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@mui/icons-material/Search';
 import { useHistory, useLocation } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
 import { Trans, useTranslation } from 'react-i18next';

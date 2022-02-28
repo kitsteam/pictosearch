@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, Slider, FormLabel, Collapse } from '@material-ui/core';
+import { Box, Typography, Stack, Slider, FormLabel, Collapse } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { borderColors } from '../../../data/colors';

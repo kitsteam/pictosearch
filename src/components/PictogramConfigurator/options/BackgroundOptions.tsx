@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, FormLabel } from '@material-ui/core';
+import { Box, Typography, Stack, FormLabel } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { backgroundColors } from '../../../data/colors';

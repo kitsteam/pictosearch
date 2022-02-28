@@ -1,8 +1,8 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Link, Paper, Stack, Typography } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import CopyIcon from '@material-ui/icons/FileCopy';
-import BackIcon from '@material-ui/icons/ArrowLeft';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Link, Paper, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import CopyIcon from '@mui/icons-material/FileCopy';
+import BackIcon from '@mui/icons-material/ArrowLeft';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, Reducer } from 'react';
 import { usePictogram } from '../../hooks/network';

@@ -1,4 +1,4 @@
-import { Typography, Box, Chip } from '@material-ui/core';
+import { Typography, Box, Chip } from '@mui/material';
 import React from 'react';
 import { IPictogramResponse } from '../../hooks/network';
 import { Link as RouterLink } from 'react-router-dom';

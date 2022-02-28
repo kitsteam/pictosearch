@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import Konva from 'konva';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Image, Rect, Line, Group, Text } from 'react-konva';

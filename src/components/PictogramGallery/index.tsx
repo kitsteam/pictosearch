@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, InputLabel, MenuItem, Pagination, Select } from '@material-ui/core';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Pagination, Select } from '@mui/material';
 import React, { useState } from 'react';
 import PictogramPreview from './PictogramPreview';
 
