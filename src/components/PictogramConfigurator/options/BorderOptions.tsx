@@ -3,16 +3,19 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { borderColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updateBorder } from "../state/actions";
 
 type Props = {
     borderWidth: number,
     borderColor: string,
-    setBorderWidth: (width: number) => void,
-    setBorderColor: (color: string) => void,
+    dispatch: React.Dispatch<Action>,
 }
 
-const BorderOptions: React.FC<Props> = ({ borderWidth, borderColor, setBorderColor, setBorderWidth }) => {
+const BorderOptions: React.FC<Props> = ({ borderWidth, borderColor, dispatch }) => {
     const { t } = useTranslation();
+
+    const setBorderWidth = (width: number) => dispatch(updateBorder(width, borderColor));
+    const setBorderColor = (color: string) => dispatch(updateBorder(borderWidth, color));
 
     return (
         <Box>

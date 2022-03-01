@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import useSWR from 'swr';
-import { Resolution } from "../components/PictogramConfigurator";
+import { Resolution } from "../components/PictogramConfigurator/state";
 import { HairColor, SkinColor } from "../data/colors";
 
 export const apiBaseUrl = process.env.REACT_APP_API || 'https://api.arasaac.org/api';

@@ -3,19 +3,22 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { pluralColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updatePlural } from "../state/actions";
 import WideSwitchLabel from '../WideSwitchLabel';
 
 
 
 type Props = {
   plural: boolean,
-  setPlural: (plural: boolean) => void,
   pluralColor: string,
-  setPluralColor: (color: string) => void,
+  dispatch: React.Dispatch<Action>,
 }
 
-const PluralOptions: React.FC<Props> = ({ plural, setPlural, pluralColor, setPluralColor }) => {
+const PluralOptions: React.FC<Props> = ({ plural, pluralColor, dispatch }) => {
   const { t } = useTranslation();
+
+  const setPlural = (enabled: boolean) => dispatch(updatePlural(enabled, pluralColor));
+  const setPluralColor = (color: string) => dispatch(updatePlural(plural, color));
 
   return (
     <Box>

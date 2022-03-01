@@ -3,18 +3,21 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { tenseColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updateTense } from "../state/actions";
 
 export enum Tense { past, present, future };
 
 type Props = {
     tense: Tense,
-    setTense: (tense: Tense) => void,
     tenseColor: string,
-    setTenseColor: (color: string) => void,
+    dispatch: React.Dispatch<Action>,
 }
 
-const VerbalTenseOptions: React.FC<Props> = ({ tense, setTense, tenseColor, setTenseColor }) => {
+const VerbalTenseOptions: React.FC<Props> = ({ tense, tenseColor, dispatch }) => {
     const { t } = useTranslation();
+
+    const setTense = (type: Tense) => dispatch(updateTense(type, tenseColor));
+    const setTenseColor = (color: string) => dispatch(updateTense(tense, color));
 
     return (
         <Box>

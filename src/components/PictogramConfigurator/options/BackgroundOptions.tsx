@@ -3,14 +3,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { backgroundColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updateBackground } from "../state/actions";
 
 type Props = {
   backgroundColor: string,
-  setBackgroundColor: (bgColor: string) => void,
+  dispatch: React.Dispatch<Action>,
 }
 
-const BackgroundOptions: React.FC<Props> = ({ backgroundColor, setBackgroundColor }) => {
+const BackgroundOptions: React.FC<Props> = ({ backgroundColor, dispatch }) => {
   const { t } = useTranslation();
+
+  const setBackgroundColor = (bgColor: string) => dispatch(updateBackground(bgColor));
 
   return (
     <Box>

@@ -1,14 +1,17 @@
 import { Box, FormLabel, Grid, InputAdornment, Slider, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Action, updateZoom } from "../state/actions";
 
 type Props = {
     zoom: number,
-    setZoom: (zoom: number) => void,
+    dispatch: React.Dispatch<Action>
 }
 
-const ZoomOptions: React.FC<Props> = ({ zoom, setZoom }) => {
+const ZoomOptions: React.FC<Props> = ({ zoom, dispatch }) => {
     const { t } = useTranslation();
+
+    const setZoom = (zoom: number) => dispatch(updateZoom(zoom));
 
     return (
         <Box>

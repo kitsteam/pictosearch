@@ -4,15 +4,15 @@ import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
 import BackIcon from '@mui/icons-material/ArrowLeft';
 import Konva from 'konva';
-import React, { useRef, useState, useReducer, Reducer } from 'react';
+import React, { useRef, useState, useReducer } from 'react';
 import { usePictogram, usePictogramUrl } from '../../hooks/network';
 import BackgroundOptions from './options/BackgroundOptions';
 import BorderOptions from './options/BorderOptions';
 import ColorizedOptions from './options/ColorizedOptions';
-import IdentifierOptions, { Identifier, IdentifierPosition } from './options/IdentifierOptions';
+import IdentifierOptions, { } from './options/IdentifierOptions';
 import PluralOptions from './options/PluralOptions';
-import TextOptions, { fontFamilies } from './options/TextOptions';
-import VerbalTenseOptions, { Tense } from './options/VerbalTenseOptions';
+import TextOptions from './options/TextOptions';
+import VerbalTenseOptions from './options/VerbalTenseOptions';
 import Pictogram from './Pictogram';
 import LanguageSelection from '../LanguageSelection';
 import CrossOutOptions from './options/CrossOutOptions';
@@ -21,34 +21,15 @@ import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
 import MetaData from './MetaData'
 import { Trans, useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
-
-
-export enum Resolution {
-  low = 500,
-  high = 2500,
-}
-
-const initialTextState = {
-  enabled: false,
-  value: '',
-  style: {
-    uppercase: false,
-    color: '#000000',
-    fontSize: 46,
-    fontFamily: fontFamilies[0],
-  },
-};
+import { initialPictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
+import { disableDragAndDrop, enableDragAndDrop, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
 
 type Props = {
 
 }
-
-type IAction = { type: string, value?: any };
-type IState = typeof initialTextState;
 
 const PictogramConfigurator: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
@@ -65,84 +46,11 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const pictogram = usePictogram(language, pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
 
-  const [colorized, setColorized] = useState(true);
-  const [skinColor, setSkinColor] = useState(SkinColor.white);
-  const [hairColor, setHairColor] = useState(HairColor.brown);
+  const [state, dispatch] = useReducer(process.env.NODE_ENV === 'development' ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
 
-  const colorizedOptions = {
-    colorized,
-    skin: !!pictogram.data?.skin,
-    skinColor,
-    hairColor,
-    hair: !!pictogram.data?.hair,
-    setColorized,
-    setSkinColor,
-    setHairColor,
-  };
-
-  const [backgroundColor, setBackgroundColor] = useState(backgroundColors[0]);
-
-  const backgroundParams = {
-    backgroundColor,
-    setBackgroundColor,
-  };
-
-  const [borderWidth, setBorderWidth] = useState(0);
-  const [borderColor, setBorderColor] = useState(borderColors[0]);
-
-  const borderParams = {
-    borderColor,
-    borderWidth,
-    setBorderWidth,
-    setBorderColor,
-  };
-
-  const [crossedOut, setCrossedOut] = useState(false);
-  const [resolution, setResolution] = useState(Resolution.low);
-
-  const [plural, setPlural] = useState(false);
-  const [pluralColor, setPluralColor] = useState(pluralColors[0]);
-
-  const pluralParams = { plural, setPlural, pluralColor, setPluralColor };
-
-  const [tense, setTense] = useState(Tense.present);
-  const [tenseColor, setTenseColor] = useState(tenseColors[0]);
-
-  const tenseParams = { tense, setTense, tenseColor, setTenseColor };
-
-  const [identifier, setIdentifier] = useState(Identifier.none);
-  const [identifierPosition, setIdentifierPosition] = useState(IdentifierPosition.right);
-  const [identifierColor, setIdentifierColor] = useState(identifierColors[0]);
-
-  const identifierParams = { identifier, setIdentifier, identifierPosition, setIdentifierPosition, identifierColor, setIdentifierColor };
-
-  const reducer = (state: IState, { type, value }: IAction): IState => {
-    if (type === 'reset') {
-      return initialTextState;
-    }
-
-    return { ...state, [type]: value };
-  };
-  const [textTop, dispatchTextTop] = useReducer<Reducer<IState, IAction>>(reducer, initialTextState);
-  const [textBottom, dispatchTextBottom] = useReducer<Reducer<IState, IAction>>(reducer, initialTextState);
-
-  const [zoom, setZoom] = useState(0);
-  const [dragAndDrop, setDragAndDrop] = useState(false);
-
-  const url = usePictogramUrl(pictogramId, colorized, resolution, skinColor, hairColor);
+  const url = usePictogramUrl(pictogramId, state.options.colorized, state.options.resolution, state.options.skinColor, state.options.hairColor);
 
   const title = pictogram.data?.keywords ? pictogram.data?.keywords[0]?.keyword : '';
-  const pictogramParams = {
-    stageRef,
-    url: url.href,
-    borderColor,
-    borderWidth,
-    backgroundColor,
-    crossedOut,
-    plural, pluralColor, tense, tenseColor, identifier, identifierColor, identifierPosition, zoom, dragAndDrop,
-    textTop: textTop.enabled ? { value: textTop.value, style: textTop.style } : undefined,
-    textBottom: textBottom.enabled ? { value: textBottom.value, style: textBottom.style } : undefined,
-  }
 
   const [expanded, setExpanded] = useState('panel-0');
   const accordionParams = (panel: string) => ({
@@ -153,12 +61,12 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   });
 
   const getDataUrl = () => {
-    const pixelRatio = resolution === Resolution.high
+    const pixelRatio = state.options.resolution === Resolution.high
       ? Math.ceil(Resolution.high / Resolution.low)
       : 1
 
     return stageRef.current?.getStage().toDataURL({ pixelRatio });
-  }
+  };
 
   const onDownload = () => {
     const data = getDataUrl();
@@ -171,13 +79,13 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
       linkElement.setAttribute('download', [pictogramId, ...keywords].join('-') + '.png');
       linkElement.click();
     }
-  }
+  };
 
   const onCopyTopClipboard = () => {
     const data = getDataUrl();
 
     data && Clipboard.copyImage(data);
-  }
+  };
 
   return (
     <Box>
@@ -190,7 +98,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           <Paper>
             {title && <Box padding={1}><Typography variant="h5" align="center">{title}</Typography></Box>}
 
-            <Pictogram {...pictogramParams} />
+            <Pictogram {...{ url: url.href, stageRef, dispatch, ...state.customizations }} />
 
             <Stack spacing={1} direction="row" padding={2}>
               <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
@@ -214,11 +122,25 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <ColorizedOptions {...colorizedOptions} />
+                <ColorizedOptions {...{
+                  colorized: state.options.colorized,
+                  skin: !!pictogram.data?.skin,
+                  skinColor: state.options.skinColor,
+                  hairColor: state.options.hairColor,
+                  hair: !!pictogram.data?.hair,
+                  dispatch,
+                }} />
 
-                <BackgroundOptions {...backgroundParams} />
+                <BackgroundOptions {...{
+                  backgroundColor: state.customizations.backgroundColor,
+                  dispatch,
+                }} />
 
-                <BorderOptions {...borderParams} />
+                <BorderOptions {...{
+                  borderColor: state.customizations.border.color,
+                  borderWidth: state.customizations.border.width,
+                  dispatch
+                }} />
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -228,13 +150,18 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <CrossOutOptions {...{ crossedOut, setCrossedOut }} />
+                <CrossOutOptions {...{ crossedOut: state.customizations.crossedOut, dispatch }} />
 
-                <PluralOptions {...pluralParams} />
+                <PluralOptions {...{ plural: state.customizations.plural, pluralColor: state.customizations.pluralColor, dispatch }} />
 
-                <VerbalTenseOptions {...tenseParams} />
+                <VerbalTenseOptions {...{ tense: state.customizations.tense, tenseColor: state.customizations.tenseColor, dispatch }} />
 
-                {false && <IdentifierOptions {...identifierParams} />}
+                {false && <IdentifierOptions {...{
+                  identifier: state.customizations.identifier.type,
+                  identifierPosition: state.customizations.identifier.position,
+                  identifierColor: state.customizations.identifier.color,
+                  dispatch
+                }} />}
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -246,9 +173,9 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
               <Stack spacing={2} divider={<Divider flexItem />}>
                 <LanguageSelection selected={autocompleteLanguage} onChange={setAutocompleteLanguage} />
 
-                <TextOptions label={t('config.textTop')} data={{ ...textTop, keywords }} dispatch={dispatchTextTop} />
+                <TextOptions label={t('config.textTop')} {...{ keywords }} state={state.customizations.text.top} onChange={state => dispatch(updateTextTop(state))} />
 
-                <TextOptions label={t('config.textBottom')} data={{ ...textBottom, keywords }} dispatch={dispatchTextBottom} />
+                <TextOptions label={t('config.textBottom')} {...{ keywords }} state={state.customizations.text.bottom} onChange={state => dispatch(updateTextBottom(state))} />
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -258,11 +185,14 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <ZoomOptions {...{ zoom, setZoom }} />
+                <ZoomOptions {...{ zoom: state.customizations.zoom, dispatch }} />
 
-                <DragAndDropOptions {...{ dragAndDrop, setDragAndDrop }} />
+                <DragAndDropOptions {...{
+                  dragAndDrop: state.customizations.dragAndDrop,
+                  setDragAndDrop: (enabled) => dispatch(enabled ? enableDragAndDrop() : disableDragAndDrop()),
+                }} />
 
-                <ResolutionOptions enabled={resolution === Resolution.high} onChange={enabled => setResolution(enabled ? Resolution.high : Resolution.low)} />
+                <ResolutionOptions enabled={state.options.resolution === Resolution.high} onChange={enabled => dispatch(updateResolution(enabled ? Resolution.high : Resolution.low))} />
               </Stack>
             </AccordionDetails>
           </Accordion>
