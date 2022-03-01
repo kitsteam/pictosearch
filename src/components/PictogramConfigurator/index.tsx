@@ -1,11 +1,17 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Link, Paper, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Link, Paper, Stack, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
 import BackIcon from '@mui/icons-material/ArrowLeft';
+import AddIcon from '@mui/icons-material/AddToPhotos';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import SaveIcon from '@mui/icons-material/Save';
+import RemoveIcon from '@mui/icons-material/Delete';
+import SuccessIcon from '@mui/icons-material/Check';
 import Konva from 'konva';
-import React, { useRef, useState, useReducer } from 'react';
+import React, { useRef, useState, useReducer, useEffect } from 'react';
 import { usePictogram, usePictogramUrl } from '../../hooks/network';
+import { useCollection } from '../../hooks/collection';
 import BackgroundOptions from './options/BackgroundOptions';
 import BorderOptions from './options/BorderOptions';
 import ColorizedOptions from './options/ColorizedOptions';
@@ -19,13 +25,16 @@ import CrossOutOptions from './options/CrossOutOptions';
 import DragAndDropOptions from './options/DragAndDropOptions';
 import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import MetaData from './MetaData'
 import { Trans, useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
-import { initialPictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
-import { disableDragAndDrop, enableDragAndDrop, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
+import { initialPictogramState, PictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
+import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
+import * as uuid from 'uuid';
+import { dequal } from "dequal/lite";
+import { loadPictogram } from "../../hooks/collection";
 
 type Props = {
 
@@ -33,8 +42,10 @@ type Props = {
 
 const PictogramConfigurator: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
-  const { id: paramId, language } = useParams<{ id: string, language: string }>();
+  const { id: paramId, language, version } = useParams<{ id: string, language: string, version?: string }>();
+  const history = useHistory();
   const pictogramId = parseInt(paramId, 10);
+  const collection = useCollection();
 
   if (i18n.language !== language) {
     i18n.changeLanguage(language);
@@ -42,6 +53,9 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const stageRef = useRef<Konva.Stage>(null);
   const [autocompleteLanguage, setAutocompleteLanguage] = useState(language);
+  const [changed, setChanged] = useState(false);
+  const [storedState, setStoredState] = useState<PictogramState>();
+  const [addedToCollection, setAddedToCollection] = useState(false);
 
   const pictogram = usePictogram(language, pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
@@ -59,6 +73,60 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
       setExpanded(isExpanded ? panel : '');
     },
   });
+
+  useEffect(() => {
+    if (!version) {
+      return;
+    }
+
+    const storedState = loadPictogram(paramId, version);
+
+    if (!storedState) {
+      history.push(`/pictogram/${language}/${paramId}`);
+
+      return;
+    }
+
+    setStoredState(storedState);
+
+    dispatch(updateInitialState(storedState));
+  }, [paramId, version, history, language]);
+
+  useEffect(() => {
+    if (storedState && !dequal(state, storedState)) {
+      setChanged(true);
+    }
+  }, [state, storedState]);
+
+  const onStoreNewVersion = () => {
+    const version = uuid.v4();
+
+    collection.store(paramId, version, state, title);
+
+    history.push(`/pictogram/${language}/${paramId}/${version}`);
+
+    setAddedToCollection(true);
+
+    setTimeout(() => setAddedToCollection(false), 3000);
+  }
+
+  const onUpdateVersion = () => {
+    if (version) {
+      collection.store(paramId, version, state);
+
+      setChanged(false);
+    }
+  }
+
+  const onDeleteVersion = () => {
+    if (version) {
+      collection.delete(paramId, version);
+
+      setChanged(false);
+
+      history.push(`/pictogram/${language}/${paramId}`);
+    }
+  }
 
   const getDataUrl = () => {
     const pixelRatio = state.options.resolution === Resolution.high
@@ -89,9 +157,13 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   return (
     <Box>
-      <Box mb={3}>
+      <Stack direction="row" mb={3}>
         <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
-      </Box>
+        <Box flexGrow={1}></Box>
+        <Badge badgeContent={collection.size} color="primary">
+          <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
+        </Badge>
+      </Stack>
       <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }}
         spacing={4}>
         <Box sx={{ maxWidth: 500 }}>
@@ -103,6 +175,16 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             <Stack spacing={1} direction="row" padding={2}>
               <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
               {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={onCopyTopClipboard} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
+              <Box flexGrow={1}></Box>
+
+              <IconButton onClick={onStoreNewVersion}>
+                {addedToCollection ? <SuccessIcon /> : <Badge color="primary" badgeContent={collection.count(pictogramId)}><AddIcon /></Badge>}
+              </IconButton>
+
+              {version && <>
+                <IconButton disabled={!changed} onClick={onUpdateVersion}><SaveIcon /></IconButton>
+                <IconButton onClick={onDeleteVersion}><RemoveIcon /></IconButton>
+              </>}
             </Stack>
           </Paper>
 

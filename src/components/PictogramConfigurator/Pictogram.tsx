@@ -169,6 +169,12 @@ const Pictogram: React.FC<Props> = (props) => {
         }
     }, [stageRef]);
 
+    const onDragEnd = (x: number, y: number) => {
+        if (position.x !== x || position.y !== y) {
+            setPosition(x, y);
+        }
+    }
+
     const leftIcon = {
         x: border.width,
         y: border.width,
@@ -209,7 +215,7 @@ const Pictogram: React.FC<Props> = (props) => {
                         width={width - textHeight}
                         height={height - textHeight}
                         draggable={dragAndDrop}
-                        onDragEnd={(ev) => setPosition(ev.target.x(), ev.target.y())} />
+                        onDragEnd={(ev) => onDragEnd(ev.target.x(), ev.target.y())} />
                 </Layer>
 
                 <Layer>

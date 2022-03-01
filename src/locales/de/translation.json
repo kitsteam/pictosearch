@@ -1,6 +1,12 @@
 {
   "language": "Sprache",
+  "browse": "Durchsuchen",
+  "collection": {
+    "header": "Sammlung",
+    "empty": "Keine gespeicherten Piktogramme gefunden."
+  },
   "back": "Zurück",
+  "Collection": "Sammlung",
   "download": "Download",
   "copy": "Kopieren",
   "config": {

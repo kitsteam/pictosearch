@@ -128,16 +128,20 @@ export function useSearch(language: string, query: string): { error: any, isLoad
     }
 }
 
+export function getPictogramUrl(pictogramId: number, colorized: boolean, resolution: Resolution, skinColor: SkinColor, hairColor: HairColor): URL {
+    const url = new URL(`${apiBaseUrl}/pictograms/${pictogramId}`);
+    url.searchParams.append('download', 'false');
+    url.searchParams.append('color', colorized.toString());
+    url.searchParams.append('resolution', resolution.toString());
+    url.searchParams.append('skin', SkinColor[skinColor]);
+    url.searchParams.append('hair', HairColor[hairColor]);
+
+    return url;
+}
+
 export function usePictogramUrl(pictogramId: number, colorized: boolean, resolution: Resolution, skinColor: SkinColor, hairColor: HairColor): URL {
     const url = useMemo(() => {
-        const url = new URL(`${apiBaseUrl}/pictograms/${pictogramId}`);
-        url.searchParams.append('download', 'false');
-        url.searchParams.append('color', colorized.toString());
-        url.searchParams.append('resolution', resolution.toString());
-        url.searchParams.append('skin', SkinColor[skinColor]);
-        url.searchParams.append('hair', HairColor[hairColor]);
-
-        return url;
+        return getPictogramUrl(pictogramId, colorized, resolution, skinColor, hairColor);
     }, [pictogramId, colorized, resolution, skinColor, hairColor]);
 
     return url;

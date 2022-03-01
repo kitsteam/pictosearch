@@ -155,7 +155,7 @@ export function pictogramStateReducer(state: PictogramState, action: Action): Pi
         case ActionType.position:
             return {
                 ...state,
-                customizations: { ...state.customizations, position: action.data },
+                customizations: { ...state.customizations, position: {...action.data} },
             };
         case ActionType.dragAndDrop:
             return {

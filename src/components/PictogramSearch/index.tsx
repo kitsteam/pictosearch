@@ -1,12 +1,15 @@
-import { Autocomplete, Box, Button, CircularProgress, Grid, IconButton, Link, Paper, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, Link, Paper, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import LanguageSelection from '../LanguageSelection';
 import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@mui/icons-material/Search';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import { useHistory, useLocation } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
 import { Trans, useTranslation } from 'react-i18next';
+import { useCollection } from "../../hooks/collection";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -21,6 +24,7 @@ const PictogramSearch: React.FC<Props> = () => {
   const [language, setLanguage] = useState(i18n.language.split('-')[0]);
   const keywords = useKeywords(language);
   const newPictograms = useNewPictograms(language);
+  const collection = useCollection();
 
   const history = useHistory();
   const queryParams = useQuery();
@@ -57,8 +61,12 @@ const PictogramSearch: React.FC<Props> = () => {
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" mb={3}>
+      <Box display="flex" mb={3}>
         <LanguageSelection selected={language} onChange={setLanguage} />
+        <Box flexGrow={1}></Box>
+        <Badge badgeContent={collection.size} color="primary">
+          <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
+        </Badge>
       </Box>
       <Paper sx={{ marginTop: 3, marginBottom: 3, padding: 3 }}>
         <form onSubmit={onSubmit}>
