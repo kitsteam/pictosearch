@@ -77,7 +77,14 @@ To release a new version a few things should be done:
 * Push all commits `git push`
 * Create a [new Github release](https://github.com/kitsteam/wp-pictogram-viewer/releases/new) and attach the previous packed archive
 
+## Additional licence
+
+The PictoSearch [logo](https://thenounproject.com/icon/find-4161316/) in this
+repo – created by [Sudarto Wasmad](https://thenounproject.com/sudartowasmad/)
+– is licenced under [CC BY 3.0 Unported][CC-BY-3].
+
 [WP]: https://wordpress.org
 [ARASAAC]: http://www.arasaac.org
 [CC]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.undefined
+[CC-BY-3]: https://creativecommons.org/licenses/by/3.0/
 [latest release]: https://github.com/kitsteam/wp-pictogram-viewer/releases

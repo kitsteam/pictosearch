@@ -1,11 +1,25 @@
 {
-  "short_name": "Pictogram Viewer",
+  "short_name": "PictoSearch",
   "name": "Pictogram Viewer and Configurator",
   "icons": [
-
+    {
+      "src": "/assets/pictosearch-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/assets/pictosearch-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/pictosearch-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#2ea3d2",
   "background_color": "#ffffff"
 }
