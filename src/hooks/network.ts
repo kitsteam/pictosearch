@@ -129,7 +129,8 @@ export function useSearch(language: string, query: string): { error: any, isLoad
 }
 
 export function getPictogramUrl(pictogramId: number, colorized: boolean, resolution: Resolution, skinColor: SkinColor, hairColor: HairColor): URL {
-    const url = new URL(`${apiBaseUrl}/pictograms/${pictogramId}`);
+    const baseUrl = /^https?:\/\//.test(apiBaseUrl) ? apiBaseUrl : (window.location.origin + apiBaseUrl);
+    const url = new URL(`${baseUrl}/pictograms/${pictogramId}`);
     url.searchParams.append('download', 'false');
     url.searchParams.append('color', colorized.toString());
     url.searchParams.append('resolution', resolution.toString());
