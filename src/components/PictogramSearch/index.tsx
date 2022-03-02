@@ -124,7 +124,7 @@ const PictogramSearch: React.FC<Props> = () => {
         <Link href="http://www.arasaac.org">
           <img src={logoArasaac} alt="Logo ARASSAC" />
         </Link>
-        <Typography variant="body2" sx={{ opacity: 0.6 }}>&copy;{' '}
+        <Typography variant="body2" sx={{ opacity: 0.6 }}>
           <Trans i18nKey="search.license">
             Die angezeigten piktographischen Symbole sind Eigentum der
             Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
