@@ -1,10 +1,15 @@
 {
   "language": "Sprache",
-  "browse": "Durchsuchen",
   "collection": {
+    "archive-error": "ZIP Archiv konnte nicht erstellt werden.",
     "header": "Sammlung",
     "empty": "Keine gespeicherten Piktogramme gefunden."
   },
+  "browse": "Durchsuchen",
+  "Download as ZIP": "ZIP Download",
+  "Download as PDF": "PDF Download",
+  "Confirm deletion": "Löschen bestätigen",
+  "delete all": "Alle löschen",
   "back": "Zurück",
   "Collection": "Sammlung",
   "download": "Download",
