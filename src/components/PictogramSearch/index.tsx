@@ -37,7 +37,7 @@ const PictogramSearch: React.FC<Props> = () => {
 
   const searchFor = useCallback((q: string) => {
     history.push({
-      pathname: '/',
+      pathname: '/search',
       search: q ? '?' + new URLSearchParams({ q }).toString() : undefined,
     });
   }, [history]);

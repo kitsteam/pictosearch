@@ -7,13 +7,16 @@ import theme from './theme';
 import { I18nextProvider } from "react-i18next";
 import './locales';
 import i18next from 'i18next';
+import { HashRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18next}>
         <ScopedCssBaseline>
-          <App />
+          <HashRouter>
+            <App />
+          </HashRouter>
         </ScopedCssBaseline>
       </I18nextProvider>
     </ThemeProvider>

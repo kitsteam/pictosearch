@@ -114,7 +114,7 @@ const PictogramCollection: React.FC<Props> = () => {
     return (
         <Box>
             <Stack direction="row" mb={3}>
-                <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>{t('browse')}</Button>
+                <Button component={RouterLink} to="/search" variant="outlined" size="small" startIcon={<BackIcon />}>{t('browse')}</Button>
             </Stack>
             <Paper sx={{ padding: { xs: 1, sm: 3 } }}>
                 <Typography variant="h5" mb={5}>{t('collection.header')}</Typography>

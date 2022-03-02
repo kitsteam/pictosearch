@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "craco build",
+    "build": "LAYOUT=element craco build",
     "build:app": "react-scripts build",
     "pack": "tar -czf wp-pictogram-viewer_git.$(git rev-parse --short HEAD).tar.gz js arasaac-pictogram-viewer.php",
     "test": "react-scripts test",
