@@ -128,7 +128,7 @@ const PictogramCollection: React.FC<Props> = () => {
                     </Alert>}
                 <List>
                     {Object.entries(collection.content).sort((a, b) => a[1].created > b[1].created ? 1 : -1).map(([key, item]) => {
-                        return <ListItem {...{ key, item }} onLoaded={(image) => cache.add(key, image)} />;
+                        return <ListItem {...{ key, item }} onLoaded={(image) => cache.add(key, image)} deleteItem={() => collection.delete(item.id.toString(), item.version)} />;
                     })}
                 </List>
                 <Stack direction={{ xs: 'column', sm: 'row' }} mt={3} spacing={1}>

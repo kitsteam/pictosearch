@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
 import { PictogramState } from "../components/PictogramConfigurator/state";
 
+const parseStorageItem = (key: string, value: string): CollectionItem | undefined => {
+    const match = key.match(/^picto:(\d+):([-a-z0-9]+)/);
+
+    if (!match) {
+        return;
+    }
+
+    const [, stringId, version] = match;
+    const id = parseInt(stringId, 10);
+    const data = parseItem(value);
+
+    if (data) {
+        return { id, version, ...data };
+    }
+}
+
 const parseItem = (value: string): { state: PictogramState, title: string, created: Date, modified: Date } | undefined => {
     if (value) {
         try {
@@ -43,18 +59,10 @@ export const useCollection = () => {
         const collection: Collection = {};
 
         for (const [key, value] of Object.entries(localStorage)) {
-            const match = key.match(/^picto:(\d+):([-a-z0-9]+)/);
-
-            if (!match) {
-                continue;
-            }
-
-            const [, stringId, version] = match;
-            const id = parseInt(stringId, 10);
-            const data = parseItem(value);
+            const data = parseStorageItem(key, value);
 
             if (data) {
-                collection[key] = { id, version, ...data };
+                collection[key] = data;
             }
         }
 

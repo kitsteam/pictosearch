@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import RemoveIcon from '@mui/icons-material/Delete';
 import { useHistory } from "react-router-dom";
-import { CollectionItem, useCollection } from "../../hooks/collection";
+import { CollectionItem } from "../../hooks/collection";
 import { getPictogramUrl } from "../../hooks/network";
 import { Box } from "@mui/system";
 import Pictogram from "../PictogramConfigurator/Pictogram";
@@ -13,12 +13,12 @@ import { Resolution } from "../PictogramConfigurator/state";
 type Props = {
     item: CollectionItem,
     onLoaded: (image: string) => void,
+    deleteItem: () => void,
 }
 
-const ListItem: React.FC<Props> = ({ item, onLoaded }) => {
+const ListItem: React.FC<Props> = ({ item, onLoaded, deleteItem }) => {
     const { i18n } = useTranslation();
     const history = useHistory();
-    const collection = useCollection();
     const [image, setImage] = useState<string>();
 
     const options = item.state.options;
@@ -38,7 +38,7 @@ const ListItem: React.FC<Props> = ({ item, onLoaded }) => {
 
     return (
         <MUIListItem secondaryAction={
-            <IconButton onClick={() => collection.delete(item.id.toString(), item.version)}><RemoveIcon /></IconButton>
+            <IconButton onClick={() => deleteItem()}><RemoveIcon /></IconButton>
         } disablePadding>
             <ListItemButton onClick={() => history.push(`/pictogram/${i18n.language}/${item.id}/${item.version}`)}>
                 <ListItemIcon>
