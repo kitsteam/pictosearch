@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { PictogramState } from "../components/PictogramConfigurator/state";
 
-const parsePictogram = (value: string): PictogramState | undefined => {
-    if (value) {
-        try {
-            return JSON.parse(value);
-        } catch { }
-    }
-}
-
 const parseItem = (value: string): { state: PictogramState, title: string, created: Date, modified: Date } | undefined => {
     if (value) {
         try {
@@ -24,22 +16,24 @@ const parseItem = (value: string): { state: PictogramState, title: string, creat
 }
 
 export const loadPictogram = (id: string, version: string): PictogramState | undefined => {
-    const storedState = localStorage.getItem(`picto:${id}:${version}`);
+    const data = localStorage.getItem(`picto:${id}:${version}`);
 
-    if (storedState) {
-        return parsePictogram(storedState);
+    if (data) {
+        return parseItem(data)?.state;
     }
 }
 
+export type CollectionItem = {
+    id: number,
+    version: string,
+    state: PictogramState,
+    title: string,
+    created: Date,
+    modified: Date,
+};
+
 export type Collection = {
-    [key: string]: {
-        id: number,
-        version: string,
-        state: PictogramState,
-        title: string,
-        created: Date,
-        modified: Date,
-    }
+    [key: string]: CollectionItem,
 };
 
 export const useCollection = () => {
@@ -99,6 +93,13 @@ export const useCollection = () => {
             const newCollection = { ...collection };
             delete newCollection[key];
             setCollection(newCollection);
+        },
+        deleteAll: () => {
+            const keys = Object.keys(collection);
+
+            keys.forEach(key => localStorage.removeItem(key));
+
+            setCollection({});
         }
     }
 }

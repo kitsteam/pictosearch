@@ -19,6 +19,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
+    "@types/jszip": "^3.4.1",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -26,8 +27,11 @@
     "@types/uuid": "^8.3.4",
     "clipboardy": "^2.3.0",
     "dequal": "^2.0.2",
+    "file-saver": "^2.0.5",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.2",
+    "jspdf": "^2.5.1",
+    "jszip": "^3.7.1",
     "konva": "^8.0.2",
     "react": "^17.0.2",
     "react-color": "^2.19.3",
@@ -68,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@types/react-color": "^3.0.4",
     "i18next-parser": "^4.2.0"
   }

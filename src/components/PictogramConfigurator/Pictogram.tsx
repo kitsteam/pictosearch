@@ -134,22 +134,29 @@ export type PictogramCustomization = {
 type Props = PictogramCustomization & {
     stageRef: RefObject<Konva.Stage>,
     url: string,
-    dispatch: React.Dispatch<Action>,
+    dispatch?: React.Dispatch<Action>,
+    onLoaded?: () => void,
 }
 
 const Pictogram: React.FC<Props> = (props) => {
     const { stageRef, url, border, backgroundColor, crossedOut, plural,
-        pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch } = props;
+        pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
     const textTop = props.text.top;
     const textBottom = props.text.bottom;
-    const [image] = useImage(url, 'Anonymous');
+    const [image, imageStatus] = useImage(url, 'Anonymous');
     const containerRef = useRef<HTMLElement>(null);
 
     const topTextRef = useRef<Konva.Text>(null);
     const bottomTextRef = useRef<Konva.Text>(null);
 
-    const setPosition = useCallback((x: number, y: number) => dispatch(updatePosition(x, y)), [dispatch]);
+    const setPosition = useCallback((x: number, y: number) => dispatch && dispatch(updatePosition(x, y)), [dispatch]);
     const moved = position.x !== 0 || position.y !== 0;
+
+    useEffect(() => {
+        if (onLoaded && imageStatus === 'loaded') {
+            onLoaded();
+        }
+    }, [onLoaded, imageStatus]);
 
     useEffect(() => {
         if (!moved) {
