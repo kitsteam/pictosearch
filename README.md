@@ -24,6 +24,13 @@ This plugin provides the following features:
     * And much more...
 
 ## :rocket: Install it
+### Single page application
+To use this app as single page application, just run `yarn install && yarn
+build:app` and serve the content of `build/` with your favorite web server. Of
+course you can also use `docker-compose up --build` to do it all in once. The
+resulting web server is listing on port 8070 (http://localhost:8070/).
+
+### Wordpress
 The easiest way to install this plugin is to download the [latest release] and
 extract it to `YOUR_WP_INSTALL/wp-content/plugins/`. If you like to use the
 latest development version you have to download or clone this repo and compile
