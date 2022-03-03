@@ -35,6 +35,7 @@ import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolu
 import * as uuid from 'uuid';
 import { dequal } from "dequal/lite";
 import { loadPictogram } from "../../hooks/collection";
+import ResponsiveIconButton from "../ResponsiveIconButton";
 
 type Props = {
 
@@ -173,8 +174,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             <Pictogram {...{ url: url.href, stageRef, dispatch, ...state.customizations }} />
 
             <Stack spacing={1} direction="row" padding={2}>
-              <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
-              {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={onCopyTopClipboard} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
+              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
+              {Clipboard.hasSupport() && <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={onCopyTopClipboard} startIcon={<CopyIcon />} color="secondary">{t('copy')}</ResponsiveIconButton>}
               <Box flexGrow={1}></Box>
 
               <IconButton onClick={onStoreNewVersion}>
