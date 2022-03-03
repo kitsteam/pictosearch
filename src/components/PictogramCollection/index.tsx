@@ -71,7 +71,7 @@ const PictogramCollection: React.FC<Props> = () => {
         Object.entries(collection.content).forEach(([key, item]) => {
             const content = cache.get(key).replace(/^data:image\/png;base64,/, '');
 
-            archive.file(`${key.replace(/^picto:/, '').replace(/:/g, '_')}.png`, content, {
+            archive.file(`${item.id}_${item.title}_${item.version}.png`, content, {
                 base64: true,
                 date: item.modified,
             });
