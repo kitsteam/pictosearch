@@ -118,7 +118,7 @@ const PictogramSearch: React.FC<Props> = () => {
         </Box>
       </Paper>
 
-      {items && <PictogramGallery items={items} language={language} />}
+      {items && <PictogramGallery {...{items, language, collection}} />}
 
       <Box m={2}>
         <Link href="http://www.arasaac.org">

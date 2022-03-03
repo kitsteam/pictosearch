@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { PictogramState } from "../components/PictogramConfigurator/state";
+import { initialPictogramState, PictogramState } from "../components/PictogramConfigurator/state";
+import * as uuid from 'uuid';
 
 const parseStorageItem = (key: string, value: string): CollectionItem | undefined => {
     const match = key.match(/^picto:(\d+):([-a-z0-9]+)/);
@@ -48,15 +49,25 @@ export type CollectionItem = {
     modified: Date,
 };
 
-export type Collection = {
+export type CollectionContent = {
     [key: string]: CollectionItem,
 };
 
-export const useCollection = () => {
-    const [collection, setCollection] = useState<Collection>({});
+export type Collection = {
+    content: CollectionContent,
+    size: number,
+    count: (id: number) => number,
+    storeNew: (id: string | number, title?: string) => void,
+    store: (id: string | number, version: string, state: PictogramState, title?: string) => void,
+    delete: (id: string, version: string) => void,
+    deleteAll: () => void,
+}
+
+export const useCollection = (): Collection => {
+    const [collection, setCollection] = useState<CollectionContent>({});
 
     useEffect(() => {
-        const collection: Collection = {};
+        const collection: CollectionContent = {};
 
         for (const [key, value] of Object.entries(localStorage)) {
             const data = parseStorageItem(key, value);
@@ -69,30 +80,35 @@ export const useCollection = () => {
         setCollection(collection);
     }, []);
 
+    const store = (id: string | number, version: string, state: PictogramState, title?: string) => {
+        const key = `picto:${id}:${version}`;
+        const data = {
+            state,
+            title: title || collection[key]?.title || '',
+            created: collection[key]?.created || new Date(),
+            modified: new Date(),
+        }
+
+        localStorage.setItem(key, JSON.stringify(data));
+
+        setCollection({
+            ...collection,
+            [key]: {
+                id: parseInt(id.toString(), 10),
+                version,
+                ...data,
+            },
+        });
+    };
+
     return {
         content: collection,
         size: Object.keys(collection).length,
         count: (id: number) => Object.keys(collection).filter(key => key.startsWith(`picto:${id}:`)).length,
-        store: (id: string, version: string, state: PictogramState, title?: string) => {
-            const key = `picto:${id}:${version}`;
-            const data = {
-                state,
-                title: title || collection[key]?.title || '',
-                created: collection[key]?.created || new Date(),
-                modified: new Date(),
-            }
-
-            localStorage.setItem(key, JSON.stringify(data));
-
-            setCollection({
-                ...collection,
-                [key]: {
-                    id: parseInt(id, 10),
-                    version,
-                    ...data,
-                },
-            });
+        storeNew: (id: string | number, title?: string) => {
+            return store(id, uuid.v4(), initialPictogramState, title);
         },
+        store,
         delete: (id: string, version: string) => {
             const key = `picto:${id}:${version}`;
 

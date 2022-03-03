@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
+import AddIcon from '@mui/icons-material/AddToPhotos';
 import Clipboard from '../../utils/Clipboard';
 import { apiBaseUrl } from "../../hooks/network";
+import { Collection } from "../../hooks/collection";
 
 const TitleBox = styled(Box)(({ theme }) => `
     display: flex;
@@ -36,10 +38,11 @@ const TitleBox = styled(Box)(({ theme }) => `
 type Props = {
     id: number,
     title: string,
-    language: string
+    language: string,
+    collection: Collection,
 }
 
-const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
+const PictogramPreview: React.FC<Props> = ({ id, title, language, collection }) => {
     const [isLoading, setLoading] = useState(true);
     const src = `${apiBaseUrl}/pictograms/${id}`;
 
@@ -64,6 +67,13 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
         Clipboard.copyImage(src);
     }
 
+    const onAddToCollection = (ev: React.MouseEvent) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+
+        collection.storeNew(id, title);
+    }
+
     return (
         <Paper>
             <Box sx={{ paddingTop: '100%', position: 'relative' }}>
@@ -82,6 +92,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
                             <Stack spacing={1} direction="row">
                                 <IconButton onClick={onDownload}><DownloadIcon style={{ color: 'white' }} /></IconButton>
                                 {Clipboard.hasSupport() && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
+                                <IconButton disabled={collection.count(id) > 0} onClick={onAddToCollection}><AddIcon style={{ color: 'white', opacity: collection.count(id) > 0 ? 0.4 : 1 }} /></IconButton>
                             </Stack>
                         </Box>
                     </TitleBox>

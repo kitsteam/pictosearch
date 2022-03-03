@@ -1,5 +1,6 @@
 import { Box, FormControl, Grid, InputLabel, MenuItem, Pagination, Select, Theme, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
+import { Collection } from "../../hooks/collection";
 import PictogramPreview from './PictogramPreview';
 
 const itemsPerPageSelection = [12, 36, 48, 96];
@@ -7,9 +8,10 @@ const itemsPerPageSelection = [12, 36, 48, 96];
 type Props = {
     items: { id: number, title: string }[]
     language: string
+    collection: Collection,
 }
 
-const PictogramGallery: React.FC<Props> = ({ items, language }) => {
+const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
     const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageSelection[0]);
     const [page, setPage] = useState(1);
     const largeScreen = useMediaQuery<Theme>(theme => theme.breakpoints.up('sm'));
@@ -24,7 +26,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language }) => {
             </Box>}
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
-                    <PictogramPreview id={item.id} title={item.title} language={language} />
+                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} />
                 </Grid>)}
             </Grid>
             {numberOfPages > 1 && <Box mt={3} mb={3} display="flex" justifyContent="center">
