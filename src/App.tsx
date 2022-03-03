@@ -41,8 +41,8 @@ const App: React.FC<Props> = () => {
           py="3vh"
           style={{ minHeight: '100vh' }}
         >
-          <Grid item>
-            <Header />
+          <Grid item sx={{ width: location.pathname === '/' ? 'auto' : { xs: 'auto', sm: '100%' } }}>
+            <Header size={location.pathname === '/' ? 'normal' : 'small'} />
           </Grid>
           <Grid item sx={{ width: '100%' }}>
             <Switch>
@@ -59,7 +59,7 @@ const App: React.FC<Props> = () => {
             </Switch>
           </Grid>
           <Grid item>
-            <Footer />
+            <Footer size={location.pathname === '/' ? 'normal' : 'small'} />
           </Grid>
         </Grid>
       }
