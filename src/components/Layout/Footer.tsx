@@ -30,9 +30,6 @@ const Footer: React.FC<Props> = ({ size }) => {
                     }
                 }}>
                     <li>
-                        <a href="https://kits.blog/tools/" rel="noopener noreferrer">Kits Tools</a>
-                    </li>
-                    <li>
                         <a href="https://kits.blog/impressum/" target="_blank" rel="noopener noreferrer">Impressum</a>
                     </li>
                     <li>
