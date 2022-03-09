@@ -10,11 +10,8 @@
   "Download as PDF": "PDF Download",
   "Confirm deletion": "Löschen bestätigen",
   "delete all": "Alle löschen",
-  "back": "Zurück",
-  "Collection": "Sammlung",
-  "download": "Download",
-  "copy": "Kopieren",
   "config": {
+    "clipboardLicense": "Sergio Palao (Urheber), ARASAAC (arasaac.org), Regierung von Aragón in Spanien (Eigentümer), CC BY-SA-NC 4.0.",
     "license": "Sergio Palao (Urheber), ARASAAC (<1>arasaac.org</1>), Regierung von Aragón in Spanien (Eigentümer), <3>CC BY-SA-NC 4.0</3>.",
     "design": "Design",
     "addition": "Zusatz",
@@ -60,6 +57,10 @@
     "zoom": "Zoom",
     "zoomStep": "Zoomschritte"
   },
+  "back": "Zurück",
+  "Collection": "Sammlung",
+  "download": "Download",
+  "copy": "Kopieren",
   "meta": {
     "categories": "Kategorien",
     "tags": "Schlagworte"

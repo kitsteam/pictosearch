@@ -33,4 +33,10 @@ export default class Clipboard {
             'image/png': blob,
         })]);
     }
+
+    public static copyText(text: string): void {
+        navigator.clipboard.writeText(text).catch((err) => {
+            console.log('Could not write text to clipboard', err);
+        });
+    }
 }

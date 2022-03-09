@@ -8,6 +8,7 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import SaveIcon from '@mui/icons-material/Save';
 import RemoveIcon from '@mui/icons-material/Delete';
 import SuccessIcon from '@mui/icons-material/Check';
+import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, useEffect } from 'react';
 import { usePictogram, usePictogramUrl } from '../../hooks/network';
@@ -156,6 +157,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     data && Clipboard.copyImage(data);
   };
 
+  const onCopyLicenseToClipboard = () => {
+    Clipboard.copyText(t('config.clipboardLicense'));
+  }
+
   return (
     <Box>
       <Stack direction="row" mb={3}>
@@ -190,6 +195,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           </Paper>
 
           <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>
+            {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard}><ClipboardIcon /></IconButton>}
+
             <Trans i18nKey="config.license">Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
               Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
             </Trans>

@@ -10,11 +10,8 @@
   "Download as PDF": "",
   "Confirm deletion": "",
   "delete all": "",
-  "back": "Volver",
-  "Collection": "",
-  "download": "Descargar",
-  "copy": "Copiar",
   "config": {
+    "clipboardLicense": "",
     "license": "The pictographic symbol displayed above is the property of the Government of Aragón and have been created by Sergio Palao for <1>ARASAAC</1>, that distributes them under Creative Commons License <3>BY-NC-SA 4.0</3>.",
     "design": "Diseño",
     "addition": "Añadir",
@@ -60,6 +57,10 @@
     "zoom": "Zoom",
     "zoomStep": "Cambio zoom"
   },
+  "back": "Volver",
+  "Collection": "",
+  "download": "Descargar",
+  "copy": "Copiar",
   "meta": {
     "categories": "Categorías",
     "tags": "Etiquetas"
