@@ -15,16 +15,10 @@ import { saveAs } from "file-saver";
 import jsPDF from "jspdf";
 
 class Cache<Type = any> {
-    protected static instance: Cache = new Cache();
-
     protected cache: { [key: string]: Type } = {};
 
     protected constructor() {
 
-    }
-
-    public static get() {
-        return this.instance;
     }
 
     public add(key: string, entry: Type) {
@@ -45,7 +39,11 @@ class Cache<Type = any> {
 }
 
 class ImageCache extends Cache<string> {
+    protected static instance = new ImageCache();
 
+    public static get() {
+        return this.instance;
+    }
 }
 
 type Props = {
@@ -69,7 +67,12 @@ const PictogramCollection: React.FC<Props> = () => {
         const archive = new JSZip();
 
         Object.entries(collection.content).forEach(([key, item]) => {
-            const content = cache.get(key).replace(/^data:image\/png;base64,/, '');
+            const content = cache.get(key)?.replace(/^data:image\/png;base64,/, '');
+
+            if (!content) {
+                console.log(`No cached version of pictogram ${key} available.`);
+                return;
+            }
 
             archive.file(`${item.id}_${item.title}_${item.version}.png`, content, {
                 base64: true,
@@ -95,6 +98,13 @@ const PictogramCollection: React.FC<Props> = () => {
         const doc = new jsPDF();
 
         Object.entries(collection.content).sort((a, b) => a[1].created > b[1].created ? 1 : -1).forEach(([key], index) => {
+            const content = cache.get(key);
+
+            if (!content) {
+                console.log(`No cached version of pictogram ${key} available.`);
+                return;
+            }
+
             if (index > 0 && index % 6 === 0) {
                 doc.addPage();
             }
@@ -103,7 +113,7 @@ const PictogramCollection: React.FC<Props> = () => {
             const left = (index % 2) * 100 + 10;
             const top = (Math.floor((index % 6) / 2) * 98) + 5;
 
-            doc.addImage(cache.get(key), 'PNG', left, top, size, size);
+            doc.addImage(content, 'PNG', left, top, size, size);
         });
 
         doc.save('pictograms');
