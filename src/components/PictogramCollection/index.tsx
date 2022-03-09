@@ -80,6 +80,8 @@ const PictogramCollection: React.FC<Props> = () => {
             });
         });
 
+        archive.file('COPYING', t('config.clipboardLicense'));
+
         archive.generateAsync({ type: 'blob' }).then(content => {
             saveAs(content, 'pictograms.zip');
         }).catch(err => {
