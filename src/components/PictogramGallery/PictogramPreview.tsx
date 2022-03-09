@@ -18,6 +18,7 @@ const TitleBox = styled(Box)(({ theme }) => `
     transition: opacity 0.5s;
     background-color: ${alpha(theme.palette.primary.light, 0.9)};
     opacity: 0;
+    user-select: none;
 
     h4 {
         color: ${theme.palette.primary.contrastText};
