@@ -118,7 +118,7 @@ const PictogramSearch: React.FC<Props> = () => {
         </Box>
       </Paper>
 
-      {items && <PictogramGallery {...{items, language, collection}} />}
+      {items && <PictogramGallery {...{ items, language, collection }} />}
 
       <Box m={2}>
         <Link href="http://www.arasaac.org">
@@ -126,9 +126,8 @@ const PictogramSearch: React.FC<Props> = () => {
         </Link>
         <Typography variant="body2" sx={{ opacity: 0.6 }}>
           <Trans i18nKey="search.license">
-            Die angezeigten piktographischen Symbole sind Eigentum der
-            Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative-Commons-Lizenz BY-NC-SA 4.0</Link> weitergibt.
+            Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
+            Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
           </Trans>
         </Typography>
       </Box>
