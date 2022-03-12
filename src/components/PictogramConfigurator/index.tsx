@@ -100,10 +100,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     }
   }, [state, storedState]);
 
-  const onStoreNewVersion = () => {
+  const onStoreNewVersion = async () => {
     const version = uuid.v4();
 
-    collection.store(paramId, version, state, title);
+    await collection.store(paramId, version, state, title, getDataUrl());
 
     history.push(`/pictogram/${language}/${paramId}/${version}`);
 

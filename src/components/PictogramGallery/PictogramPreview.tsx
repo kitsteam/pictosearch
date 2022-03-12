@@ -72,7 +72,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language, collection }) 
         ev.stopPropagation();
         ev.preventDefault();
 
-        collection.storeNew(id, title);
+        collection.storeNew(id, title, src);
     }
 
     return (
