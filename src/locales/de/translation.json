@@ -1,15 +1,6 @@
 {
   "language": "Sprache",
-  "collection": {
-    "archive-error": "ZIP Archiv konnte nicht erstellt werden.",
-    "header": "Sammlung",
-    "empty": "Keine gespeicherten Piktogramme gefunden."
-  },
   "browse": "Durchsuchen",
-  "Download as ZIP": "ZIP Download",
-  "Download as PDF": "PDF Download",
-  "Confirm deletion": "Löschen bestätigen",
-  "delete all": "Alle löschen",
   "config": {
     "clipboardLicense": "Sergio Palao (Urheber), ARASAAC (arasaac.org), Regierung von Aragón in Spanien (Eigentümer), CC BY-SA-NC 4.0.",
     "license": "Sergio Palao (Urheber), ARASAAC (<1>arasaac.org</1>), Regierung von Aragón in Spanien (Eigentümer), <3>CC BY-SA-NC 4.0</3>.",
@@ -57,6 +48,15 @@
     "zoom": "Zoom",
     "zoomStep": "Zoomschritte"
   },
+  "collection": {
+    "archive-error": "ZIP Archiv konnte nicht erstellt werden.",
+    "header": "Sammlung",
+    "empty": "Keine gespeicherten Piktogramme gefunden."
+  },
+  "Download as ZIP": "ZIP Download",
+  "Download as PDF": "PDF Download",
+  "Confirm deletion": "Löschen bestätigen",
+  "delete all": "Alle löschen",
   "back": "Zurück",
   "Collection": "Sammlung",
   "download": "Download",
@@ -66,6 +66,7 @@
     "tags": "Schlagworte"
   },
   "search": {
+    "clipboardLicense": "Sergio Palao (Urheber), ARASAAC (arasaac.org), Regierung von Aragón in Spanien (Eigentümer), CC BY-SA-NC 4.0.",
     "term": "Suchbegriff",
     "action": "Suche",
     "loading": "Die Suche nach \"{{query}}\" läuft...",

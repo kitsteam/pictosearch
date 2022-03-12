@@ -10,6 +10,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
 import { Trans, useTranslation } from 'react-i18next';
 import { useCollection } from "../../hooks/collection";
+import Clipboard from "../../utils/Clipboard";
+import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -58,6 +60,10 @@ const PictogramSearch: React.FC<Props> = () => {
 
     searchFor(value);
   }, [value, searchFor]);
+
+  const onCopyLicenseToClipboard = () => {
+    Clipboard.copyText(t('search.clipboardLicense'));
+  }
 
   return (
     <>
@@ -125,6 +131,8 @@ const PictogramSearch: React.FC<Props> = () => {
           <img src={logoArasaac} alt="Logo ARASSAC" />
         </Link>
         <Typography variant="body2" sx={{ opacity: 0.6 }}>
+          {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard}><ClipboardIcon /></IconButton>}
+
           <Trans i18nKey="search.license">
             Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
             Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
