@@ -1,17 +1,19 @@
-# Pictogram Viewer for Wordpress
+# PictoSearch
 
-This [Wordpress plugin][WP] provides a search and configuration dialog for
-pictograms from [ARASAAC] for your site.
+This application provides a search and configuration dialog for pictograms from
+[ARASAAC]. You can use it as single page application or as [Wordpress plugin][WP].
 
 All pictographic symbols displayed and used are the property of the Government
 of Aragón and have been created by Sergio Palao for [ARASAAC], that distributes
 them under [Creative Commons License BY-NC-SA][CC].
 
+![Screenshot welcome page](./docs/screenshot-welcome.png)
 ![Screenshot pictogram search](./docs/screenshot-search.png)
 ![Screenshot pictogram configuration](./docs/screenshot-configuration.png)
+![Screenshot pictogram collection](./docs/screenshot-collection.png)
 
 ## :heart_eyes: Features
-This plugin provides the following features:
+This application provides the following features:
 
 * Search and browse pictograms from ARASAAC
 * Download or copy them to your clipboard with one click
@@ -22,6 +24,9 @@ This plugin provides the following features:
     * Add different modifiers
     * Add text to top and bottom
     * And much more...
+* Save different edits of your favorite pictograms in a collection
+    * Download your collection as ZIP archive
+    * Create a PDF from your collection
 
 ## :rocket: Install it
 ### Single page application
@@ -31,7 +36,7 @@ course you can also use `docker-compose up --build` to do it all in once. The
 resulting web server is listing on port 8070 (http://localhost:8070/).
 
 ### Wordpress
-The easiest way to install this plugin is to download the [latest release] and
+The easiest way to use this application as plugin is to download the [latest release] and
 extract it to `YOUR_WP_INSTALL/wp-content/plugins/`. If you like to use the
 latest development version you have to download or clone this repo and compile
 all dependencies. On Linux you can use the following commands:
@@ -79,7 +84,7 @@ To release a new version a few things should be done:
 
 * Bump the version in `package.json`
 * Add a version header field in `arasaac-pictogram-viewer.php`, like `* Version:           0.1.0`
-* Run `yarn build && yarn run pack`
+* Run `yarn build && yarn run pack` and `yarn build:app && yarn run pack:app`
 * Create a signed commit `git commit -S -am "release 0.1.0 :tada:"`
 * Push all commits `git push`
 * Create a [new Github release](https://github.com/kitsteam/wp-pictogram-viewer/releases/new) and attach the previous packed archive

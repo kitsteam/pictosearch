@@ -51,6 +51,7 @@
     "build": "LAYOUT=element craco build",
     "build:app": "react-scripts build",
     "pack": "tar -czf wp-pictogram-viewer_git.$(git rev-parse --short HEAD).tar.gz js arasaac-pictogram-viewer.php",
+    "pack:app": "tar -czf pictosearch_git.$(git rev-parse --short HEAD).tar.gz build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

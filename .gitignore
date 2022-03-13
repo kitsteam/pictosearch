@@ -26,3 +26,5 @@ yarn-error.log*
 src/locales/*/*_old.json
 
 /.env*.local
+
+/*.tar.gz
