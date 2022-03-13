@@ -27,6 +27,7 @@ const PictogramSearch: React.FC<Props> = () => {
   const keywords = useKeywords(language);
   const newPictograms = useNewPictograms(language);
   const collection = useCollection();
+  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
   const history = useHistory();
   const queryParams = useQuery();
@@ -63,6 +64,10 @@ const PictogramSearch: React.FC<Props> = () => {
 
   const onCopyLicenseToClipboard = () => {
     Clipboard.copyText(t('search.clipboardLicense'));
+
+    setCopiedLicenseToClipboard(true);
+
+    setTimeout(() => setCopiedLicenseToClipboard(false), 2000);
   }
 
   return (
@@ -131,7 +136,7 @@ const PictogramSearch: React.FC<Props> = () => {
           <img src={logoArasaac} alt="Logo ARASSAC" />
         </Link>
         <Typography variant="body2" sx={{ opacity: 0.6 }}>
-          {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard}><ClipboardIcon /></IconButton>}
+          {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
 
           <Trans i18nKey="search.license">
             Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),

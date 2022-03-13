@@ -38,6 +38,8 @@ import { dequal } from "dequal/lite";
 import { loadPictogram } from "../../hooks/collection";
 import ResponsiveIconButton from "../ResponsiveIconButton";
 
+const SUCCESS_TIMEOUT = 2000;
+
 type Props = {
 
 }
@@ -58,6 +60,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const [changed, setChanged] = useState(false);
   const [storedState, setStoredState] = useState<PictogramState>();
   const [addedToCollection, setAddedToCollection] = useState(false);
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false);
+  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
   const pictogram = usePictogram(language, pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
@@ -109,7 +113,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
     setAddedToCollection(true);
 
-    setTimeout(() => setAddedToCollection(false), 3000);
+    setTimeout(() => setAddedToCollection(false), SUCCESS_TIMEOUT);
   }
 
   const onUpdateVersion = () => {
@@ -155,10 +159,18 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     const data = getDataUrl();
 
     data && Clipboard.copyImage(data);
+
+    setCopiedToClipboard(true);
+
+    setTimeout(() => setCopiedToClipboard(false), SUCCESS_TIMEOUT);
   };
 
   const onCopyLicenseToClipboard = () => {
     Clipboard.copyText(t('config.clipboardLicense'));
+
+    setCopiedLicenseToClipboard(true);
+
+    setTimeout(() => setCopiedLicenseToClipboard(false), SUCCESS_TIMEOUT);
   }
 
   return (
@@ -180,11 +192,16 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
             <Stack spacing={1} direction="row" padding={2}>
               <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
-              {Clipboard.hasSupport() && <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={onCopyTopClipboard} startIcon={<CopyIcon />} color="secondary">{t('copy')}</ResponsiveIconButton>}
+              {Clipboard.hasSupport() && <ResponsiveIconButton
+                variant="contained"
+                disabled={!stageRef.current}
+                onClick={onCopyTopClipboard}
+                startIcon={copiedToClipboard ? <SuccessIcon /> : <CopyIcon />}
+                color={copiedToClipboard ? 'success' : 'secondary'}>{copiedToClipboard ? t('copied') : t('copy')}</ResponsiveIconButton>}
               <Box flexGrow={1}></Box>
 
               <IconButton onClick={onStoreNewVersion}>
-                {addedToCollection ? <SuccessIcon /> : <Badge color="primary" badgeContent={collection.count(pictogramId)}><AddIcon /></Badge>}
+                {addedToCollection ? <SuccessIcon color="success" /> : <Badge color="primary" badgeContent={collection.count(pictogramId)}><AddIcon /></Badge>}
               </IconButton>
 
               {version && <>
@@ -195,7 +212,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           </Paper>
 
           <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>
-            {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard}><ClipboardIcon /></IconButton>}
+            {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
 
             <Trans i18nKey="config.license">Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
               Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
