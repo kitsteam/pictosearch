@@ -25,7 +25,7 @@ const TryItButton: React.FC<Props> = () => {
                 margin: 'auto',
             }}
             component={Link}
-            to="/search">Try it</Box>
+            to="/search">Try it!</Box>
     )
 }
 
