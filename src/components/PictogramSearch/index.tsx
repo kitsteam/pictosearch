@@ -6,16 +6,13 @@ import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@mui/icons-material/Search';
 import CollectionsIcon from '@mui/icons-material/Collections';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
 import { Trans, useTranslation } from 'react-i18next';
 import { useCollection } from "../../hooks/collection";
 import Clipboard from "../../utils/Clipboard";
 import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useQuery } from "../../hooks/location";
 
 type Props = {
 
@@ -40,7 +37,6 @@ const PictogramSearch: React.FC<Props> = () => {
 
   const searchFor = useCallback((q: string) => {
     history.push({
-      pathname: '/search',
       search: q ? '?' + new URLSearchParams({ q }).toString() : undefined,
     });
   }, [history]);
