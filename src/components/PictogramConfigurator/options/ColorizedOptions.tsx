@@ -1,9 +1,10 @@
-import { Box, Stack, FormLabel } from '@material-ui/core';
+import { Box, Stack, FormLabel } from '@mui/material';
 import React from 'react';
 import { Color } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { SkinColor, HairColor } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updateColorized, updateHeadColor } from "../state/actions";
 import WideSwitchLabel from '../WideSwitchLabel';
 
 type Props = {
@@ -12,13 +13,15 @@ type Props = {
     skin: boolean,
     hairColor: HairColor,
     hair: boolean,
-    setColorized: (colorized: boolean) => void,
-    setSkinColor: (skinColor: SkinColor) => void,
-    setHairColor: (hairColor: HairColor) => void,
+    dispatch: React.Dispatch<Action>,
 }
 
-const ColorizedOptions: React.FC<Props> = ({ colorized, skinColor, skin, hairColor, hair, setColorized, setSkinColor, setHairColor }) => {
+const ColorizedOptions: React.FC<Props> = ({ colorized, skinColor, skin, hairColor, hair, dispatch }) => {
     const { t } = useTranslation();
+
+    const setColorized = (colorized: boolean) => dispatch(updateColorized(colorized));
+    const setSkinColor = (skinColor: SkinColor) => dispatch(updateHeadColor(skinColor, hairColor));
+    const setHairColor = (hairColor: HairColor) => dispatch(updateHeadColor(skinColor, hairColor));
 
     return (
         <Box>

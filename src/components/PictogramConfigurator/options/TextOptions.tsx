@@ -1,11 +1,12 @@
-import { Autocomplete, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, TextField, Typography } from '@material-ui/core';
+import { Autocomplete, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
 import WideSwitchLabel from '../WideSwitchLabel';
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import { fontColors } from '../../../data/colors';
 import { useTranslation } from 'react-i18next';
+import { TextState } from "../state";
 
 const isFontSupported = (font: string) => (document as any).fonts?.check ? (document as any).fonts.check(`12px ${font}`) : true;
 
@@ -18,28 +19,21 @@ export type FontStyle = {
     uppercase: boolean,
 };
 
-
-type Data = {
-    enabled: boolean,
-    style: FontStyle,
-    keywords: string[],
-    value: string,
-}
-
 type Props = {
     label: string
-    data: Data,
-    dispatch: (action: { type: string, value?: any }) => void,
+    keywords: string[],
+    state: TextState,
+    onChange: (textState: TextState) => void,
 }
 
-const TextOptions: React.FC<Props> = ({ label, data, dispatch }) => {
-    const { enabled, style, keywords, value } = data;
+const TextOptions: React.FC<Props> = ({ label, keywords, state, onChange }) => {
+    const { enabled, style, value } = state;
 
     const { t } = useTranslation();
 
-    const setEnabled = (enabled: boolean) => dispatch({ type: 'enabled', value: enabled });
-    const setStyle = (style: FontStyle) => dispatch({ type: 'style', value: style });
-    const setValue = (value: string) => dispatch({ type: 'value', value });
+    const setEnabled = (enabled: boolean) => onChange({...state, enabled});
+    const setStyle = (style: FontStyle) => onChange({...state, style});
+    const setValue = (value: string) => onChange({...state, value});
 
     const [showFormatting, setShowFormatting] = useState(false);
 
@@ -64,7 +58,7 @@ const TextOptions: React.FC<Props> = ({ label, data, dispatch }) => {
                     />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
-                    <FormControlLabel control={<Switch checked={style.uppercase} onChange={ev => setUppercase(ev.target.checked)} />} label={t('config.upperCase')} />
+                    <FormControlLabel control={<Switch checked={style.uppercase} onChange={ev => setUppercase(ev.target.checked)} />} label={t('config.upperCase') as string} />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
                     <Typography onClick={() => setShowFormatting(!showFormatting)} sx={{ cursor: 'pointer', ...style, fontSize: 'inherit' }}>

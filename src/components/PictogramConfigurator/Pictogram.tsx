@@ -1,11 +1,13 @@
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import Konva from 'konva';
-import React, { RefObject, useEffect, useRef, useState } from 'react';
+import React, { RefObject, useCallback, useEffect, useRef } from 'react';
 import { Stage, Layer, Image, Rect, Line, Group, Text } from 'react-konva';
 import useImage from 'use-image';
+import { apiIdentifierBaseUrl } from "../../hooks/network";
 import { Identifier, IdentifierPosition } from './options/IdentifierOptions';
-import { FontStyle } from './options/TextOptions';
 import { Tense } from './options/VerbalTenseOptions';
+import { TextState } from "./state";
+import { Action, updatePosition } from "./state/actions";
 
 const checkerboard = 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==") left center';
 
@@ -14,7 +16,6 @@ const crossedOutColor = 'red';
 const crossedOutWidth = 20;
 const pluralWidth = 16;
 const iconSize = 55;
-const identifierBaseUrl = 'https://static.arasaac.org/images/identifiers';
 
 function PastIcon({ tenseColor, x, y }: { tenseColor: string, x: number, y: number }) {
     const strokeWidth = 16;
@@ -83,7 +84,7 @@ function FutureIcon({ tenseColor, x, y }: { tenseColor: string, x: number, y: nu
 }
 
 function IdentifierIcon({ identifier, identifierColor, x, y }: { identifier: Identifier, identifierColor: string, x: number, y: number }) {
-    const url = `${identifierBaseUrl}/${Identifier[identifier]}_${identifierColor.replace(/^#/, '')}.png`;
+    const url = `${apiIdentifierBaseUrl}/identifiers/${Identifier[identifier]}_${identifierColor.replace(/^#/, '')}.png`;
     const [image] = useImage(url, 'Anonymous');
 
     return <Image image={image} x={x} y={y} width={iconSize} height={iconSize} />
@@ -102,51 +103,66 @@ function fitStageIntoParentContainer(ref: RefObject<Konva.Stage>, container: Ref
     ref.current.scale({ x: scale, y: scale });
 }
 
-type Props = {
-    stageRef: RefObject<Konva.Stage>,
-    url: string,
-    borderWidth: number,
-    borderColor: string,
+export type PictogramCustomization = {
+    border: {
+        width: number,
+        color: string,
+    },
     backgroundColor: string,
     crossedOut: boolean,
     plural: boolean,
     pluralColor: string,
     tense: Tense,
     tenseColor: string,
-    identifier: Identifier,
-    identifierPosition: IdentifierPosition,
-    identifierColor: string,
+    identifier: {
+        type: Identifier,
+        position: IdentifierPosition,
+        color: string,
+    },
     zoom: number,
+    text: {
+        top: TextState,
+        bottom: TextState,
+    },
+    position: {
+        x: number,
+        y: number,
+    },
     dragAndDrop: boolean,
-    textTop?: {
-        value: string,
-        style: FontStyle,
-    },
-    textBottom?: {
-        value: string,
-        style: FontStyle,
-    },
+}
+
+type Props = PictogramCustomization & {
+    stageRef: RefObject<Konva.Stage>,
+    url: string,
+    dispatch?: React.Dispatch<Action>,
+    onLoaded?: () => void,
 }
 
 const Pictogram: React.FC<Props> = (props) => {
-    const { stageRef, url, borderWidth, borderColor, backgroundColor, crossedOut, plural,
-        pluralColor, tense, tenseColor, identifier, identifierColor, identifierPosition, zoom, dragAndDrop, textTop, textBottom } = props;
-    const [image] = useImage(url, 'Anonymous');
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [moved, setMoved] = useState(false);
+    const { stageRef, url, border, backgroundColor, crossedOut, plural,
+        pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
+    const textTop = props.text.top;
+    const textBottom = props.text.bottom;
+    const [image, imageStatus] = useImage(url, 'Anonymous');
     const containerRef = useRef<HTMLElement>(null);
 
     const topTextRef = useRef<Konva.Text>(null);
     const bottomTextRef = useRef<Konva.Text>(null);
 
+    const setPosition = useCallback((x: number, y: number) => dispatch && dispatch(updatePosition(x, y)), [dispatch]);
+    const moved = position.x !== 0 || position.y !== 0;
+
+    useEffect(() => {
+        if (onLoaded && imageStatus === 'loaded') {
+            onLoaded();
+        }
+    }, [onLoaded, imageStatus]);
+
     useEffect(() => {
         if (!moved) {
-            setPosition({
-                x: borderWidth,
-                y: borderWidth,
-            });
+            setPosition(border.width, border.width);
         }
-    }, [moved, borderWidth]);
+    }, [moved, border.width, setPosition]);
 
     useEffect(() => {
         const cb = () => fitStageIntoParentContainer(stageRef, containerRef);
@@ -160,34 +176,32 @@ const Pictogram: React.FC<Props> = (props) => {
         }
     }, [stageRef]);
 
+    const onDragEnd = (x: number, y: number) => {
+        if (position.x !== x || position.y !== y) {
+            setPosition(x, y);
+        }
+    }
+
     const leftIcon = {
-        x: borderWidth,
-        y: borderWidth,
+        x: border.width,
+        y: border.width,
     };
     const rightIcon = {
-        x: stageSize - borderWidth - iconSize,
-        y: borderWidth,
+        x: stageSize - border.width - iconSize,
+        y: border.width,
     };
 
     const bottomLeftIcon = {
-        x: borderWidth,
-        y: stageSize - borderWidth - iconSize,
+        x: border.width,
+        y: stageSize - border.width - iconSize,
     };
     const bottomRightIcon = {
-        x: stageSize - borderWidth - iconSize,
-        y: stageSize - borderWidth - iconSize,
+        x: stageSize - border.width - iconSize,
+        y: stageSize - border.width - iconSize,
     };
 
-    const width = (stageSize - 2 * borderWidth);
-    const height = stageSize - 2 * borderWidth;
-
-    const onDragEnd = (x: number, y: number) => {
-        setMoved(true);
-        setPosition({
-            x,
-            y,
-        });
-    }
+    const width = (stageSize - 2 * border.width);
+    const height = stageSize - 2 * border.width;
 
     const topTextHeight = textTop?.value && topTextRef.current ? topTextRef.current.textHeight : 0;
     const bottomTextHeight = textBottom?.value && bottomTextRef.current ? bottomTextRef.current.textHeight : 0;
@@ -197,7 +211,7 @@ const Pictogram: React.FC<Props> = (props) => {
         <Box sx={{ background: checkerboard }} ref={containerRef}>
             <Stage width={stageSize} height={stageSize} ref={stageRef}>
                 <Layer>
-                    <Rect x={0} y={0} width={stageSize} height={stageSize} stroke={borderColor} strokeWidth={borderWidth * 2} fill={backgroundColor} />
+                    <Rect x={0} y={0} width={stageSize} height={stageSize} stroke={border.color} strokeWidth={border.width * 2} fill={backgroundColor} />
                 </Layer>
 
                 <Layer scale={{ x: 1 + zoom / 100, y: 1 + zoom / 100 }}>
@@ -230,33 +244,33 @@ const Pictogram: React.FC<Props> = (props) => {
                         {tense === Tense.future && <FutureIcon tenseColor={tenseColor} {...bottomRightIcon} />}
                     </Group>}
 
-                    {identifier !== Identifier.none && <Group>
+                    {identifier.type !== Identifier.none && <Group>
                         <IdentifierIcon
-                            identifier={identifier}
-                            identifierColor={identifierColor} {...(identifierPosition === IdentifierPosition.left ? leftIcon : rightIcon)} />
+                            identifier={identifier.type}
+                            identifierColor={identifier.color} {...(identifier.position === IdentifierPosition.left ? leftIcon : rightIcon)} />
                     </Group>}
                 </Layer>
 
                 <Layer>
-                    {textTop &&
+                    {textTop.enabled &&
                         <Text fontFamily={textTop.style.fontFamily}
                             fontSize={textTop.style.fontSize}
                             fill={textTop.style.color}
                             text={textTop.style.uppercase ? textTop.value.toUpperCase() : textTop.value}
                             x={0}
-                            y={borderWidth}
+                            y={border.width}
                             width={stageSize}
                             align="center"
                             wrap="word"
                             ref={topTextRef} />}
 
-                    {textBottom &&
+                    {textBottom.enabled &&
                         <Text fontFamily={textBottom.style.fontFamily}
                             fontSize={textBottom.style.fontSize}
                             fill={textBottom.style.color}
                             text={textBottom.style.uppercase ? textBottom.value.toUpperCase() : textBottom.value}
                             x={0}
-                            y={stageSize - borderWidth - (bottomTextRef.current?.getHeight() || 0)}
+                            y={stageSize - border.width - (bottomTextRef.current?.getHeight() || 0)}
                             width={stageSize}
                             align="center"
                             wrap="word"

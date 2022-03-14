@@ -1,4 +1,4 @@
-import { Grid, Switch, Typography } from '@material-ui/core';
+import { Grid, Switch, Typography } from '@mui/material';
 import React from 'react';
 
 type Props = {

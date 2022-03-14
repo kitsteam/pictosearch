@@ -1,8 +1,9 @@
-import { Box, Stack, FormControl, InputLabel, Select, MenuItem, FormLabel, Collapse } from '@material-ui/core';
+import { Box, Stack, FormControl, InputLabel, Select, MenuItem, FormLabel, Collapse } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { identifierColors } from '../../../data/colors';
 import ColorSelection from '../ColorSelection';
+import { Action, updateIdentifier } from "../state/actions";
 import WideSwitchLabel from '../WideSwitchLabel';
 
 
@@ -22,15 +23,17 @@ export enum IdentifierPosition {
 
 type Props = {
     identifier: Identifier,
-    setIdentifier: (identifier: Identifier) => void,
     identifierPosition: IdentifierPosition,
-    setIdentifierPosition: (position: IdentifierPosition) => void,
     identifierColor: string,
-    setIdentifierColor: (color: string) => void,
+    dispatch: React.Dispatch<Action>,
 }
 
-const IdentifierOptions: React.FC<Props> = ({ identifier, identifierPosition, identifierColor, setIdentifier, setIdentifierPosition, setIdentifierColor }) => {
+const IdentifierOptions: React.FC<Props> = ({ identifier, identifierPosition, identifierColor, dispatch }) => {
     const { t } = useTranslation();
+
+    const setIdentifier = (type: Identifier) => dispatch(updateIdentifier(type, identifierPosition, identifierColor));
+    const setIdentifierPosition = (position: IdentifierPosition) => dispatch(updateIdentifier(identifier, position, identifierColor));
+    const setIdentifierColor = (color: string) => dispatch(updateIdentifier(identifier, identifierPosition, color));
 
     return (
         <Box>
@@ -50,7 +53,7 @@ const IdentifierOptions: React.FC<Props> = ({ identifier, identifierPosition, id
                     </FormControl>
                     <FormControl fullWidth size="small">
                         <InputLabel id="">{t('config.position')}</InputLabel>
-                        <Select labelId="" value={identifierPosition} onChange={ev => setIdentifierPosition(ev.target.value)} label={t('config.position')}>
+                        <Select labelId="" value={identifierPosition} onChange={ev => setIdentifierPosition(ev.target.value as IdentifierPosition)} label={t('config.position')}>
                             <MenuItem value={IdentifierPosition.left}>{t('config.left')}</MenuItem>
                             <MenuItem value={IdentifierPosition.right}>{t('config.right')}</MenuItem>
                         </Select>

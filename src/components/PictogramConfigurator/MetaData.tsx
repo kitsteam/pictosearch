@@ -1,10 +1,10 @@
-import { Typography, Box, Chip } from '@material-ui/core';
+import { Typography, Box, Chip } from '@mui/material';
 import React from 'react';
 import { IPictogramResponse } from '../../hooks/network';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const LinkChip: React.FC<{ label: string }> = ({ label }) => <Chip label={label} variant="outlined" style={{ marginRight: 8, marginBottom: 8 }} clickable component={RouterLink} to={`/?q=${encodeURIComponent(label)}`} />
+const LinkChip: React.FC<{ label: string }> = ({ label }) => <Chip label={label} variant="outlined" style={{ marginRight: 8, marginBottom: 8 }} clickable component={RouterLink} to={`/search?q=${encodeURIComponent(label)}`} />
 
 type Props = {
     data: IPictogramResponse

@@ -1,10 +1,13 @@
-import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@material-ui/core';
-import { experimentalStyled as styled, alpha } from '@material-ui/core/styles';
+import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@mui/material';
+import { experimentalStyled as styled, alpha } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import CopyIcon from '@material-ui/icons/FileCopy';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import CopyIcon from '@mui/icons-material/FileCopy';
+import AddIcon from '@mui/icons-material/AddToPhotos';
 import Clipboard from '../../utils/Clipboard';
+import { apiBaseUrl } from "../../hooks/network";
+import { Collection } from "../../hooks/collection";
 
 const TitleBox = styled(Box)(({ theme }) => `
     display: flex;
@@ -15,6 +18,7 @@ const TitleBox = styled(Box)(({ theme }) => `
     transition: opacity 0.5s;
     background-color: ${alpha(theme.palette.primary.light, 0.9)};
     opacity: 0;
+    user-select: none;
 
     h4 {
         color: ${theme.palette.primary.contrastText};
@@ -35,12 +39,13 @@ const TitleBox = styled(Box)(({ theme }) => `
 type Props = {
     id: number,
     title: string,
-    language: string
+    language: string,
+    collection: Collection,
 }
 
-const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
+const PictogramPreview: React.FC<Props> = ({ id, title, language, collection }) => {
     const [isLoading, setLoading] = useState(true);
-    const src = `https://api.arasaac.org/api/pictograms/${id}`;
+    const src = `${apiBaseUrl}/pictograms/${id}`;
 
     const onDownload = (ev: React.MouseEvent) => {
         ev.stopPropagation();
@@ -63,6 +68,13 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
         Clipboard.copyImage(src);
     }
 
+    const onAddToCollection = (ev: React.MouseEvent) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+
+        collection.storeNew(id, title, src);
+    }
+
     return (
         <Paper>
             <Box sx={{ paddingTop: '100%', position: 'relative' }}>
@@ -81,6 +93,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language }) => {
                             <Stack spacing={1} direction="row">
                                 <IconButton onClick={onDownload}><DownloadIcon style={{ color: 'white' }} /></IconButton>
                                 {Clipboard.hasSupport() && <IconButton onClick={onCopyToClipboard}><CopyIcon style={{ color: 'white' }} /></IconButton>}
+                                <IconButton disabled={collection.count(id) > 0} onClick={onAddToCollection}><AddIcon style={{ color: 'white', opacity: collection.count(id) > 0 ? 0.4 : 1 }} /></IconButton>
                             </Stack>
                         </Box>
                     </TitleBox>

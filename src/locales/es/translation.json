@@ -1,9 +1,8 @@
 {
   "language": "Idioma",
-  "back": "Volver",
-  "download": "Descargar",
-  "copy": "Copiar",
+  "browse": "",
   "config": {
+    "clipboardLicense": "",
     "license": "The pictographic symbol displayed above is the property of the Government of Aragón and have been created by Sergio Palao for <1>ARASAAC</1>, that distributes them under Creative Commons License <3>BY-NC-SA 4.0</3>.",
     "design": "Diseño",
     "addition": "Añadir",
@@ -49,11 +48,25 @@
     "zoom": "Zoom",
     "zoomStep": "Cambio zoom"
   },
+  "collection": {
+    "archive-error": "",
+    "header": "",
+    "empty": "Keine gespeicherten Piktogramme gefunden."
+  },
+  "Download as ZIP": "",
+  "Download as PDF": "",
+  "Confirm deletion": "",
+  "delete all": "",
+  "back": "Volver",
+  "Collection": "",
+  "download": "Descargar",
+  "copy": "Copiar",
   "meta": {
     "categories": "Categorías",
     "tags": "Etiquetas"
   },
   "search": {
+    "clipboardLicense": "",
     "term": "Buscar término",
     "action": "Buscar",
     "loading": "Estamos buscando \"{{query}}\"...",
@@ -63,6 +76,7 @@
     "license": "Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para <1>ARASAAC</1>, que los distribuye bajo Licencia Creative Commons <3>BY-NC-SA 4.0</3>."
   },
   "category": {
+    "core-vocabulary": "",
     "movement": "",
     "traffic": "",
     "road-safety": "",
@@ -273,6 +287,7 @@
     "beach": "",
     "swimming-pool": "",
     "mountain": "",
+    "sea": "",
     "entertainment-facility": "",
     "core-vocabulary-leisure": "",
     "knowledge": "",
@@ -303,6 +318,7 @@
     "environmental-science": "",
     "recycling": "",
     "pollution": "",
+    "health": "",
     "health-sciences": "",
     "dietetics": "",
     "physiotherapy": "",
@@ -394,6 +410,7 @@
     "greece": "",
     "iberians": "",
     "psychology": "",
+    "anatomy": "",
     "human-relations": "",
     "human-response": "",
     "feeling": "",
@@ -440,6 +457,7 @@
     "human-body": "",
     "human-anatomy": "",
     "physiology": "",
+    "human-physiology": "",
     "cardiovascular-system": "",
     "digestive-system": "",
     "excretory-system": "",
@@ -510,6 +528,7 @@
     "bird": "",
     "mammal": "",
     "fish-animal": "",
+    "freshwater-animal": "",
     "reptile": "",
     "animal-reproduction": "",
     "oviparous": "",
@@ -529,7 +548,9 @@
     "equine-assisted-therapy": "",
     "pet": "",
     "animal-behaviour": "",
+    "domestic": "",
     "domestic-animal": "",
+    "wild": "",
     "wild-animal": "",
     "plant": "",
     "plant-anatomy": "",
@@ -630,6 +651,7 @@
     "place": "",
     "monument": "",
     "building": "",
+    "home": "",
     "residential-building": "",
     "room": "",
     "commercial-building": "",

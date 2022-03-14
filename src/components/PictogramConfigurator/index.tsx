@@ -1,59 +1,55 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Link, Paper, Stack, Typography } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import CopyIcon from '@material-ui/icons/FileCopy';
-import BackIcon from '@material-ui/icons/ArrowLeft';
+import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Link, Paper, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import CopyIcon from '@mui/icons-material/FileCopy';
+import BackIcon from '@mui/icons-material/ArrowLeft';
+import AddIcon from '@mui/icons-material/AddToPhotos';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import SaveIcon from '@mui/icons-material/Save';
+import RemoveIcon from '@mui/icons-material/Delete';
+import SuccessIcon from '@mui/icons-material/Check';
+import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 import Konva from 'konva';
-import React, { useRef, useState, useReducer, Reducer } from 'react';
-import { usePictogram } from '../../hooks/network';
+import React, { useRef, useState, useReducer, useEffect } from 'react';
+import { usePictogram, usePictogramUrl } from '../../hooks/network';
+import { useCollection } from '../../hooks/collection';
 import BackgroundOptions from './options/BackgroundOptions';
 import BorderOptions from './options/BorderOptions';
 import ColorizedOptions from './options/ColorizedOptions';
-import IdentifierOptions, { Identifier, IdentifierPosition } from './options/IdentifierOptions';
+import IdentifierOptions, { } from './options/IdentifierOptions';
 import PluralOptions from './options/PluralOptions';
-import TextOptions, { fontFamilies } from './options/TextOptions';
-import VerbalTenseOptions, { Tense } from './options/VerbalTenseOptions';
+import TextOptions from './options/TextOptions';
+import VerbalTenseOptions from './options/VerbalTenseOptions';
 import Pictogram from './Pictogram';
 import LanguageSelection from '../LanguageSelection';
 import CrossOutOptions from './options/CrossOutOptions';
 import DragAndDropOptions from './options/DragAndDropOptions';
 import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, tenseColors, identifierColors } from '../../data/colors';
 import MetaData from './MetaData'
 import { Trans, useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
+import { initialPictogramState, PictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
+import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
+import * as uuid from 'uuid';
+import { dequal } from "dequal/lite";
+import { loadPictogram } from "../../hooks/collection";
+import ResponsiveIconButton from "../ResponsiveIconButton";
 
-
-enum Resolution {
-  low = 500,
-  high = 2500,
-}
-
-const initialTextState = {
-  enabled: false,
-  value: '',
-  style: {
-    uppercase: false,
-    color: '#000000',
-    fontSize: 46,
-    fontFamily: fontFamilies[0],
-  },
-};
+const SUCCESS_TIMEOUT = 2000;
 
 type Props = {
 
 }
 
-type IAction = { type: string, value?: any };
-type IState = typeof initialTextState;
-
 const PictogramConfigurator: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
-  const { id: paramId, language } = useParams<{ id: string, language: string }>();
+  const { id: paramId, language, version } = useParams<{ id: string, language: string, version?: string }>();
+  const history = useHistory();
   const pictogramId = parseInt(paramId, 10);
+  const collection = useCollection();
 
   if (i18n.language !== language) {
     i18n.changeLanguage(language);
@@ -61,93 +57,20 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const stageRef = useRef<Konva.Stage>(null);
   const [autocompleteLanguage, setAutocompleteLanguage] = useState(language);
+  const [changed, setChanged] = useState(false);
+  const [storedState, setStoredState] = useState<PictogramState>();
+  const [addedToCollection, setAddedToCollection] = useState(false);
+  const [copiedToClipboard, setCopiedToClipboard] = useState(false);
+  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
   const pictogram = usePictogram(language, pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
 
-  const [colorized, setColorized] = useState(true);
-  const [skinColor, setSkinColor] = useState(SkinColor.white);
-  const [hairColor, setHairColor] = useState(HairColor.brown);
+  const [state, dispatch] = useReducer(process.env.NODE_ENV === 'development' ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
 
-  const colorizedOptions = {
-    colorized,
-    skin: !!pictogram.data?.skin,
-    skinColor,
-    hairColor,
-    hair: !!pictogram.data?.hair,
-    setColorized,
-    setSkinColor,
-    setHairColor,
-  };
-
-  const [backgroundColor, setBackgroundColor] = useState(backgroundColors[0]);
-
-  const backgroundParams = {
-    backgroundColor,
-    setBackgroundColor,
-  };
-
-  const [borderWidth, setBorderWidth] = useState(0);
-  const [borderColor, setBorderColor] = useState(borderColors[0]);
-
-  const borderParams = {
-    borderColor,
-    borderWidth,
-    setBorderWidth,
-    setBorderColor,
-  };
-
-  const [crossedOut, setCrossedOut] = useState(false);
-  const [resolution, setResolution] = useState(Resolution.low);
-
-  const [plural, setPlural] = useState(false);
-  const [pluralColor, setPluralColor] = useState(pluralColors[0]);
-
-  const pluralParams = { plural, setPlural, pluralColor, setPluralColor };
-
-  const [tense, setTense] = useState(Tense.present);
-  const [tenseColor, setTenseColor] = useState(tenseColors[0]);
-
-  const tenseParams = { tense, setTense, tenseColor, setTenseColor };
-
-  const [identifier, setIdentifier] = useState(Identifier.none);
-  const [identifierPosition, setIdentifierPosition] = useState(IdentifierPosition.right);
-  const [identifierColor, setIdentifierColor] = useState(identifierColors[0]);
-
-  const identifierParams = { identifier, setIdentifier, identifierPosition, setIdentifierPosition, identifierColor, setIdentifierColor };
-
-  const reducer = (state: IState, { type, value }: IAction): IState => {
-    if (type === 'reset') {
-      return initialTextState;
-    }
-
-    return { ...state, [type]: value };
-  };
-  const [textTop, dispatchTextTop] = useReducer<Reducer<IState, IAction>>(reducer, initialTextState);
-  const [textBottom, dispatchTextBottom] = useReducer<Reducer<IState, IAction>>(reducer, initialTextState);
-
-  const [zoom, setZoom] = useState(0);
-  const [dragAndDrop, setDragAndDrop] = useState(false);
-
-  const url = new URL(`https://api.arasaac.org/api/pictograms/${pictogramId}`);
-  url.searchParams.append('download', 'false');
-  url.searchParams.append('color', colorized.toString());
-  url.searchParams.append('resolution', resolution.toString());
-  url.searchParams.append('skin', SkinColor[skinColor]);
-  url.searchParams.append('hair', HairColor[hairColor]);
+  const url = usePictogramUrl(pictogramId, state.options.colorized, state.options.resolution, state.options.skinColor, state.options.hairColor);
 
   const title = pictogram.data?.keywords ? pictogram.data?.keywords[0]?.keyword : '';
-  const pictogramParams = {
-    stageRef,
-    url: url.href,
-    borderColor,
-    borderWidth,
-    backgroundColor,
-    crossedOut,
-    plural, pluralColor, tense, tenseColor, identifier, identifierColor, identifierPosition, zoom, dragAndDrop,
-    textTop: textTop.enabled ? { value: textTop.value, style: textTop.style } : undefined,
-    textBottom: textBottom.enabled ? { value: textBottom.value, style: textBottom.style } : undefined,
-  }
 
   const [expanded, setExpanded] = useState('panel-0');
   const accordionParams = (panel: string) => ({
@@ -157,13 +80,67 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     },
   });
 
+  useEffect(() => {
+    if (!version) {
+      return;
+    }
+
+    const storedState = loadPictogram(paramId, version);
+
+    if (!storedState) {
+      history.push(`/pictogram/${language}/${paramId}`);
+
+      return;
+    }
+
+    setStoredState(storedState);
+
+    dispatch(updateInitialState(storedState));
+  }, [paramId, version, history, language]);
+
+  useEffect(() => {
+    if (storedState && !dequal(state, storedState)) {
+      setChanged(true);
+    }
+  }, [state, storedState]);
+
+  const onStoreNewVersion = async () => {
+    const version = uuid.v4();
+
+    await collection.store(paramId, version, state, title, getDataUrl());
+
+    history.push(`/pictogram/${language}/${paramId}/${version}`);
+
+    setAddedToCollection(true);
+
+    setTimeout(() => setAddedToCollection(false), SUCCESS_TIMEOUT);
+  }
+
+  const onUpdateVersion = () => {
+    if (version) {
+      collection.store(paramId, version, state);
+
+      setChanged(false);
+    }
+  }
+
+  const onDeleteVersion = () => {
+    if (version) {
+      collection.delete(paramId, version);
+
+      setChanged(false);
+
+      history.push(`/pictogram/${language}/${paramId}`);
+    }
+  }
+
   const getDataUrl = () => {
-    const pixelRatio = resolution === Resolution.high
+    const pixelRatio = state.options.resolution === Resolution.high
       ? Math.ceil(Resolution.high / Resolution.low)
       : 1
 
     return stageRef.current?.getStage().toDataURL({ pixelRatio });
-  }
+  };
 
   const onDownload = () => {
     const data = getDataUrl();
@@ -176,37 +153,69 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
       linkElement.setAttribute('download', [pictogramId, ...keywords].join('-') + '.png');
       linkElement.click();
     }
-  }
+  };
 
   const onCopyTopClipboard = () => {
     const data = getDataUrl();
 
     data && Clipboard.copyImage(data);
+
+    setCopiedToClipboard(true);
+
+    setTimeout(() => setCopiedToClipboard(false), SUCCESS_TIMEOUT);
+  };
+
+  const onCopyLicenseToClipboard = () => {
+    Clipboard.copyText(t('config.clipboardLicense'));
+
+    setCopiedLicenseToClipboard(true);
+
+    setTimeout(() => setCopiedLicenseToClipboard(false), SUCCESS_TIMEOUT);
   }
 
   return (
     <Box>
-      <Box mb={3}>
-        <Button component={RouterLink} to="/" variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
-      </Box>
+      <Stack direction="row" mb={3}>
+        <Button onClick={() => history.goBack()} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
+        <Box flexGrow={1}></Box>
+        <Badge badgeContent={collection.size} color="primary">
+          <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
+        </Badge>
+      </Stack>
       <Stack direction={{ xs: 'column', sm: 'column', md: 'row' }}
         spacing={4}>
         <Box sx={{ maxWidth: 500 }}>
           <Paper>
             {title && <Box padding={1}><Typography variant="h5" align="center">{title}</Typography></Box>}
 
-            <Pictogram {...pictogramParams} />
+            <Pictogram {...{ url: url.href, stageRef, dispatch, ...state.customizations }} />
 
             <Stack spacing={1} direction="row" padding={2}>
-              <Button variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} startIcon={<DownloadIcon />}>{t('download')}</Button>
-              {Clipboard.hasSupport() && <Button variant="contained" disabled={!stageRef.current} onClick={() => onCopyTopClipboard()} startIcon={<CopyIcon />} color="secondary">{t('copy')}</Button>}
+              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
+              {Clipboard.hasSupport() && <ResponsiveIconButton
+                variant="contained"
+                disabled={!stageRef.current}
+                onClick={onCopyTopClipboard}
+                startIcon={copiedToClipboard ? <SuccessIcon /> : <CopyIcon />}
+                color={copiedToClipboard ? 'success' : 'secondary'}>{copiedToClipboard ? t('copied') : t('copy')}</ResponsiveIconButton>}
+              <Box flexGrow={1}></Box>
+
+              <IconButton onClick={onStoreNewVersion}>
+                {addedToCollection ? <SuccessIcon color="success" /> : <Badge color="primary" badgeContent={collection.count(pictogramId)}><AddIcon /></Badge>}
+              </IconButton>
+
+              {version && <>
+                <IconButton disabled={!changed} onClick={onUpdateVersion}><SaveIcon /></IconButton>
+                <IconButton onClick={onDeleteVersion}><RemoveIcon /></IconButton>
+              </>}
             </Stack>
           </Paper>
 
-          <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>&copy;{' '}
-            <Trans i18nKey="config.license">Das abgebildete piktographische Symbol ist Eigentum der
-              Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-              das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative-Commons-Lizenz BY-NC-SA 4.0</Link> weitergibt.
+          <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>
+            {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
+
+            <Trans i18nKey="config.license">Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
+              Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
             </Trans>
           </Typography>
 
@@ -219,11 +228,25 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <ColorizedOptions {...colorizedOptions} />
+                <ColorizedOptions {...{
+                  colorized: state.options.colorized,
+                  skin: !!pictogram.data?.skin,
+                  skinColor: state.options.skinColor,
+                  hairColor: state.options.hairColor,
+                  hair: !!pictogram.data?.hair,
+                  dispatch,
+                }} />
 
-                <BackgroundOptions {...backgroundParams} />
+                <BackgroundOptions {...{
+                  backgroundColor: state.customizations.backgroundColor,
+                  dispatch,
+                }} />
 
-                <BorderOptions {...borderParams} />
+                <BorderOptions {...{
+                  borderColor: state.customizations.border.color,
+                  borderWidth: state.customizations.border.width,
+                  dispatch
+                }} />
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -233,13 +256,18 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <CrossOutOptions {...{ crossedOut, setCrossedOut }} />
+                <CrossOutOptions {...{ crossedOut: state.customizations.crossedOut, dispatch }} />
 
-                <PluralOptions {...pluralParams} />
+                <PluralOptions {...{ plural: state.customizations.plural, pluralColor: state.customizations.pluralColor, dispatch }} />
 
-                <VerbalTenseOptions {...tenseParams} />
+                <VerbalTenseOptions {...{ tense: state.customizations.tense, tenseColor: state.customizations.tenseColor, dispatch }} />
 
-                {false && <IdentifierOptions {...identifierParams} />}
+                {false && <IdentifierOptions {...{
+                  identifier: state.customizations.identifier.type,
+                  identifierPosition: state.customizations.identifier.position,
+                  identifierColor: state.customizations.identifier.color,
+                  dispatch
+                }} />}
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -251,9 +279,9 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
               <Stack spacing={2} divider={<Divider flexItem />}>
                 <LanguageSelection selected={autocompleteLanguage} onChange={setAutocompleteLanguage} />
 
-                <TextOptions label={t('config.textTop')} data={{ ...textTop, keywords }} dispatch={dispatchTextTop} />
+                <TextOptions label={t('config.textTop')} {...{ keywords }} state={state.customizations.text.top} onChange={state => dispatch(updateTextTop(state))} />
 
-                <TextOptions label={t('config.textBottom')} data={{ ...textBottom, keywords }} dispatch={dispatchTextBottom} />
+                <TextOptions label={t('config.textBottom')} {...{ keywords }} state={state.customizations.text.bottom} onChange={state => dispatch(updateTextBottom(state))} />
               </Stack>
             </AccordionDetails>
           </Accordion>
@@ -263,11 +291,14 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <ZoomOptions {...{ zoom, setZoom }} />
+                <ZoomOptions {...{ zoom: state.customizations.zoom, dispatch }} />
 
-                <DragAndDropOptions {...{ dragAndDrop, setDragAndDrop }} />
+                <DragAndDropOptions {...{
+                  dragAndDrop: state.customizations.dragAndDrop,
+                  setDragAndDrop: (enabled) => dispatch(enabled ? enableDragAndDrop() : disableDragAndDrop()),
+                }} />
 
-                <ResolutionOptions enabled={resolution === Resolution.high} onChange={enabled => setResolution(enabled ? Resolution.high : Resolution.low)} />
+                <ResolutionOptions enabled={state.options.resolution === Resolution.high} onChange={enabled => dispatch(updateResolution(enabled ? Resolution.high : Resolution.low))} />
               </Stack>
             </AccordionDetails>
           </Accordion>

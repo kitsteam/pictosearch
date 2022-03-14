@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  pictosearch:
+    container_name: pictosearch
+    build:
+      context: .
+    ports:
+      - "8070:80"

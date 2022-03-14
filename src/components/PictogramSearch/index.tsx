@@ -1,16 +1,18 @@
-import { Autocomplete, Box, Button, CircularProgress, Grid, Link, Paper, TextField, Typography } from '@material-ui/core';
+import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, Link, Paper, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import LanguageSelection from '../LanguageSelection';
 import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
-import SearchIcon from '@material-ui/icons/Search';
-import { useHistory, useLocation } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import { useHistory } from 'react-router-dom';
 import logoArasaac from './logo_ARASAAC.png';
 import { Trans, useTranslation } from 'react-i18next';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useCollection } from "../../hooks/collection";
+import Clipboard from "../../utils/Clipboard";
+import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
+import { useQuery } from "../../hooks/location";
 
 type Props = {
 
@@ -21,9 +23,12 @@ const PictogramSearch: React.FC<Props> = () => {
   const [language, setLanguage] = useState(i18n.language.split('-')[0]);
   const keywords = useKeywords(language);
   const newPictograms = useNewPictograms(language);
+  const collection = useCollection();
+  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
   const history = useHistory();
   const queryParams = useQuery();
+  const largeScreen = useMediaQuery<Theme>(theme => theme.breakpoints.up('sm'));
 
   const query = queryParams.get('q') || '';
 
@@ -32,7 +37,6 @@ const PictogramSearch: React.FC<Props> = () => {
 
   const searchFor = useCallback((q: string) => {
     history.push({
-      pathname: '/',
       search: q ? '?' + new URLSearchParams({ q }).toString() : undefined,
     });
   }, [history]);
@@ -54,10 +58,22 @@ const PictogramSearch: React.FC<Props> = () => {
     searchFor(value);
   }, [value, searchFor]);
 
+  const onCopyLicenseToClipboard = () => {
+    Clipboard.copyText(t('search.clipboardLicense'));
+
+    setCopiedLicenseToClipboard(true);
+
+    setTimeout(() => setCopiedLicenseToClipboard(false), 2000);
+  }
+
   return (
     <>
-      <Box display="flex" justifyContent="flex-end" mb={3}>
+      <Box display="flex" mb={3}>
         <LanguageSelection selected={language} onChange={setLanguage} />
+        <Box flexGrow={1}></Box>
+        <Badge badgeContent={collection.size} color="primary">
+          <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
+        </Badge>
       </Box>
       <Paper sx={{ marginTop: 3, marginBottom: 3, padding: 3 }}>
         <form onSubmit={onSubmit}>
@@ -78,7 +94,21 @@ const PictogramSearch: React.FC<Props> = () => {
               />
             </Grid>
             <Grid item>
-              <Button disabled={!value || isLoading} variant="contained" type="submit" startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>{t('search.action')}</Button>
+              {largeScreen ?
+                <Button
+                  disabled={!value || isLoading}
+                  variant="contained"
+                  type="submit"
+                  startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>
+                  {t('search.action')}
+                </Button>
+                :
+                <IconButton
+                  disabled={!value || isLoading}
+                  type="submit">
+                  {isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}
+                </IconButton>
+              }
             </Grid>
           </Grid>
         </form>
@@ -95,17 +125,18 @@ const PictogramSearch: React.FC<Props> = () => {
         </Box>
       </Paper>
 
-      {items && <PictogramGallery items={items} language={language} />}
+      {items && <PictogramGallery {...{ items, language, collection }} />}
 
       <Box m={2}>
         <Link href="http://www.arasaac.org">
           <img src={logoArasaac} alt="Logo ARASSAC" />
         </Link>
-        <Typography variant="body2" sx={{ opacity: 0.6 }}>&copy;{' '}
+        <Typography variant="body2" sx={{ opacity: 0.6 }}>
+          {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
+
           <Trans i18nKey="search.license">
-            Die angezeigten piktographischen Symbole sind Eigentum der
-            Regierung von Aragón und wurden von Sergio Palao für <Link href="http://www.arasaac.org">ARASAAC</Link> erstellt,
-            das sie unter der <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative-Commons-Lizenz BY-NC-SA 4.0</Link> weitergibt.
+            Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
+            Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
           </Trans>
         </Typography>
       </Box>
