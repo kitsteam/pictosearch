@@ -176,7 +176,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   return (
     <Box>
       <Stack direction="row" mb={3}>
-        <Button component={RouterLink} to="/search" variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
+        <Button onClick={() => history.goBack()} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
         <Box flexGrow={1}></Box>
         <Badge badgeContent={collection.size} color="primary">
           <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
