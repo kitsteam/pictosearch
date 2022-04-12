@@ -1,5 +1,5 @@
-import { Box, FormControl, Grid, InputLabel, MenuItem, Pagination, Select, Theme, useMediaQuery } from '@mui/material';
-import React from 'react';
+import { Box, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Pagination, Select, Switch, Theme, useMediaQuery } from '@mui/material';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { Collection } from "../../hooks/collection";
 import { useQuery } from "../../hooks/location";
@@ -14,6 +14,7 @@ type Props = {
 }
 
 const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
+    const [previewOnly, setPreviewOnly] = useState(false);
     const history = useHistory();
     const queryParams = useQuery();
     const itemsPerPage = parseInt(queryParams.get('itemsPerPage') || '', 10) || itemsPerPageSelection[0];
@@ -61,20 +62,27 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
             </Box>}
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
-                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} />
+                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} />
                 </Grid>)}
             </Grid>
             {numberOfPages > 1 && <Box mt={3} mb={3} display="flex" justifyContent="center">
                 <Pagination count={numberOfPages} page={page} siblingCount={1} boundaryCount={largeScreen ? 1 : 0} onChange={(ev, page) => { page && changeQuery('page', page) }} />
             </Box>}
-            {items.length > itemsPerPageSelection[0] && <Box display="flex" justifyContent="flex-end" sx={{ marginTop: { xs: 0, sm: -3 } }}>
-                <FormControl size="small" sx={{ minWidth: '80px' }}>
-                    <InputLabel id="per-page-label">Pro Seite</InputLabel>
-                    <Select labelId="per-page-label" value={itemsPerPage} onChange={ev => changeItemsPerPage(ev.target.value)} label="Pro Seite">
-                        {itemsPerPageSelection.map(count => <MenuItem key={count} value={count}>{count}</MenuItem>)}
-                    </Select>
-                </FormControl>
-            </Box>}
+            <Box display="flex" justifyContent="space-between" sx={{ marginTop: { xs: 0, sm: -3 } }}>
+                <Box>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="Nur Vorschau, ohne Editor." />
+                    </FormGroup>
+                </Box>
+                {items.length > itemsPerPageSelection[0] &&
+                    <FormControl size="small" sx={{ minWidth: '80px' }}>
+                        <InputLabel id="per-page-label">Pro Seite</InputLabel>
+                        <Select labelId="per-page-label" value={itemsPerPage} onChange={ev => changeItemsPerPage(ev.target.value)} label="Pro Seite">
+                            {itemsPerPageSelection.map(count => <MenuItem key={count} value={count}>{count}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                }
+            </Box>
         </Box>
     )
 }
