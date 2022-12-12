@@ -17,7 +17,7 @@ ENV REACT_APP_API_IMAGES /arasaac/images
 
 RUN yarn build:app
 
-FROM nginx:stable-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
