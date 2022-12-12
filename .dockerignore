@@ -10,5 +10,12 @@
 /build
 /js
 
+# Unnecessary docker-related files
 .dockerignore
+docker-compose*.yml
 Dockerfile
+
+# Unnecessary files for Docker image
+docs
+LICENSE
+README.md
