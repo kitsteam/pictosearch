@@ -7,3 +7,4 @@ services:
       context: .
     ports:
       - "8070:80"
+    restart: always
