@@ -6,5 +6,5 @@ services:
     build:
       context: .
     ports:
-      - "8070:80"
+      - "8070:8080"
     restart: always
