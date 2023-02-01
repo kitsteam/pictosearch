@@ -25,6 +25,7 @@ const TryItButton: React.FC<Props> = () => {
                 margin: 'auto',
             }}
             component={Link}
+            className="test"
             to="/search">Try it!</Box>
     )
 }

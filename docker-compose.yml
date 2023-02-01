@@ -3,8 +3,13 @@ version: "3"
 services:
   pictosearch:
     container_name: pictosearch
+    tty: true
+    stdin_open: true
     build:
       context: .
+      target: development
     ports:
-      - "8070:8080"
+      - "8070:3000"
+    volumes:
+      - .:/app
     restart: always

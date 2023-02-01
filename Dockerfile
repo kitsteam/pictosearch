@@ -8,6 +8,11 @@ COPY yarn.lock ./
 
 RUN yarn install --frozen-lockfile
 
+FROM install AS development
+ENV INLINE_RUNTIME_CHUNK=false
+ENV REACT_APP_API /arasaac/api
+ENV REACT_APP_API_IMAGES /arasaac/images
+
 FROM install AS build
 COPY . ./
 
