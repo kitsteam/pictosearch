@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import React from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import Footer from "./components/Layout/Footer";
@@ -11,6 +11,7 @@ const AppLayoutSwitch: React.FC = () => {
   const location = useLocation();
   
   return (
+      <Container fixed>
         <Grid
           container
           spacing={0}
@@ -38,6 +39,7 @@ const AppLayoutSwitch: React.FC = () => {
             <Footer />
           </Grid>
         </Grid>
+      </Container>
   )
 }
 
