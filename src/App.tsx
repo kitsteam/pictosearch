@@ -31,12 +31,15 @@ const App: React.FC = () => {
         <>
           <Switch>
             <Route exact path="/">
-             <Start />
+              <Start />
             </Route>
             <Route exact path="/search">
               <AppLayoutSwitch />
             </Route>
             <Route exact path="/collection">
+              <AppLayoutSwitch />
+            </Route>
+            <Route exact strict path="/pictogram/:language([a-z]{2})/:id(\d+)/:version([\-a-z0-9]+)?">
               <AppLayoutSwitch />
             </Route>
           </Switch>
