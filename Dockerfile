@@ -22,7 +22,7 @@ ENV REACT_APP_API_IMAGES /arasaac/images
 
 RUN yarn build:app
 
-FROM nginxinc/nginx-unprivileged:stable-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine AS production
 COPY --from=build /app/build /usr/share/nginx/html
 COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 

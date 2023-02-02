@@ -7,9 +7,12 @@ services:
     stdin_open: true
     build:
       context: .
-      target: development
+      # possible to use development here instead
+      target: production
     ports:
-      - "8070:3000"
-    volumes:
-      - .:/app
+      # development port is usually 3000
+      - "8070:8080"
+    # for development, uncomment this to map most recent files to the container
+    # volumes:
+    #   - .:/app
     restart: always

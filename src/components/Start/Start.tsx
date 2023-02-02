@@ -55,7 +55,7 @@ const Start: React.FC = () => {
             <a href="/#/search">
               <Button variant="contained" className="kits-primary-button">Loslegen</Button>
             </a>
-            <div style={{marginTop: '10px'}}>
+            <div className="mt-10">
               <small className="muted">
                 Dieses Tool darf nur in Bildungskontexten genutzt werden. Die Eingabe personenbezogener Daten ist nicht gestattet.
               </small>
