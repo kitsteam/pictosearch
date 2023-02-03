@@ -49,8 +49,8 @@ a {
 }
 
 .kits-content-right {
-  min-height: 100vh;
   position: relative;
+  min-height: 100vh;
 }
 
 .kits-footer-wrapper-left {

@@ -7,6 +7,7 @@ const theme = createTheme({
         secondary,
     },
     typography: {
+        fontFamily: "FiraSans",
         htmlFontSize: parseInt(window.getComputedStyle(document.documentElement).fontSize, 10),
     },
     components: {

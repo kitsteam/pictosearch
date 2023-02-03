@@ -1,9 +1,22 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 
 const Start: React.FC = () => {
+  const [windowInnerHeight, setWindowInnerHeight] = React.useState(window.innerHeight);
+
+  const handleResize = () => {
+    setWindowInnerHeight(window.innerHeight);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize, false);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   return (
     <div>
       <Grid container spacing={0} direction="row" alignItems="center">
@@ -13,6 +26,7 @@ const Start: React.FC = () => {
           md={6}
           display={{ xs: "none", md: "flex" }}
           className="kits-content-left gradient"
+          style={{minHeight: `${windowInnerHeight}px`}}
         >
           <img src="/assets/pictosearch-logo-white.svg" alt="Pictosearch Logo" />
           <div className="kits-footer-wrapper-left">
@@ -35,6 +49,7 @@ const Start: React.FC = () => {
           xs={12}
           md={6}
           className="kits-content-right"
+          style={{minHeight: `${windowInnerHeight}px`}}
         >
           <div className="header">
             <a href="https://kits.blog/tools/"
@@ -57,7 +72,7 @@ const Start: React.FC = () => {
             </a>
             <div className="mt-10">
               <small className="muted">
-                Dieses Tool darf nur in Bildungskontexten genutzt werden. Die Eingabe personenbezogener Daten ist nicht gestattet.
+                Dieses Tool darf nur in Bildungskontexten genutzt werden. Eine Lizenzangabe ist bei Nutzung der Piktogramme zwingend erforderlich.
               </small>
             </div>
           </div>
