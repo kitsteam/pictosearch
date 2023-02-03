@@ -28,10 +28,11 @@
 
 .container {
   padding: 12px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 90%;
-  margin-top: 70px;
-  margin-bottom: 112px; /* distance for max footer size, to make sure it is not overlapping content */
+  margin-top: 20px;
+  margin-bottom: 50px; /* distance for max footer size, to make sure it is not overlapping content */
 }
 
 a {
@@ -43,15 +44,22 @@ a {
 }
 
 .kits-content-left {
-  min-height: 100vh;
   display: flex; 
   position: relative;
+  align-items: center;
   justify-content: center;
+}
+
+.kits-content-left img {
+  width: 40%;
+  height: 40%;
 }
 
 .kits-content-right {
   position: relative;
-  min-height: 100vh;
+  overflow: scroll;
+  display: flex;
+  align-items: center;
 }
 
 .kits-footer-wrapper-left {
@@ -90,6 +98,12 @@ h1 {
   bottom: 0;
   width: 100%;
   z-index: 100;
+}
+
+@media screen and (max-width: 899px) {
+  .kits-content-right {
+    align-items: flex-start !important;
+  }
 }
 
 @media screen and (max-width: 574px), screen and (max-height: 500px) {

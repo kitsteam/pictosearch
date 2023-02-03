@@ -42,7 +42,7 @@ const Start: React.FC = () => {
           md={6}
           display={{ xs: "none", md: "flex" }}
           className="kits-content-left gradient"
-          style={{minHeight: `${windowInnerHeight}px`}}
+          style={{height: `${windowInnerHeight}px`}}
         >
           <img src="/assets/pictosearch-logo-white.svg" alt="Pictosearch Logo" />
           <div className="kits-footer-wrapper-left">
@@ -65,7 +65,7 @@ const Start: React.FC = () => {
           xs={12}
           md={6}
           className="kits-content-right"
-          style={{minHeight: `${windowInnerHeight}px`}}
+          style={{height: `${windowInnerHeight}px`}}
         >
           <div className="header">
             <a href="https://kits.blog/tools/"
@@ -77,9 +77,9 @@ const Start: React.FC = () => {
             <a href="/"><h1 className="fw-bold">Pictosearch</h1></a>
 
             <ul className="list-border kits-list">
-              <li>Erstelle Mindmaps gemeinsam mit anderen!</li>
-              <li>Gestalte deine Mindmap mit Farben!</li>
-              <li>Ergänze Bilder!</li>
+              <li>Nutze über 10.000 Piktogramme!</li>
+              <li>Passe deine Piktogramme an!</li>
+              <li>Erstelle deine eigene Sammlung!</li>
             </ul>
             
             <form onSubmit={onSubmit}>
