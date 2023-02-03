@@ -44,7 +44,7 @@ const Start: React.FC = () => {
           className="kits-content-left gradient"
           style={{height: `${windowInnerHeight}px`}}
         >
-          <img src="/assets/pictosearch-logo-white.svg" alt="Pictosearch Logo" />
+          <img src="/assets/pictosearch-logo-white.svg" alt="PictoSearch Logo" />
           <div className="kits-footer-wrapper-left">
             <div className="kits-footer-text kits-footer-text-left">
 
@@ -74,7 +74,7 @@ const Start: React.FC = () => {
           </div>
           <div className="container">
 
-            <a href="/"><h1 className="fw-bold">Pictosearch</h1></a>
+            <a href="/"><h1 className="fw-bold">PictoSearch</h1></a>
 
             <ul className="list-border kits-list">
               <li>Nutze über 10.000 Piktogramme!</li>
@@ -128,7 +128,7 @@ const Start: React.FC = () => {
         >
           <div className="gradient kits-footer-container">
             <div className="kits-footer-logo">
-              <img src="/assets/pictosearch-logo-white.svg" alt="Pictosearch Logo" />
+              <img src="/assets/pictosearch-logo-white.svg" alt="PictoSearch Logo" />
             </div>
             <div className="kits-footer-text kits-footer-text-right">
               <a className="padding-8 font-white" href="https://github.com/kitsteam/pictosearch"
