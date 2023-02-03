@@ -101,6 +101,7 @@ const Start: React.FC = () => {
                 <Grid item>
                     <Button
                       variant="contained"
+                      className="kits-primary-button"
                       type="submit"
                       startIcon={<SearchIcon />}>
                       {t('search.action')}
