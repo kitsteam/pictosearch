@@ -1,10 +1,17 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Start: React.FC = () => {
   const [windowInnerHeight, setWindowInnerHeight] = React.useState(window.innerHeight);
+  const history = useHistory();
+  const { t } = useTranslation();
 
   const handleResize = () => {
     setWindowInnerHeight(window.innerHeight);
@@ -16,6 +23,15 @@ const Start: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     }
   }, []);
+
+  const [value, setValue] = useState('');
+
+  const onSubmit = useCallback((ev: React.FormEvent) => {
+    ev.preventDefault();
+
+    const query = value ? '?' + new URLSearchParams({ q: value }).toString() : undefined
+    value ? history.push({ pathname: '/search', search: query }) : history.push({ search: query });
+  }, [value, history]);
 
   return (
     <div>
@@ -65,11 +81,35 @@ const Start: React.FC = () => {
               <li>Gestalte deine Mindmap mit Farben!</li>
               <li>Ergänze Bilder!</li>
             </ul>
-            <br />
+            
+            <form onSubmit={onSubmit}>
+              <Grid container alignItems="center" spacing={1} mb={3}>
+                <Grid item flexGrow={1}>
+                  <Autocomplete
+                    size="small"
+                    freeSolo
+                    value={value}
+                    options={[]}
+                    onChange={(ev, newValue) => { setValue(newValue || '')}}
+                    onInputChange={(ev, newValue) => setValue(newValue)}
+                    noOptionsText=""
+                    renderInput={(params) => <TextField
+                      {...params}
+                      label={t('search.term')} />}
+                  />
+                </Grid>
+                <Grid item>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      startIcon={<SearchIcon />}>
+                      {t('search.action')}
+                    </Button>
+                </Grid>
+              </Grid>
+          </form>
 
-            <a href="/#/search">
-              <Button variant="contained" className="kits-primary-button">Loslegen</Button>
-            </a>
+
             <div className="mt-10">
               <small className="muted">
                 Dieses Tool darf nur in Bildungskontexten genutzt werden. Eine Lizenzangabe ist bei Nutzung der Piktogramme zwingend erforderlich.
@@ -77,7 +117,8 @@ const Start: React.FC = () => {
             </div>
           </div>
         </Box>
-        <Box
+      </Grid>
+      <Box
           component={Grid}
           item
           xs={12}
@@ -99,7 +140,6 @@ const Start: React.FC = () => {
             </div>
           </div>
         </Box>
-      </Grid>
     </div>
     )
 }

@@ -30,7 +30,8 @@
   padding: 12px;
   margin: auto;
   width: 90%;
-  margin-top: 90px;
+  margin-top: 70px;
+  margin-bottom: 112px; /* distance for max footer size, to make sure it is not overlapping content */
 }
 
 a {
@@ -85,12 +86,13 @@ h1 {
 .kits-mobile-footer-wrapper {
   height: 112px !important;
   padding: 0 !important;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 100;
 }
 
-@media screen and (max-width: 574px) {
+@media screen and (max-width: 574px), screen and (max-height: 500px) {
   .kits-mobile-footer-wrapper {
     height: 55px !important;
     padding: 0 !important;

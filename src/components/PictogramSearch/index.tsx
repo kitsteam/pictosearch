@@ -15,10 +15,10 @@ import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 import { useQuery } from "../../hooks/location";
 
 type Props = {
-
+  urlPrefix?: string
 }
 
-const PictogramSearch: React.FC<Props> = () => {
+const PictogramSearch: React.FC<Props> = ({ urlPrefix }) => {
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState(i18n.language.split('-')[0]);
   const keywords = useKeywords(language);
@@ -36,10 +36,9 @@ const PictogramSearch: React.FC<Props> = () => {
   const result = useSearch(language, query);
 
   const searchFor = useCallback((q: string) => {
-    history.push({
-      search: q ? '?' + new URLSearchParams({ q }).toString() : undefined,
-    });
-  }, [history]);
+    const query = q ? '?' + new URLSearchParams({ q }).toString() : undefined
+    urlPrefix ? history.push({ pathname: urlPrefix, search: query }) : history.push({ search: query });
+  }, [history, urlPrefix]);
 
   const pictograms = query ? result.data : newPictograms.data;
   const items = pictograms ?
