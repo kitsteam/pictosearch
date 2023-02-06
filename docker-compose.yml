@@ -8,11 +8,11 @@ services:
     build:
       context: .
       # possible to use development here instead
-      target: production
+      target: development
     ports:
       # development port is usually 3000
-      - "8070:8080"
+      - "8070:3000"
     # for development, uncomment this to map most recent files to the container
-    # volumes:
-    #   - .:/app
+    volumes:
+      - .:/app
     restart: always

@@ -4,11 +4,18 @@ import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
     return (
-        <Box textAlign='left' sx={{ maxWidth: 'auto', paddingBottom: 5 }}>
+        <>
+          <Box textAlign='left' className="app-header-left">
             <Link to="/" style={{ display: 'inline-block' }}>
-                <img src={`${process.env.PUBLIC_URL}/assets/pictosearch-logo.svg`} width="280" alt="Logo PictoSearch" />
+                <h1 className="header-kits-h">PictoSearch</h1>
             </Link>
-        </Box>
+          </Box>
+          <Box textAlign='right' className="app-header-right">
+            <Link to="/" style={{ display: 'inline-block' }}>
+              <img src="/assets/kits-logo.svg" alt="PictoSearch Logo" />
+            </Link>
+          </Box>
+        </>
     )
 }
 

@@ -21,7 +21,7 @@ const AppLayoutSwitch: React.FC = () => {
           py="3vh"
           style={{ minHeight: '100vh' }}
         >
-          <Grid item sx={{ width: location.pathname === '/' ? 'auto' : { xs: 'auto', sm: '100%' } }}>
+          <Grid item className="app-header-wrapper" sx={{ width: location.pathname === '/' ? 'auto' : { xs: '100%', sm: '100%' } }}>
             <Header />
           </Grid>
           <Grid item sx={{ width: '100%' }}>

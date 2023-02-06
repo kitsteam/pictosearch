@@ -1,4 +1,4 @@
-import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, Link, Paper, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, Link, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import LanguageSelection from '../LanguageSelection';
@@ -75,7 +75,7 @@ const PictogramSearch: React.FC<Props> = () => {
           <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
         </Badge>
       </Box>
-      <Paper sx={{ marginTop: 3, marginBottom: 3, padding: 3 }}>
+      <>
         <form onSubmit={onSubmit}>
           <Grid container alignItems="center" spacing={1} mb={3}>
             <Grid item flexGrow={1}>
@@ -123,7 +123,7 @@ const PictogramSearch: React.FC<Props> = () => {
               </>
             )}
         </Box>
-      </Paper>
+      </>
 
       {items && <PictogramGallery {...{ items, language, collection }} />}
 

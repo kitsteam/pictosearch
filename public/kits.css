@@ -7,6 +7,7 @@
   --danger: #ff5555;
   --warning: #ffaa00;
   --info: #55ffff;
+  --border: #DBDBDB;
 }
 
 @font-face {
@@ -84,6 +85,12 @@ a {
 h1 {
   font-size: 2.5em;
   margin-bottom: 0.3em;
+  color: var(--primary);
+}
+
+h1.header-kits-h {
+  font-size: 1.5em;
+  font-weight: 500;
 }
 
 .center {
@@ -195,7 +202,7 @@ h1 {
 }
 
 .list-border {
-  border-left: 3px solid var(--secondary);;
+  border-left: 3px solid var(--secondary);
   padding: 0;
 }
 
@@ -212,4 +219,33 @@ h1 {
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.app-header-wrapper {
+  display: flex; 
+  margin-bottom: 25px !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-header-left {
+  width: 50%;
+}
+
+.app-header-right {
+  width: 50%;
+  text-align: right;
+}
+
+.app-header-right img {
+  width: 80px;
+  height: 42px;
+}
+
+.app-footer {
+  background: '#ffffff';
+  margin: 80px auto 30px auto;
+  text-align: 'center';
+  border-top: 1px solid var(--border);
+  width: 100%;
+  margin-top: 20px;
 }
