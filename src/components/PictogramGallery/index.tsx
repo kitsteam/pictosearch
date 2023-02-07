@@ -57,6 +57,11 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
 
     return (
         <Box paddingTop={3} paddingBottom={3}>
+            <Box>
+                <FormGroup>
+                    <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="Nur Vorschau, ohne Editor." />
+                </FormGroup>
+            </Box>
             {numberOfPages > 1 && <Box display="flex" justifyContent="center">
                 <Pagination count={numberOfPages} page={page} siblingCount={1} boundaryCount={largeScreen ? 1 : 0} onChange={(ev, page) => { page && changeQuery('page', page) }} />
             </Box>}
@@ -69,11 +74,6 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
                 <Pagination count={numberOfPages} page={page} siblingCount={1} boundaryCount={largeScreen ? 1 : 0} onChange={(ev, page) => { page && changeQuery('page', page) }} />
             </Box>}
             <Box display="flex" justifyContent="space-between" sx={{ marginTop: { xs: 0, sm: -3 } }}>
-                <Box>
-                    <FormGroup>
-                        <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="Nur Vorschau, ohne Editor." />
-                    </FormGroup>
-                </Box>
                 {items.length > itemsPerPageSelection[0] &&
                     <FormControl size="small" sx={{ minWidth: '80px' }}>
                         <InputLabel id="per-page-label">Pro Seite</InputLabel>

@@ -191,9 +191,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             <Pictogram {...{ url: url.href, stageRef, dispatch, ...state.customizations }} />
 
             <Stack spacing={1} direction="row" padding={2}>
-              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
+              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" className="kits-primary-button" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
               {Clipboard.hasSupport() && <ResponsiveIconButton
                 variant="contained"
+                className="kits-primary-button"
                 disabled={!stageRef.current}
                 onClick={onCopyTopClipboard}
                 startIcon={copiedToClipboard ? <SuccessIcon /> : <CopyIcon />}

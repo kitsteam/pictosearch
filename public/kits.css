@@ -241,11 +241,12 @@ h1.header-kits-h {
   height: 42px;
 }
 
-.app-footer {
+.app-footer-wrapper {
   background: '#ffffff';
   margin: 80px auto 30px auto;
   text-align: 'center';
   border-top: 1px solid var(--border);
   width: 100%;
-  margin-top: 20px;
+  margin-top: 25px;
+  padding-top: 25px
 }

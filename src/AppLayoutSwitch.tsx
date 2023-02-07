@@ -35,7 +35,7 @@ const AppLayoutSwitch: React.FC = () => {
               <Route exact strict path="/pictogram/:language([a-z]{2})/:id(\d+)/:version([\-a-z0-9]+)?" component={PictogramConfigurator} />
             </Switch>
           </Grid>
-          <Grid item>
+          <Grid item className="app-footer-wrapper">
             <Footer />
           </Grid>
         </Grid>
