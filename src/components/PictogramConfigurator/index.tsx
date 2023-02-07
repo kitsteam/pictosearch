@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Link, Paper, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Paper, Stack, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
@@ -8,7 +8,6 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import SaveIcon from '@mui/icons-material/Save';
 import RemoveIcon from '@mui/icons-material/Delete';
 import SuccessIcon from '@mui/icons-material/Check';
-import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, useEffect } from 'react';
 import { usePictogram, usePictogramUrl } from '../../hooks/network';
@@ -29,7 +28,7 @@ import ZoomOptions from './options/ZoomOptions';
 import { useHistory, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import MetaData from './MetaData'
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
 import { initialPictogramState, PictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
 import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
@@ -61,7 +60,6 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const [storedState, setStoredState] = useState<PictogramState>();
   const [addedToCollection, setAddedToCollection] = useState(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
-  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
   const pictogram = usePictogram(language, pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
@@ -164,14 +162,6 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
     setTimeout(() => setCopiedToClipboard(false), SUCCESS_TIMEOUT);
   };
-
-  const onCopyLicenseToClipboard = () => {
-    Clipboard.copyText(t('config.clipboardLicense'));
-
-    setCopiedLicenseToClipboard(true);
-
-    setTimeout(() => setCopiedLicenseToClipboard(false), SUCCESS_TIMEOUT);
-  }
 
   return (
     <Box sx={{ marginBottom: '10px' }}>

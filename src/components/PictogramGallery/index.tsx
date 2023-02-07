@@ -1,5 +1,5 @@
-import { Box, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Pagination, Select, Switch, Theme, useMediaQuery } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import { Box, FormControlLabel, FormGroup, Grid, Switch } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { Collection } from "../../hooks/collection";
 import { useQuery } from "../../hooks/location";
@@ -21,18 +21,18 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
     const page = parseInt(queryParams.get('page') || '', 10) || 1;
 
     const pageItems = items.slice((page - 1) * itemsPerPage, ((page - 1) * itemsPerPage) + itemsPerPage);
-
-    const onScroll = () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-
-      if (scrollTop + clientHeight >= scrollHeight) {
-        changeItemsPerPage(itemsPerPage + 12);
-      }
-    }
     
     useEffect(() => {
+      const onScroll = () => {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight) {
+            changeItemsPerPage(itemsPerPage + 12);
+        }
+      }
+
       window.addEventListener('scroll', onScroll)
       return () => window.removeEventListener('scroll', onScroll)
     }, [items])
