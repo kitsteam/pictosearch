@@ -11,9 +11,9 @@ const Header: React.FC = () => {
             </Link>
           </Box>
           <Box textAlign='right' className="app-header-right">
-            <Link to="/" style={{ display: 'inline-block' }}>
+            <a href="https://kits.blog/tools" style={{ display: 'inline-block' }}>
               <img src="/assets/kits-logo.svg" alt="PictoSearch Logo" />
-            </Link>
+            </a>
           </Box>
         </>
     )
