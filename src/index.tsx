@@ -6,7 +6,7 @@ import { ThemeProvider } from '@mui/material';
 import theme from './theme';
 import { I18nextProvider } from "react-i18next";
 import './locales';
-import i18next from 'i18next';
+import i18next from './i18n';
 import { HashRouter } from "react-router-dom";
 
 ReactDOM.render(
