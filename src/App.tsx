@@ -17,7 +17,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/search" element={<PictogramSearch />} />
             <Route path="/collection" element={<PictogramCollection />} />
-            <Route path="/pictogram/:language([a-z]{2})/:id(\d+)/:version([\-a-z0-9]+)?" element={<PictogramConfigurator />} />
+            <Route path="/pictogram/:language/:id/:version?" element={<PictogramConfigurator />} />
             <Route
               path="*"
               element={<Navigate to="/search" replace />}
