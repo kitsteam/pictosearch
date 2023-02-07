@@ -25,7 +25,7 @@ import CrossOutOptions from './options/CrossOutOptions';
 import DragAndDropOptions from './options/DragAndDropOptions';
 import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import MetaData from './MetaData'
 import { useTranslation } from 'react-i18next';
@@ -46,8 +46,8 @@ type Props = {
 const PictogramConfigurator: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
   const { id: paramId, language, version } = useParams<{ id: string, language: string, version?: string }>();
-  const history = useHistory();
-  const pictogramId = parseInt(paramId, 10);
+  const navigate = useNavigate();
+  const pictogramId = parseInt(paramId ?? '', 10);
   const collection = useCollection();
 
   if (i18n.language !== language) {
@@ -61,7 +61,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const [addedToCollection, setAddedToCollection] = useState(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
-  const pictogram = usePictogram(language, pictogramId);
+  const pictogram = usePictogram(language ?? 'en', pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
 
   const [state, dispatch] = useReducer(process.env.NODE_ENV === 'development' ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
@@ -83,10 +83,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
       return;
     }
 
-    const storedState = loadPictogram(paramId, version);
+    const storedState = loadPictogram(paramId ?? '', version);
 
     if (!storedState) {
-      history.push(`/pictogram/${language}/${paramId}`);
+      navigate(`/pictogram/${language}/${paramId}`);
 
       return;
     }
@@ -94,7 +94,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     setStoredState(storedState);
 
     dispatch(updateInitialState(storedState));
-  }, [paramId, version, history, language]);
+  }, [paramId, version, navigate, language]);
 
   useEffect(() => {
     if (storedState && !dequal(state, storedState)) {
@@ -105,9 +105,9 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const onStoreNewVersion = async () => {
     const version = uuid.v4();
 
-    await collection.store(paramId, version, state, title, getDataUrl());
+    await collection.store(paramId ?? '', version, state, title, getDataUrl());
 
-    history.push(`/pictogram/${language}/${paramId}/${version}`);
+    navigate(`/pictogram/${language}/${paramId}/${version}`);
 
     setAddedToCollection(true);
 
@@ -116,7 +116,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const onUpdateVersion = () => {
     if (version) {
-      collection.store(paramId, version, state);
+      collection.store(paramId ?? '', version, state);
 
       setChanged(false);
     }
@@ -124,11 +124,11 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const onDeleteVersion = () => {
     if (version) {
-      collection.delete(paramId, version);
+      collection.delete(paramId ?? '', version);
 
       setChanged(false);
 
-      history.push(`/pictogram/${language}/${paramId}`);
+      navigate(`/pictogram/${language}/${paramId}`);
     }
   }
 
@@ -166,7 +166,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   return (
     <Box sx={{ marginBottom: '10px' }}>
       <Stack direction="row" mb={3}>
-        <Button onClick={() => history.goBack()} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
+        <Button onClick={() => navigate(-1)} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
         <Box flexGrow={1}></Box>
         <Badge badgeContent={collection.size} color="primary">
           <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
@@ -260,7 +260,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <LanguageSelection selected={autocompleteLanguage} onChange={setAutocompleteLanguage} />
+                <LanguageSelection selected={autocompleteLanguage ?? 'en'} onChange={setAutocompleteLanguage} />
 
                 <TextOptions label={t('config.textTop')} {...{ keywords }} state={state.customizations.text.top} onChange={state => dispatch(updateTextTop(state))} />
 

@@ -6,7 +6,7 @@ import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@mui/icons-material/Search';
 import CollectionsIcon from '@mui/icons-material/Collections';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useCollection } from "../../hooks/collection";
 import { useQuery } from "../../hooks/location";
@@ -17,8 +17,8 @@ const PictogramSearch: React.FC = () => {
   const keywords = useKeywords(language);
   const newPictograms = useNewPictograms(language);
   const collection = useCollection();
+  const navigate = useNavigate();
 
-  const history = useHistory();
   const queryParams = useQuery();
   const largeScreen = useMediaQuery<Theme>(theme => theme.breakpoints.up('sm'));
 
@@ -28,10 +28,10 @@ const PictogramSearch: React.FC = () => {
   const result = useSearch(language, query);
 
   const searchFor = useCallback((q: string) => {
-    history.push({
+    navigate({
       search: q ? '?' + new URLSearchParams({ q }).toString() : undefined,
     });
-  }, [history]);
+  }, [navigate]);
 
   const pictograms = query ? result.data : newPictograms.data;
   const items = pictograms ?

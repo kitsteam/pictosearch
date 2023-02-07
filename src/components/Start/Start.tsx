@@ -5,12 +5,12 @@ import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 const Start: React.FC = () => {
   const [windowInnerHeight, setWindowInnerHeight] = React.useState(window.innerHeight);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleResize = () => {
@@ -30,8 +30,8 @@ const Start: React.FC = () => {
     ev.preventDefault();
 
     const query = value ? '?' + new URLSearchParams({ q: value }).toString() : undefined
-    value ? history.push({ pathname: '/search', search: query }) : history.push({ search: query });
-  }, [value, history]);
+    value ? navigate({ pathname: '/search', search: query }) : navigate({ search: query });
+  }, [value, navigate]);
 
   return (
     <div>

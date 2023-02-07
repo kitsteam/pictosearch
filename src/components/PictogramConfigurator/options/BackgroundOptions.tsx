@@ -1,8 +1,8 @@
 import { Box, Typography, Stack, FormLabel } from '@mui/material';
 import React from 'react';
+import { CirclePicker } from 'react-color';
 import { useTranslation } from 'react-i18next';
 import { backgroundColors } from '../../../data/colors';
-import ColorSelection from '../ColorSelection';
 import { Action, updateBackground } from "../state/actions";
 
 type Props = {
@@ -23,7 +23,7 @@ const BackgroundOptions: React.FC<Props> = ({ backgroundColor, dispatch }) => {
         <Box>
           <FormLabel>{t('config.backgroundColor')}</FormLabel>
           <Box sx={{ maxWidth: 550, marginTop: 1 }}>
-            <ColorSelection colors={backgroundColors} color={backgroundColor} onChangeComplete={color => setBackgroundColor(color.hex.toLowerCase())} />
+            <CirclePicker colors={backgroundColors} color={backgroundColor} onChangeComplete={color => setBackgroundColor(color.hex.toLowerCase())} />
           </Box>
         </Box>
       </Stack>
