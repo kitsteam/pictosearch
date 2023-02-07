@@ -59,7 +59,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
         <Box paddingTop={3} paddingBottom={3}>
             <Box>
                 <FormGroup>
-                    <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="Nur Vorschau, ohne Editor." />
+                    <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="TeamMapper Drag'n'Drop" />
                 </FormGroup>
             </Box>
             {numberOfPages > 1 && <Box display="flex" justifyContent="center">
