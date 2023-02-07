@@ -174,7 +174,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   }
 
   return (
-    <Box>
+    <Box sx={{ marginBottom: '10px' }}>
       <Stack direction="row" mb={3}>
         <Button onClick={() => history.goBack()} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
         <Box flexGrow={1}></Box>
@@ -191,9 +191,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             <Pictogram {...{ url: url.href, stageRef, dispatch, ...state.customizations }} />
 
             <Stack spacing={1} direction="row" padding={2}>
-              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
+              <ResponsiveIconButton variant="contained" disabled={!stageRef.current} onClick={() => onDownload()} color="primary" className="kits-primary-button" startIcon={<DownloadIcon />}>{t('download')}</ResponsiveIconButton>
               {Clipboard.hasSupport() && <ResponsiveIconButton
                 variant="contained"
+                className="kits-primary-button"
                 disabled={!stageRef.current}
                 onClick={onCopyTopClipboard}
                 startIcon={copiedToClipboard ? <SuccessIcon /> : <CopyIcon />}
@@ -210,14 +211,6 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
               </>}
             </Stack>
           </Paper>
-
-          <Typography m={2} variant="body2" sx={{ opacity: 0.6 }}>
-            {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
-
-            <Trans i18nKey="config.license">Sergio Palao (Urheber), ARASAAC (<Link href="http://www.arasaac.org">arasaac.org</Link>),
-              Regierung von Aragón in Spanien (Eigentümer), <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>.
-            </Trans>
-          </Typography>
 
           {pictogram.data && <Box sx={{ display: { xs: 'none', md: 'block' } }}><MetaData data={pictogram.data} /></Box>}
         </Box>

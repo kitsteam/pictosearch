@@ -1,21 +1,21 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from 'react';
 import { Link } from "react-router-dom";
 
-type Props = {
-    size: 'small' | 'normal',
-}
-
-const Header: React.FC<Props> = ({ size }) => {
+const Header: React.FC = () => {
     return (
-        <Box textAlign={size === 'normal' ? 'center' : 'left'} sx={{ maxWidth: size === 'normal' ? '500px' : 'auto', paddingBottom: 5 }}>
+        <>
+          <Box textAlign='left' className="app-header-left">
             <Link to="/" style={{ display: 'inline-block' }}>
-                <img src={`${process.env.PUBLIC_URL}/assets/pictosearch-logo.svg`} width="280" alt="Logo PictoSearch" />
+                <h1 className="header-kits-h">PictoSearch</h1>
             </Link>
-            {size === 'normal' && <Typography mt={3}>Finde Piktogramme, passe sie an deine Bedarfe an und nutze diese in Kita
-                und Schule. Unser Pool umfasst mehr als 10.000 Piktogramme, die alle offen
-                lizenziert sind.</Typography>}
-        </Box>
+          </Box>
+          <Box textAlign='right' className="app-header-right">
+            <a href="https://kits.blog/tools" style={{ display: 'inline-block' }}>
+              <img src="/assets/kits-logo.svg" alt="PictoSearch Logo" />
+            </a>
+          </Box>
+        </>
     )
 }
 

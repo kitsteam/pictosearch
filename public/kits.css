@@ -1,0 +1,252 @@
+:root {
+  --font-grey: rgb(33, 37, 41);
+  --primary: #00456f;
+  --primary-hover: #003b5e;
+  --secondary: #00a3d3;
+  --success: #50c878;
+  --danger: #ff5555;
+  --warning: #ffaa00;
+  --info: #55ffff;
+  --border: #DBDBDB;
+}
+
+@font-face {
+  font-family: FiraSans;
+  src: url("/assets/fonts/firasans/FiraSans-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: FiraSans;
+  font-weight: light;
+  src: url("/assets/fonts/firasans/FiraSans-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: FiraSans;
+  font-weight: bold;
+  src: url("/assets/fonts/firasans/FiraSans-Bold.otf") format("opentype");
+}
+
+.container {
+  padding: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-top: 20px;
+  margin-bottom: 50px; /* distance for max footer size, to make sure it is not overlapping content */
+}
+
+a {
+  text-decoration: none;
+}
+
+.muted {
+  color: #6c757d !important;
+}
+
+.kits-content-left {
+  display: flex; 
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.kits-content-left img {
+  width: 40%;
+  height: 40%;
+}
+
+.kits-content-right {
+  position: relative;
+  overflow: scroll;
+  display: flex;
+  align-items: center;
+}
+
+.kits-footer-wrapper-left {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.kits-primary-button {
+  background-color: var(--primary) !important;
+  font-family: FiraSans !important;
+  font-size: 16px !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+  color: #FFFFFF;
+}
+
+.kits-primary-button:hover {
+  background-color: var(--primary-hover);;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.3em;
+  color: var(--primary);
+}
+
+h1.header-kits-h {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.center {
+  justify-content: center;
+  background-color: transparent !important;
+}
+
+.kits-mobile-footer-wrapper {
+  height: 112px !important;
+  padding: 0 !important;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+@media screen and (max-width: 899px) {
+  .kits-content-right {
+    align-items: flex-start !important;
+  }
+}
+
+@media screen and (max-width: 574px), screen and (max-height: 500px) {
+  .kits-mobile-footer-wrapper {
+    height: 55px !important;
+    padding: 0 !important;
+  }
+
+  .kits-footer-logo {
+    padding: 5px 5px 5px 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+    text-align: center;
+  }
+
+  .kits-footer-logo img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.kits-footer-container {
+  display: flex;  
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.kits-footer-logo {
+  padding: 5px 5px 5px 20px;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+}
+
+.kits-footer-logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.kits-footer-text-right {
+  text-align: right;
+}
+
+.kits-footer-text-left {
+  text-align: center;
+}
+
+.kits-footer-text {
+  padding: 15px 5px 15px 5px;
+  font-family: FiraSans;
+  font-size: 16px !important;
+  width: 100%;
+}
+
+.gradient {
+  background-image: linear-gradient(180deg, rgb(0, 69, 111) 0%, rgb(0, 163, 211) 100%) !important;
+}
+
+.padding-8 {
+  padding: 8px;
+}
+
+.font-white {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.header {
+  background-color: transparent !important;
+  height: 70px !important;
+  text-align: right;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  padding: 0 16px 0 16px;
+}
+
+.header a {
+  margin-left: auto;
+  margin-top: 16px;
+}
+
+.kits-list {
+  font-family: FiraSans;
+  list-style-type: none;
+}
+
+.list-border {
+  border-left: 3px solid var(--secondary);
+  padding: 0;
+}
+
+.kits-list li {
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+
+.fw-bold {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 700 !important;
+  color: var(--primary);;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.app-header-wrapper {
+  display: flex; 
+  margin-bottom: 25px !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-header-left {
+  width: 50%;
+}
+
+.app-header-right {
+  width: 50%;
+  text-align: right;
+}
+
+.app-header-right img {
+  width: 80px;
+  height: 42px;
+}
+
+.app-footer-wrapper {
+  background: '#ffffff';
+  margin: 80px auto 30px auto;
+  text-align: 'center';
+  border-top: 1px solid var(--border);
+  width: 100%;
+  margin-top: 25px;
+  padding-top: 25px
+}
