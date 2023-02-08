@@ -22,7 +22,7 @@ const MetaData: React.FC<Props> = ({ data }) => {
     return (
         <>
             {categories.length > 0 && <>
-                <Typography variant="subtitle2" gutterBottom={true}>{t('meta.categories')}</Typography>
+                <Typography variant="subtitle2" gutterBottom={true} sx={{marginTop: 3}}>{t('meta.categories')}</Typography>
                 <Box mb={2}>
                     {categories.map(category => {
                         const categoryKey = `category.${category.replaceAll(' ', '-')}`;

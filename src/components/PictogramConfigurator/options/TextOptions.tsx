@@ -1,4 +1,4 @@
-import { Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import React, { useState } from 'react';
@@ -9,10 +9,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { fontColors } from '../../../data/colors';
 import { useTranslation } from 'react-i18next';
 import { TextState } from "../state";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const isFontSupported = (font: string) => (document as any).fonts?.check ? (document as any).fonts.check(`12px ${font}`) : true;
 
-export const fontFamilies = ['Arial', 'Roboto', 'Times New Roman', 'Palatino', 'Garamond', 'Bookman', 'Avant Garde', 'Verdana', 'Georgia', 'Helvetica New'].filter(isFontSupported);
+export const fontFamilies = ['FiraSans-Light', 'FiraSans-Regular', 'FiraSans-Bold'].filter(isFontSupported);
 
 export type FontStyle = {
     fontSize: number,
@@ -64,10 +65,17 @@ const TextOptions: React.FC<Props> = ({ label, keywords, state, onChange }) => {
                     <FormControlLabel control={<Switch checked={style.uppercase} onChange={ev => setUppercase(ev.target.checked)} />} label={t('config.upperCase') as string} />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
-                    <Typography onClick={() => setShowFormatting(!showFormatting)} sx={{ cursor: 'pointer', ...style, fontSize: 'inherit' }}>
-                        {showFormatting ? <CloseIcon fontSize="inherit" /> : <EditIcon fontSize="inherit" />} {t('config.formatting')} ({style.fontFamily}, {style.fontSize}, {style.color})
-                    </Typography>
-                    <Collapse in={showFormatting}>
+                    <Accordion expanded={showFormatting} onChange={() => setShowFormatting(!showFormatting)}>
+                        <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
+                        >
+                            <Typography sx={{ cursor: 'pointer', ...style, fontSize: 'inherit' }}>
+                                {t('config.formatting')} ({style.fontSize})
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
                         <Box sx={{ marginTop: 2 }}>
                             <FormLabel>{t('config.fontColor')}</FormLabel>
                             <Box sx={{ maxWidth: 550, marginTop: 1, backgroundColor: '#f1f1f1', borderRadius: 3, padding: 2 }}>
@@ -88,7 +96,9 @@ const TextOptions: React.FC<Props> = ({ label, keywords, state, onChange }) => {
                                 </Select>
                             </FormControl>
                         </Box>
-                    </Collapse>
+                        </AccordionDetails>
+                    
+                    </Accordion>
                 </Box>
             </Collapse>
         </Box>
