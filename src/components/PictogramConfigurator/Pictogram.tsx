@@ -85,7 +85,7 @@ function FutureIcon({ tenseColor, x, y }: { tenseColor: string, x: number, y: nu
 
 function IdentifierIcon({ identifier, identifierColor, x, y }: { identifier: Identifier, identifierColor: string, x: number, y: number }) {
     const url = `${apiIdentifierBaseUrl}/identifiers/${Identifier[identifier]}_${identifierColor.replace(/^#/, '')}.png`;
-    const [image] = useImage(url, 'Anonymous');
+    const [image] = useImage(url);
 
     return <Image image={image} x={x} y={y} width={iconSize} height={iconSize} />
 }
@@ -143,7 +143,7 @@ const Pictogram: React.FC<Props> = (props) => {
         pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
     const textTop = props.text.top;
     const textBottom = props.text.bottom;
-    const [image, imageStatus] = useImage(url, 'Anonymous');
+    const [image, imageStatus] = useImage(url);
     const containerRef = useRef<HTMLElement>(null);
 
     const topTextRef = useRef<Konva.Text>(null);

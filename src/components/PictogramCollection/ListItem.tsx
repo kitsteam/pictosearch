@@ -3,7 +3,7 @@ import Konva from "konva";
 import React, { useCallback, useRef } from 'react';
 import { useTranslation } from "react-i18next";
 import RemoveIcon from '@mui/icons-material/Delete';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CollectionItem } from "../../hooks/collection";
 import { getPictogramUrl } from "../../hooks/network";
 import { Box } from "@mui/system";
@@ -20,7 +20,7 @@ type Props = {
 
 const ListItem: React.FC<Props> = React.memo(({ id, item, deleteItem, shouldRender }) => {
     const { i18n } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const options = item.state.options;
     const url = getPictogramUrl(item.id, options.colorized, options.resolution, options.skinColor, options.hairColor);
@@ -40,7 +40,7 @@ const ListItem: React.FC<Props> = React.memo(({ id, item, deleteItem, shouldRend
         <MUIListItem secondaryAction={
             <IconButton onClick={() => deleteItem(item.id, item.version)}><RemoveIcon /></IconButton>
         } disablePadding>
-            <ListItemButton onClick={() => history.push(`/pictogram/${i18n.language}/${item.id}/${item.version}`)}>
+            <ListItemButton onClick={() => navigate(`/pictogram/${i18n.language}/${item.id}/${item.version}`)}>
                 <ListItemIcon>
                     <Avatar src={item.thumbnail || url.href} sx={{ borderRadius: 0 }}></Avatar>
                     {shouldRender && <Box sx={{ position: 'absolute', top: -9999, left: -9999 }}>

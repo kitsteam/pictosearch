@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import PictogramCollection from "./components/PictogramCollection";
@@ -25,15 +25,11 @@ const AppLayoutSwitch: React.FC = () => {
             <Header />
           </Grid>
           <Grid item sx={{ width: '100%' }}>
-            <Switch>
-              <Route exact path="/search">
-                <PictogramSearch />
-              </Route>
-              <Route exact path="/collection">
-                <PictogramCollection />
-              </Route>
-              <Route exact strict path="/pictogram/:language([a-z]{2})/:id(\d+)/:version([\-a-z0-9]+)?" component={PictogramConfigurator} />
-            </Switch>
+            <Routes>
+              <Route path="/search" element={<PictogramSearch />} />
+              <Route path="/collection" element={<PictogramCollection />} />
+              <Route path="/pictogram/:language/:id/:version?" element={<PictogramConfigurator />} />
+            </Routes>
           </Grid>
           <Grid item className="app-footer-wrapper">
             <Footer />

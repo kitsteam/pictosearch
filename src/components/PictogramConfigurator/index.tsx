@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Link, Paper, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Divider, IconButton, Paper, Stack, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
@@ -8,7 +8,6 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 import SaveIcon from '@mui/icons-material/Save';
 import RemoveIcon from '@mui/icons-material/Delete';
 import SuccessIcon from '@mui/icons-material/Check';
-import ClipboardIcon from '@mui/icons-material/ContentPasteGo';
 import Konva from 'konva';
 import React, { useRef, useState, useReducer, useEffect } from 'react';
 import { usePictogram, usePictogramUrl } from '../../hooks/network';
@@ -26,10 +25,10 @@ import CrossOutOptions from './options/CrossOutOptions';
 import DragAndDropOptions from './options/DragAndDropOptions';
 import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import MetaData from './MetaData'
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
 import { initialPictogramState, PictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
 import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
@@ -47,8 +46,8 @@ type Props = {
 const PictogramConfigurator: React.FC<Props> = (props) => {
   const { t, i18n } = useTranslation();
   const { id: paramId, language, version } = useParams<{ id: string, language: string, version?: string }>();
-  const history = useHistory();
-  const pictogramId = parseInt(paramId, 10);
+  const navigate = useNavigate();
+  const pictogramId = parseInt(paramId ?? '', 10);
   const collection = useCollection();
 
   if (i18n.language !== language) {
@@ -61,9 +60,8 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const [storedState, setStoredState] = useState<PictogramState>();
   const [addedToCollection, setAddedToCollection] = useState(false);
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
-  const [copiedLicenseToClipboard, setCopiedLicenseToClipboard] = useState(false);
 
-  const pictogram = usePictogram(language, pictogramId);
+  const pictogram = usePictogram(language ?? 'en', pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
 
   const [state, dispatch] = useReducer(process.env.NODE_ENV === 'development' ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
@@ -85,10 +83,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
       return;
     }
 
-    const storedState = loadPictogram(paramId, version);
+    const storedState = loadPictogram(paramId ?? '', version);
 
     if (!storedState) {
-      history.push(`/pictogram/${language}/${paramId}`);
+      navigate(`/pictogram/${language}/${paramId}`);
 
       return;
     }
@@ -96,7 +94,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     setStoredState(storedState);
 
     dispatch(updateInitialState(storedState));
-  }, [paramId, version, history, language]);
+  }, [paramId, version, navigate, language]);
 
   useEffect(() => {
     if (storedState && !dequal(state, storedState)) {
@@ -107,9 +105,9 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const onStoreNewVersion = async () => {
     const version = uuid.v4();
 
-    await collection.store(paramId, version, state, title, getDataUrl());
+    await collection.store(paramId ?? '', version, state, title, getDataUrl());
 
-    history.push(`/pictogram/${language}/${paramId}/${version}`);
+    navigate(`/pictogram/${language}/${paramId}/${version}`);
 
     setAddedToCollection(true);
 
@@ -118,7 +116,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const onUpdateVersion = () => {
     if (version) {
-      collection.store(paramId, version, state);
+      collection.store(paramId ?? '', version, state);
 
       setChanged(false);
     }
@@ -126,11 +124,11 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
 
   const onDeleteVersion = () => {
     if (version) {
-      collection.delete(paramId, version);
+      collection.delete(paramId ?? '', version);
 
       setChanged(false);
 
-      history.push(`/pictogram/${language}/${paramId}`);
+      navigate(`/pictogram/${language}/${paramId}`);
     }
   }
 
@@ -165,18 +163,10 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
     setTimeout(() => setCopiedToClipboard(false), SUCCESS_TIMEOUT);
   };
 
-  const onCopyLicenseToClipboard = () => {
-    Clipboard.copyText(t('config.clipboardLicense'));
-
-    setCopiedLicenseToClipboard(true);
-
-    setTimeout(() => setCopiedLicenseToClipboard(false), SUCCESS_TIMEOUT);
-  }
-
   return (
     <Box sx={{ marginBottom: '10px' }}>
       <Stack direction="row" mb={3}>
-        <Button onClick={() => history.goBack()} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
+        <Button onClick={() => navigate(-1)} variant="outlined" size="small" startIcon={<BackIcon />}>{t('back')}</Button>
         <Box flexGrow={1}></Box>
         <Badge badgeContent={collection.size} color="primary">
           <Button component={RouterLink} to="/collection" variant="outlined" size="small" startIcon={<CollectionsIcon />} disabled={collection.size === 0}>{t('Collection')}</Button>
@@ -270,7 +260,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={2} divider={<Divider flexItem />}>
-                <LanguageSelection selected={autocompleteLanguage} onChange={setAutocompleteLanguage} />
+                <LanguageSelection selected={autocompleteLanguage ?? 'en'} onChange={setAutocompleteLanguage} />
 
                 <TextOptions label={t('config.textTop')} {...{ keywords }} state={state.customizations.text.top} onChange={state => dispatch(updateTextTop(state))} />
 

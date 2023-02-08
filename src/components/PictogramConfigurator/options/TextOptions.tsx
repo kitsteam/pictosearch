@@ -1,4 +1,6 @@
-import { Autocomplete, Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, TextField, Typography } from '@mui/material';
+import { Box, Collapse, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, Slider, Switch, Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import React, { useState } from 'react';
 import { CirclePicker } from 'react-color';
 import WideSwitchLabel from '../WideSwitchLabel';
@@ -51,10 +53,11 @@ const TextOptions: React.FC<Props> = ({ label, keywords, state, onChange }) => {
                     <Autocomplete
                         freeSolo
                         size="small"
+                        multiple={false}
                         value={value}
                         onChange={(ev, newValue) => setValue(newValue || '')}
                         options={keywords}
-                        renderInput={(params) => <TextField {...params} label={t('config.writeText')} value={value} onChange={(ev) => setValue(ev.target.value)} />}
+                        renderInput={(params) => <TextField {...params} label={t('config.writeText')} value={value} onChange={(ev) => setValue(ev.target.value || '')} />}
                     />
                 </Box>
                 <Box sx={{ marginTop: 2 }}>
