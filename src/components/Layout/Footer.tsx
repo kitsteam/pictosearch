@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             <Link href="http://www.arasaac.org">
               <img src={logoArasaac} alt="Logo ARASSAC" />
             </Link>
-            <Typography variant="body2" sx={{ opacity: 0.6 }}>
+            <Typography variant="body2" sx={{ opacity: 0.6, paddingLeft: 2 }}>
               {Clipboard.hasSupport() && <IconButton sx={{ marginLeft: -1 }} size="small" onClick={onCopyLicenseToClipboard} color={copiedLicenseToClipboard ? 'success' : 'default'}><ClipboardIcon /></IconButton>}
 
               <Trans i18nKey="search.license">

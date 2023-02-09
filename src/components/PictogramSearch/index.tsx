@@ -83,7 +83,6 @@ const PictogramSearch: React.FC = () => {
                   disabled={!value || isLoading}
                   variant="contained"
                   type="submit"
-                  className="kits-primary-button"
                   startIcon={isLoading ? <CircularProgress size="1em" color="inherit" /> : <SearchIcon />}>
                   {t('search.action')}
                 </Button>
@@ -103,7 +102,7 @@ const PictogramSearch: React.FC = () => {
             <Typography variant="body1"><CircularProgress size="1em" color="inherit" /> {t('search.loading', { query })}</Typography>
             : (
               <>
-                {result.data && <Typography variant="body1">{t('search.result', { count: result.data.length, query })}</Typography>}
+                {result.data && <Typography variant="body1">{t('search.result_plural', { count: result.data.length, query })}</Typography>}
                 {!result.data && newPictograms.data && <Typography variant="body1">{t('search.displayNew', { number: newPictograms.data.length })}</Typography>}
               </>
             )}

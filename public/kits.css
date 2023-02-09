@@ -29,11 +29,11 @@
 
 .container {
   padding: 12px;
+  padding-bottom: 112px; /* distance for max footer size, to make sure it is not overlapping content */
   margin-left: auto;
   margin-right: auto;
   width: 90%;
-  margin-top: 20px;
-  margin-bottom: 50px; /* distance for max footer size, to make sure it is not overlapping content */
+  margin-top: 40px;
 }
 
 a {
@@ -242,11 +242,14 @@ h1.header-kits-h {
 }
 
 .app-footer-wrapper {
-  background: '#ffffff';
+  background-color: #ffffff;
   margin: 80px auto 30px auto;
   text-align: 'center';
   border-top: 1px solid var(--border);
   width: 100%;
   margin-top: 25px;
-  padding-top: 25px
+  padding-top: 25px;
+  position: sticky;
+  bottom: 0px;
+  z-index: 100;
 }
