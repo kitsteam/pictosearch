@@ -6,8 +6,6 @@ import { HairColor, SkinColor } from "../data/colors";
 export const apiBaseUrl = process.env.REACT_APP_API || 'https://api.arasaac.org/api';
 export const apiIdentifierBaseUrl = process.env.REACT_APP_API_IMAGES || 'https://static.arasaac.org/images';
 
-console.log(apiBaseUrl)
-
 const fetcher = (...args: any[]) => fetch(args[0], args[1]).then(res => res.json());
 
 const limit = 100;
