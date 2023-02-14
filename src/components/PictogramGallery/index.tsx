@@ -69,6 +69,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
             <Button
                 variant="contained"
                 type="submit"
+                disabled={itemsPerPage > pageItems.length}
                 startIcon={<SearchIcon />}
                 onClick={() => changeItemsPerPage(itemsPerPage + 12)}>
                 {t('More')}
