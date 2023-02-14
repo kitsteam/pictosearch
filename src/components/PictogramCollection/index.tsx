@@ -20,11 +20,11 @@ const PictogramCollection: React.FC<Props> = () => {
                 <Button component={RouterLink} to="/search" variant="outlined" size="small" startIcon={<BackIcon />}>{t('browse')}</Button>
             </Stack>
             <List collection={collection} />
-            <Typography variant="body2" sx={{ opacity: 0.6 }}>
-            <Trans i18nKey="search.license">
-                Sergio Palao (Urheber), ARASAAC (<Link to="http://www.arasaac.org">arasaac.org</Link>),
-                Regierung von Aragón in Spanien (Eigentümer), <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>
-            </Trans>
+            <Typography variant="body2" sx={{ opacity: 0.6, marginTop: 2}}>
+                <Trans i18nKey="search.license">
+                    Sergio Palao (Urheber), ARASAAC (<Link to="http://www.arasaac.org">arasaac.org</Link>),
+                    Regierung von Aragón in Spanien (Eigentümer), <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>
+                </Trans>
             </Typography>
             </Box>
     )

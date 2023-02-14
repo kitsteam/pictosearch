@@ -9,6 +9,9 @@ const theme = createTheme({
     typography: {
         fontFamily: "FiraSans",
         htmlFontSize: parseInt(window.getComputedStyle(document.documentElement).fontSize, 10),
+        body2: {
+            fontSize: 10
+        }
     },
     components: {
         MuiInputBase: {

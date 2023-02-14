@@ -289,7 +289,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           {pictogram.data && <Box sx={{ display: { xs: 'block', md: 'none' } }} mt={3}><MetaData data={pictogram.data} /></Box>}
         </Box>
       </Stack>
-      <Typography variant="body2" sx={{ opacity: 0.6 }}>
+      <Typography variant="body2" sx={{ opacity: 0.6, marginTop: 2 }}>
           <Trans i18nKey="search.license">
             Sergio Palao (Urheber), ARASAAC (<Link to="http://www.arasaac.org">arasaac.org</Link>),
             Regierung von Aragón in Spanien (Eigentümer), <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>
