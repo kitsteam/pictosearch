@@ -93,6 +93,7 @@ h1 {
 h1.header-kits-h {
   font-size: 1.5em;
   font-weight: 700;
+  margin-top: 0;
 }
 
 .center {
@@ -236,6 +237,11 @@ h1.header-kits-h {
 .app-header-right {
   width: 50%;
   text-align: right;
+}
+
+.app-header-left img {
+  width: 50px;
+  display: inline-block;
 }
 
 .app-header-right img {
