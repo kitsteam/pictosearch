@@ -29,7 +29,7 @@ const Start: React.FC = () => {
   const onSubmit = useCallback((ev: React.FormEvent) => {
     ev.preventDefault();
 
-    const query = value ? '?' + new URLSearchParams({ q: value }).toString() : undefined
+    const query = value ? '?' + new URLSearchParams({ q: value.trim() }).toString() : undefined
     value ? navigate({ pathname: '/search', search: query }) : navigate({ search: query });
   }, [value, navigate]);
 

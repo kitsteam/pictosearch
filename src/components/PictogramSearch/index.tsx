@@ -47,7 +47,7 @@ const PictogramSearch: React.FC = () => {
   const onSubmit = useCallback((ev: React.FormEvent) => {
     ev.preventDefault();
 
-    searchFor(value);
+    searchFor(value.trim());
   }, [value, searchFor]);
 
   return (
