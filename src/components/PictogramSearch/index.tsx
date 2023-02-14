@@ -1,13 +1,13 @@
 import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 import LanguageSelection from '../LanguageSelection';
 import PictogramGallery from '../PictogramGallery';
 import { useKeywords, useNewPictograms, useSearch } from '../../hooks/network';
 import SearchIcon from '@mui/icons-material/Search';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useCollection } from "../../hooks/collection";
 import { useQuery } from "../../hooks/location";
 
@@ -96,6 +96,14 @@ const PictogramSearch: React.FC = () => {
             </Grid>
           </Grid>
         </form>
+
+        <Typography variant="body2" sx={{ opacity: 0.6 }}>
+          <Trans i18nKey="search.license">
+            Sergio Palao (Urheber), ARASAAC (<Link to="http://www.arasaac.org">arasaac.org</Link>),
+            Regierung von Aragón in Spanien (Eigentümer), <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>
+          </Trans>
+        </Typography>
+        <br />
 
         <Box>
           {isLoading ?

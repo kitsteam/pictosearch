@@ -46,7 +46,9 @@ a {
 
 .kits-content-left {
   display: flex; 
-  position: relative;
+  position: absolute;
+  width: 50%;
+  top: 0;
   align-items: center;
   justify-content: center;
 }
@@ -58,7 +60,7 @@ a {
 
 .kits-content-right {
   position: relative;
-  overflow: scroll;
+  margin-left: auto !important;
   display: flex;
   align-items: center;
 }
@@ -91,6 +93,7 @@ h1 {
 h1.header-kits-h {
   font-size: 1.5em;
   font-weight: 700;
+  margin-top: 0;
 }
 
 .center {
@@ -236,8 +239,13 @@ h1.header-kits-h {
   text-align: right;
 }
 
+.app-header-left img {
+  width: 50px;
+  display: inline-block;
+}
+
 .app-header-right img {
-  width: 80px;
+  width: 150px;
   height: 42px;
 }
 

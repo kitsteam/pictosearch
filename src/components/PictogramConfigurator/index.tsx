@@ -26,9 +26,9 @@ import DragAndDropOptions from './options/DragAndDropOptions';
 import ResolutionOptions from './options/ResolutionOptions';
 import ZoomOptions from './options/ZoomOptions';
 import { useNavigate, useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 import MetaData from './MetaData'
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Clipboard from '../../utils/Clipboard';
 import { initialPictogramState, PictogramState, pictogramStateReducer, pictogramStateReducerWithLogger, Resolution } from "./state";
 import { disableDragAndDrop, enableDragAndDrop, updateInitialState, updateResolution, updateTextBottom, updateTextTop } from "./state/actions";
@@ -289,6 +289,12 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
           {pictogram.data && <Box sx={{ display: { xs: 'block', md: 'none' } }} mt={3}><MetaData data={pictogram.data} /></Box>}
         </Box>
       </Stack>
+      <Typography variant="body2" sx={{ opacity: 0.6, marginTop: 2 }}>
+          <Trans i18nKey="search.license">
+            Sergio Palao (Urheber), ARASAAC (<Link to="http://www.arasaac.org">arasaac.org</Link>),
+            Regierung von Aragón in Spanien (Eigentümer), <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-SA-NC 4.0</Link>
+          </Trans>
+        </Typography>
     </Box>
   );
 }

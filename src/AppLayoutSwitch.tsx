@@ -1,7 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Footer from "./components/Layout/Footer";
 import Header from "./components/Layout/Header";
 import PictogramCollection from "./components/PictogramCollection";
 import PictogramConfigurator from './components/PictogramConfigurator';
@@ -30,9 +29,6 @@ const AppLayoutSwitch: React.FC = () => {
               <Route path="/collection" element={<PictogramCollection />} />
               <Route path="/pictogram/:language/:id/:version?" element={<PictogramConfigurator />} />
             </Routes>
-          </Grid>
-          <Grid item className="app-footer-wrapper">
-            <Footer />
           </Grid>
         </Grid>
       </Container>

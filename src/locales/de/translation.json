@@ -58,6 +58,7 @@
   "Confirm deletion": "Löschen bestätigen",
   "delete all": "Alle löschen",
   "back": "Zurück",
+  "More": "Mehr anzeigen",
   "Collection": "Sammlung",
   "download": "Download",
   "copy": "Kopieren",
@@ -73,7 +74,7 @@
     "result": "Es wurde ein Piktogramm bei der Suche nach \"{{query}}\" gefunden.",
     "result_plural": "Es wurden {{count}} Piktogramme bei der Suche nach \"{{query}}\" gefunden.",
     "displayNew": "Es werden die {{number}} neusten Piktogramme angezeigt.",
-    "license": "Sergio Palao (Urheber), ARASAAC (<1>arasaac.org</1>), Regierung von Aragón in Spanien (Eigentümer), <3>CC BY-SA-NC 4.0</3>."
+    "license": "Sergio Palao (Urheber), ARASAAC (<1>arasaac.org</1>), Regierung von Aragón in Spanien (Eigentümer), <3>CC BY-SA-NC 4.0</3>"
   },
   "category": {
     "core-vocabulary": "Grundwortschatz",
