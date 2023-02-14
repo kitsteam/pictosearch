@@ -39,7 +39,6 @@ const Start: React.FC = () => {
         <Box
           component={Grid}
           item
-          md={6}
           display={{ xs: "none", md: "flex" }}
           className="kits-content-left gradient"
           style={{height: `${windowInnerHeight}px`}}
