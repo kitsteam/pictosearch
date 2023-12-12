@@ -64,7 +64,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
             </Box>
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
-                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} selectedItemId={selectedItemId} setSelectedItemId={(id) => setSelectedItemId(id)} />
+                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} mobileHovered={selectedItemId === item.id} setSelectedItemId={setSelectedItemId} />
                 </Grid>)}
             </Grid>
             <Button
