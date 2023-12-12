@@ -7,9 +7,8 @@ services:
     stdin_open: true
     build:
       context: .
-      target: development
+      # possible to use development here instead
+      target: production
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
+      - "8070:8080"
     restart: always

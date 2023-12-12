@@ -1,6 +1,6 @@
 import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@mui/material';
 import { experimentalStyled as styled, alpha } from '@mui/material/styles';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import CopyIcon from '@mui/icons-material/FileCopy';
@@ -57,6 +57,10 @@ const TitleBox = styled(Box)(({ theme }) => `
             position: static;
         }
     }
+
+    &.touch-device-hover {
+      opacity: 1;
+    }
 `);
 
 type Props = {
@@ -65,10 +69,13 @@ type Props = {
     language: string,
     collection: Collection,
     onlyPreview: boolean,
+    selectedItemId: number | null,
+    setSelectedItemId: (itemId: number) => void
 }
 
-const PictogramPreview: React.FC<Props> = ({ id, title, language, collection, onlyPreview }) => {
+const PictogramPreview: React.FC<Props> = ({ id, title, language, collection, onlyPreview, selectedItemId, setSelectedItemId }) => {
     const [isLoading, setLoading] = useState(true);
+    const [isMobileHovered, setMobileHovered] = useState(false);
     const src = `${apiBaseUrl}/pictograms/${id}`;
 
     const onDownload = (ev: React.MouseEvent) => {
@@ -83,6 +90,19 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language, collection, on
             linkElement.click();
         });
 
+    }
+
+    useEffect(() => {
+      if(selectedItemId === id) setMobileHovered(true);
+      if(selectedItemId !== id) setMobileHovered(false);
+    }, [selectedItemId, id])
+
+    // Layover for mobile only, especially android
+    const mobileActivateHover = (event: React.SyntheticEvent) => {
+      if(!isMobileHovered) {
+        setSelectedItemId(id);
+        event.preventDefault();
+      }     
     }
 
     const onCopyToClipboard = (ev: React.MouseEvent) => {
@@ -107,7 +127,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language, collection, on
         onLoad={() => setLoading(false)}
         style={{ position: 'absolute', top: 0, left: 0, maxWidth: '100%' }} />;
 
-    const titleBox = <TitleBox className={onlyPreview ? 'small' : ''}>
+    const titleBox = <TitleBox className={(isMobileHovered ? 'touch-device-hover' : '') + ' ' + (onlyPreview ? 'small' : '')}>
         <Box flexGrow={1} display="flex" justifyContent="center" alignItems="center">
             <Typography variant="h4" align="center">{title}</Typography>
         </Box>
@@ -130,7 +150,7 @@ const PictogramPreview: React.FC<Props> = ({ id, title, language, collection, on
                         {titleBox}
                     </Box>
                     :
-                    <Link to={`/pictogram/${language}/${id}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, textDecoration: 'none' }}>
+                    <Link to={`/pictogram/${language}/${id}`} style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, textDecoration: 'none' }} onTouchEnd={(event: React.SyntheticEvent) => mobileActivateHover(event)}>
                         {image}
                         {titleBox}
                     </Link>
