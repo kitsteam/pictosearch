@@ -7,6 +7,12 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Chip, styled, Paper } from '@mui/material';
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
+
 
 const Start: React.FC = () => {
   const [windowInnerHeight, setWindowInnerHeight] = React.useState(window.innerHeight);
@@ -32,6 +38,11 @@ const Start: React.FC = () => {
     const query = value ? '?' + new URLSearchParams({ q: value.trim() }).toString() : undefined
     value ? navigate({ pathname: '/search', search: query }) : navigate({ search: query });
   }, [value, navigate]);
+
+  const onChipPress = (label: string) => {
+    const query = '?' + new URLSearchParams({ q: label.trim() }).toString()
+    navigate({ pathname: '/search', search: query })
+  };
 
   return (
     <div>
@@ -105,6 +116,27 @@ const Start: React.FC = () => {
                       startIcon={<SearchIcon />}>
                       {t('search.action')}
                     </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'left',
+                      flexWrap: 'wrap',
+                      listStyle: 'none',
+                      boxShadow: 'none',
+                      p: 0.5,
+                      m: 0,
+                    }}
+                    component="ul"
+                  >
+                    <ListItem>
+                      <Chip color="secondary" label="Haus" variant="outlined" onClick={() => onChipPress('Haus')}></Chip>
+                    </ListItem>
+                    <ListItem>
+                      <Chip color="secondary" label="Tiere" variant="outlined" onClick={() => onChipPress('Tiere')}></Chip>
+                    </ListItem>
+                  </Paper>
                 </Grid>
               </Grid>
           </form>
