@@ -131,10 +131,16 @@ const Start: React.FC = () => {
                     component="ul"
                   >
                     <ListItem>
-                      <Chip color="secondary" label="Haus" variant="outlined" onClick={() => onChipPress('Haus')}></Chip>
+                      <Chip color="secondary" label={t('search.example.food')} variant="outlined" onClick={() => onChipPress(t('search.example.food'))}></Chip>
                     </ListItem>
                     <ListItem>
-                      <Chip color="secondary" label="Tiere" variant="outlined" onClick={() => onChipPress('Tiere')}></Chip>
+                      <Chip color="secondary" label={t('search.example.furniture')}  variant="outlined" onClick={() => onChipPress(t('search.example.furniture'))}></Chip>
+                    </ListItem>
+                    <ListItem>
+                      <Chip color="secondary" label={t('search.example.animals')}  variant="outlined" onClick={() => onChipPress(t('search.example.animals'))}></Chip>
+                    </ListItem>
+                    <ListItem>
+                      <Chip color="secondary" label={t('search.example.plants')}  variant="outlined" onClick={() => onChipPress(t('search.example.plants'))}></Chip>
                     </ListItem>
                   </Paper>
                 </Grid>
