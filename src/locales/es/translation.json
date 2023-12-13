@@ -75,10 +75,15 @@
     "displayNew": "En la parte inferior te mostramos los últimos {{number}} pictogramas.",
     "license": "Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para <1>ARASAAC</1>, que los distribuye bajo Licencia Creative Commons <3>BY-NC-SA 4.0</3>.",
     "example" : {
-      "food": "comestibles",
-      "animals": "animales",
-      "furniture": "muebles",
-      "plants": "planta"
+      "food": "Comestibles",
+      "animals": "Animales",
+      "furniture": "Muebles",
+      "plants": "Planta",
+      "leisure_time": "Ocio",
+      "seasons": "Estaciones",
+      "family": "Familia",
+      "school": "Escuela",
+      "schooling_material": "Material de enseñanza"
     }
   },
   "category": {

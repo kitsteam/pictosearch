@@ -79,7 +79,12 @@
       "food": "Lebensmittel",
       "animals": "Tiere",
       "furniture": "Möbel",
-      "plants": "Pflanzen"
+      "plants": "Pflanzen",
+      "leisure_time": "Freizeit",
+      "seasons": "Jahreszeiten",
+      "family": "Familie",
+      "school": "Schule",
+      "schooling_material": "Lehrmaterial"
     }
   },
   "category": {

@@ -78,7 +78,12 @@
       "food": "food",
       "animals": "animals",
       "furniture": "furniture",
-      "plants": "plants"
+      "plants": "plants",
+      "leisure_time": "leisure time",
+      "seasons": "seasons",
+      "family": "family",
+      "school": "school",
+      "schooling_material": "schooling material"
     }
   },
   "category": {
