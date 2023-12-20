@@ -15,7 +15,6 @@ on:
   push:
     branches: 
       - main
-      - 27-add-image-creation-workflow
 
 env:
   REGISTRY: ghcr.io
