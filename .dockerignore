@@ -1,21 +1,14 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-/js
-
-# Unnecessary docker-related files
-.dockerignore
-docker-compose*.yml
-Dockerfile
-
-# Unnecessary files for Docker image
-docs
-LICENSE
-README.md
+*
+!src/
+!public/
+!config/
+# .env is fine as only external public links are managed inside the file
+!.env
+!arasaac-pictogram-viewer.php
+!craco.config.js
+!i18next-parser.config.js
+!LICENSE
+!package.json
+!README.md
+!tsconfig.json
+!yarn.lock
