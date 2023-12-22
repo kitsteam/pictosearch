@@ -12,7 +12,14 @@ FROM install AS development
 ENV INLINE_RUNTIME_CHUNK=false
 
 FROM install AS build
-COPY . ./
+COPY src src
+COPY public public
+COPY config config
+COPY tsconfig.json ./
+COPY LICENSE ./
+# only links to public websites
+COPY .env ./
+COPY arasaac-pictogram-viewer.php ./
 
 ENV INLINE_RUNTIME_CHUNK=false
 ENV REACT_APP_API /arasaac/api
