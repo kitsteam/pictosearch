@@ -64,7 +64,7 @@ const Start: React.FC = () => {
           className="kits-content-left gradient"
           style={{height: `${windowInnerHeight}px`}}
         >
-          <img src="/assets/pictosearch-logo-white.svg" alt="PictoSearch Logo" />
+          <img src="/assets/pictosearch-logo-white.svg" alt="PictoSearch Logo" style={{width: 272}} />
           <div className="kits-footer-wrapper-left">
             <div className="kits-footer-text kits-footer-text-left">
 
