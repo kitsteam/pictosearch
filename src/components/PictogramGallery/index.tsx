@@ -21,6 +21,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
     const queryParams = useQuery();
     const itemsPerPage = parseInt(queryParams.get('itemsPerPage') || '', 10) || itemsPerPageSelection[0];
     const page = parseInt(queryParams.get('page') || '', 10) || 1;
+    const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
     const pageItems = items.slice((page - 1) * itemsPerPage, ((page - 1) * itemsPerPage) + itemsPerPage);
 
@@ -63,7 +64,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
             </Box>
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
-                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} />
+                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} mobileHovered={selectedItemId === item.id} setSelectedItemId={setSelectedItemId} />
                 </Grid>)}
             </Grid>
             <Button
