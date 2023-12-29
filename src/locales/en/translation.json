@@ -73,7 +73,18 @@
     "result": "We found one pictogram for \"{{query}}\".",
     "result_plural": "We found {{count}} pictograms for \"{{query}}\".",
     "displayNew": "Below you find the latest {{number}} pictograms.",
-    "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>."
+    "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>.",
+    "example" : {
+      "food": "food",
+      "animals": "animals",
+      "furniture": "furniture",
+      "plants": "plants",
+      "leisure_time": "leisure time",
+      "seasons": "seasons",
+      "family": "family",
+      "school": "school",
+      "schooling_material": "schooling material"
+    }
   },
   "category": {
     "core-vocabulary": "",
