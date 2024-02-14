@@ -16,7 +16,6 @@ type Props = {
 }
 
 const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
-    const [previewOnly, setPreviewOnly] = useState(false);
     const navigate = useNavigate();
     const queryParams = useQuery();
     const itemsPerPage = parseInt(queryParams.get('itemsPerPage') || '', 10) || itemsPerPageSelection[0];
@@ -57,14 +56,9 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
 
     return (
         <Box paddingTop={3} paddingBottom={3}>
-            <Box>
-                <FormGroup>
-                    <FormControlLabel control={<Switch checked={previewOnly} onChange={(ev) => setPreviewOnly(ev.target.checked)} />} label="TeamMapper Drag'n'Drop" />
-                </FormGroup>
-            </Box>
             <Grid spacing={3} container mt={1} mb={3}>
                 {pageItems.map(item => <Grid key={item.id} xs={6} sm={6} md={4} lg={3} item>
-                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={previewOnly} mobileHovered={selectedItemId === item.id} setSelectedItemId={setSelectedItemId} />
+                    <PictogramPreview id={item.id} title={item.title} language={language} collection={collection} onlyPreview={false} mobileHovered={selectedItemId === item.id} setSelectedItemId={setSelectedItemId} />
                 </Grid>)}
             </Grid>
             <Button
