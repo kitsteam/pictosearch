@@ -72,7 +72,7 @@ const Start: React.FC = () => {
                 >GitHub</a
               >
               <a className="padding-8 font-white" href="https://kits.blog/impressum/">Impressum</a>
-              <a className="padding-8 font-white" href="https://kits.blog/datenschutzerklaerung/"
+              <a className="padding-8 font-white" href="https://kits.blog/datenschutz/#pictosearch"
                 >Datenschutz</a
               >
             </div>
@@ -171,7 +171,7 @@ const Start: React.FC = () => {
                 >GitHub</a
               >
               <a className="padding-8 font-white" href="https://kits.blog/impressum/">Impressum</a>
-              <a className="padding-8 font-white" href="https://kits.blog/datenschutzerklaerung/"
+              <a className="padding-8 font-white" href="https://kits.blog/datenschutz/#pictosearch"
                 >Datenschutz</a
               >
             </div>
