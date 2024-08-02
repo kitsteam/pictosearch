@@ -1,7 +1,7 @@
-FROM node:20.16.0-alpine as install
+FROM node:20.16.0-alpine AS install
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH=/app/node_modules/.bin:$PATH
 
 COPY package.json ./
 COPY yarn.lock ./
@@ -22,8 +22,8 @@ COPY .env ./
 COPY arasaac-pictogram-viewer.php ./
 
 ENV INLINE_RUNTIME_CHUNK=false
-ENV REACT_APP_API /arasaac/api
-ENV REACT_APP_API_IMAGES /arasaac/images
+ENV REACT_APP_API=/arasaac/api
+ENV REACT_APP_API_IMAGES=/arasaac/images
 
 RUN yarn build:app
 
