@@ -8,7 +8,7 @@
     "email": "klaus@jsxc.org"
   },
   "dependencies": {
-    "@craco/craco": "^7.0.0",
+    "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^4.4.2",
