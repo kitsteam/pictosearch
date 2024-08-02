@@ -76,7 +76,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/file-saver": "^2.0.7",
     "@types/react-color": "^3.0.4",
-    "i18next-parser": "^4.2.0",
+    "i18next-parser": "^9.0.1",
     "yarn-audit-fix": "^9.3.8"
   }
 }
