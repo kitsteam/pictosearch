@@ -1,4 +1,4 @@
-FROM node:18.14.0-alpine as install
+FROM node:22.5.1-alpine as install
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
