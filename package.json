@@ -11,7 +11,7 @@
     "@craco/craco": "^7.0.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.13.0",
-    "@fontsource/roboto": "^4.4.2",
+    "@fontsource/roboto": "^5.0.14",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
     "@mui/styles": "^5.16.6",
