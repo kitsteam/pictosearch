@@ -17,7 +17,7 @@
     "@mui/styles": "^5.16.6",
     "@types/jest": "^26.0.15",
     "@types/jszip": "^3.4.1",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.5.5",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.3.3",
