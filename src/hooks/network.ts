@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import useSWR from 'swr';
 import { Resolution } from "../components/PictogramConfigurator/state";
-import { HairColor, SkinColor } from "../data/colors";
+import { HairColor, hairColorReverseMapping, SkinColor, skinColorReverseMapping } from "../data/colors";
 
 export const apiBaseUrl = process.env.REACT_APP_API || 'https://api.arasaac.org/api';
 export const apiIdentifierBaseUrl = process.env.REACT_APP_API_IMAGES || 'https://static.arasaac.org/images';
@@ -134,8 +134,10 @@ export function getPictogramUrl(pictogramId: number, colorized: boolean, resolut
     url.searchParams.append('download', 'false');
     url.searchParams.append('color', colorized.toString());
     url.searchParams.append('resolution', resolution.toString());
-    url.searchParams.append('skin', SkinColor[skinColor]);
-    url.searchParams.append('hair', HairColor[hairColor]);
+    const skinColorMapped = skinColorReverseMapping(skinColor);
+    if(skinColorMapped) url.searchParams.append('skin', skinColorMapped);
+    const hairColorMapped = hairColorReverseMapping(hairColor);
+    if(hairColorMapped) url.searchParams.append('hair', hairColorMapped);
 
     return url;
 }
