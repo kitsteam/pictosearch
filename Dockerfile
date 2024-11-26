@@ -3,6 +3,7 @@ WORKDIR /app
 
 ENV PATH=/app/node_modules/.bin:$PATH
 
+COPY .yarnrc.yml ./
 COPY package.json ./
 COPY yarn.lock ./
 
