@@ -6,6 +6,8 @@ ENV PATH=/app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY yarn.lock ./
 
+# https://yarnpkg.com/corepack
+RUN corepack enable
 RUN yarn install --frozen-lockfile
 
 FROM install AS development
