@@ -11704,7 +11704,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-color: "npm:^2.19.3"
     react-dom: "npm:^18.3.1"
-    react-i18next: "npm:^15.1.1"
+    react-i18next: "npm:^15.1.3"
     react-konva: "npm:^18.2.10"
     react-router-dom: "npm:^7.0.1"
     react-scripts: "npm:5.0.1"
@@ -12925,9 +12925,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.1.1":
-  version: 15.1.1
-  resolution: "react-i18next@npm:15.1.1"
+"react-i18next@npm:^15.1.3":
+  version: 15.1.3
+  resolution: "react-i18next@npm:15.1.3"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -12939,7 +12939,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10c0/c1e8af21422cdaa1a493b1d73502a496aab84c3318de1137bb56b1f2f37eae4ba5856cf079b0a0abe9f2a18e0457c986ad2e43e70875f7cd43d0efa2f70897a5
+  checksum: 10c0/2f8de1757f5b4d91e034f621c0bf6422fad3cde0687d11d4fe87822db86f264c6c3512a26fafe03d91ea691b3c441ba5ca490f4e5611e147df985ee133265089
   languageName: node
   linkType: hard
 
