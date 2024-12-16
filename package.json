@@ -25,7 +25,7 @@
     "dequal": "^2.0.3",
     "file-saver": "^2.0.5",
     "i18next": "^24.1.0",
-    "i18next-browser-languagedetector": "^8.0.1",
+    "i18next-browser-languagedetector": "^8.0.2",
     "jspdf": "^2.5.2",
     "jszip": "^3.10.1",
     "konva": "^9.3.16",
