@@ -8700,9 +8700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^24.1.0":
-  version: 24.1.0
-  resolution: "i18next@npm:24.1.0"
+"i18next@npm:^24.2.0":
+  version: 24.2.0
+  resolution: "i18next@npm:24.2.0"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
   peerDependencies:
@@ -8710,7 +8710,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/90cc4c31871755493cc78695f30c658b7a7d0d986d0b1c006346e5855822203f3a9f84485ce734778268f9c84ff767c7d75aed6d1674a7abdb848ea6b82df28e
+  checksum: 10c0/3c41a4e214b8191e7c579db776a9dd6a5f02a0925bb5788c11e522f51c5e581546f53db22ba8cccb398d69cc463438aaca4660bad2990d5ffc854434bc9a72be
   languageName: node
   linkType: hard
 
@@ -11776,7 +11776,7 @@ __metadata:
     clipboardy: "npm:^4.0.0"
     dequal: "npm:^2.0.3"
     file-saver: "npm:^2.0.5"
-    i18next: "npm:^24.1.0"
+    i18next: "npm:^24.2.0"
     i18next-browser-languagedetector: "npm:^8.0.2"
     i18next-parser: "npm:^9.0.2"
     jspdf: "npm:^2.5.2"
