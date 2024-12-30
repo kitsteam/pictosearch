@@ -10446,10 +10446,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"konva@npm:^9.3.16":
-  version: 9.3.16
-  resolution: "konva@npm:9.3.16"
-  checksum: 10c0/1eae65739bfa7e4588c2fd97036a27172db5ff3b859b46630871fd954d42862a31d1dcc10f0442a161ae92cfac6f529b6ca3b12c76c188be88bb2648c2128ebf
+"konva@npm:^9.3.18":
+  version: 9.3.18
+  resolution: "konva@npm:9.3.18"
+  checksum: 10c0/1f320edce346ff9d406fa2486ee9bd1219e43a5d919d2e29afcca281c944ad74d27230a49ad44bfa70aacb4169e02b9a4af39a1b097096d940a23a6ca05cf78c
   languageName: node
   linkType: hard
 
@@ -11761,7 +11761,7 @@ __metadata:
     i18next-parser: "npm:^9.0.2"
     jspdf: "npm:^2.5.2"
     jszip: "npm:^3.10.1"
-    konva: "npm:^9.3.16"
+    konva: "npm:^9.3.18"
     react: "npm:^18.3.1"
     react-color: "npm:^2.19.3"
     react-dom: "npm:^18.3.1"
