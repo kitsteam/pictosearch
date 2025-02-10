@@ -36,7 +36,7 @@
     "react-konva": "^18.2.10",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
-    "swr": "^2.2.5",
+    "swr": "^2.3.2",
     "typescript": "^5.7.2",
     "use-image": "^1.1.1",
     "uuid": "^11.0.3",
