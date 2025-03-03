@@ -2169,10 +2169,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/roboto@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "@fontsource/roboto@npm:5.1.0"
-  checksum: 10c0/e424fec92e5cb89a466f271d4a1cd335b4fd8406411a7eaad5b79e9eb4cc61f6258000b1d24444cadbf1f8a06e9ddcdd30a2990b61874978e34fc357d003cba5
+"@fontsource/roboto@npm:^5.2.5":
+  version: 5.2.5
+  resolution: "@fontsource/roboto@npm:5.2.5"
+  checksum: 10c0/b254985468a3ba78323d66b0725af1b2dc60dbacc82a907c0f67ccc659cc30c52b66bbadd3f2afdea53971ddae60c96e582efbcaee2db52886201c3f56b830a8
   languageName: node
   linkType: hard
 
@@ -11738,7 +11738,7 @@ __metadata:
     "@craco/craco": "npm:^7.1.0"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
-    "@fontsource/roboto": "npm:^5.1.0"
+    "@fontsource/roboto": "npm:^5.2.5"
     "@mui/icons-material": "npm:^6.3.0"
     "@mui/material": "npm:^6.2.0"
     "@mui/styles": "npm:^6.2.1"
