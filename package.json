@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.3.0",
-    "@mui/material": "^6.2.0",
+    "@mui/material": "^6.4.8",
     "@mui/styles": "^6.2.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
