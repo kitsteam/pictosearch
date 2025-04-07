@@ -21,7 +21,6 @@ COPY config config
 COPY tsconfig.json ./
 COPY index.html ./
 COPY vite.config.js ./
-COPY vite-env.d.ts ./
 COPY LICENSE ./
 # only links to public websites
 COPY .env ./
