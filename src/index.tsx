@@ -9,7 +9,7 @@ import './locales';
 import i18next from './i18n';
 import { HashRouter } from "react-router-dom";
 
-const domNode = document.getElementById('arasaac-pictogram-viewer-react');
+const domNode = document.getElementById('root');
 
 if(domNode) {
   const root = createRoot(domNode);

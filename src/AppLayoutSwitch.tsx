@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Container, GridLegacy as Grid } from '@mui/material';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Header from "./components/Layout/Header";

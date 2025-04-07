@@ -1,4 +1,4 @@
-import { Autocomplete, Badge, Box, Button, CircularProgress, Grid, IconButton, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Autocomplete, Badge, Box, Button, CircularProgress, GridLegacy as Grid, IconButton, TextField, Theme, Typography, useMediaQuery } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { Link, Link as RouterLink } from 'react-router-dom';
 import LanguageSelection from '../LanguageSelection';
