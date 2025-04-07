@@ -4,10 +4,12 @@
 !config/
 # .env is fine as only external public links are managed inside the file
 !.env
+!index.html
 !arasaac-pictogram-viewer.php
-!craco.config.js
 !i18next-parser.config.js
 !LICENSE
+!vite-env.d.ts
+!vite.config.js
 !package.json
 !README.md
 !tsconfig.json

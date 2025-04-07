@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import { GridLegacy as Grid } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useCallback, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
@@ -45,9 +45,9 @@ const Start: React.FC = () => {
   };
 
   const createChipLabels = (): React.ReactElement[] => {
-    return ['food', 'furniture', 'animals', 'plants', 'family', 'school', 'leisure_time', 'schooling_material', 'seasons'].map((categoryString) => {
+    return ['food', 'furniture', 'animals', 'plants', 'family', 'school', 'leisure_time', 'schooling_material', 'seasons'].map((categoryString, i) => {
       return (
-        <ListItem>
+        <ListItem key={i}>
           <Chip color="secondary" label={t(`search.example.${categoryString}`)} variant="outlined" onClick={() => onChipPress(t(`search.example.${categoryString}`))}></Chip>
         </ListItem>
       )

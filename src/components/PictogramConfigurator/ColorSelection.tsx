@@ -1,7 +1,7 @@
-import { experimentalStyled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { CirclePicker } from 'react-color';
 
-const ColorSelection = experimentalStyled(CirclePicker)(({theme}) => ({
+const ColorSelection = styled(CirclePicker)(({theme}) => ({
     backgroundColor: '#f1f1f1',
     borderRadius: theme.spacing(1),
     paddingLeft: '14px',

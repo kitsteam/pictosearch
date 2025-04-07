@@ -3,8 +3,8 @@ import useSWR from 'swr';
 import { Resolution } from "../components/PictogramConfigurator/state";
 import { HairColor, hairColorReverseMapping, SkinColor, skinColorReverseMapping } from "../data/colors";
 
-export const apiBaseUrl = process.env.REACT_APP_API || 'https://api.arasaac.org/api';
-export const apiIdentifierBaseUrl = process.env.REACT_APP_API_IMAGES || 'https://static.arasaac.org/images';
+export const apiBaseUrl = import.meta.env.REACT_APP_API || 'https://api.arasaac.org/api';
+export const apiIdentifierBaseUrl = import.meta.env.REACT_APP_API_IMAGES || 'https://static.arasaac.org/images';
 
 const fetcher = (...args: any[]) => fetch(args[0], args[1]).then(res => res.json());
 

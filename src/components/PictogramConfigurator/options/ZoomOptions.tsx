@@ -1,4 +1,4 @@
-import { Box, FormLabel, Grid, InputAdornment, Slider, Stack, TextField, Typography } from '@mui/material';
+import { Box, FormLabel, GridLegacy as Grid, InputAdornment, Slider, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Action, updateZoom } from "../state/actions";

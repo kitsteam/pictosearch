@@ -1,5 +1,5 @@
 import { Paper, CircularProgress, Box, Typography, Stack, IconButton } from '@mui/material';
-import { experimentalStyled as styled, alpha } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/CloudDownload';

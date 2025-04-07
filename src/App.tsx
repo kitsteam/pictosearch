@@ -11,7 +11,7 @@ import PictogramSearch from './components/PictogramSearch';
 const App: React.FC = () => {
   return (
     <>
-      {process.env.LAYOUT === 'element'
+      {import.meta.env.VITE_LAYOUT === 'element'
         ?
         <Container fixed>
           <Routes>

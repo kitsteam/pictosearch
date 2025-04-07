@@ -64,7 +64,7 @@ const PictogramConfigurator: React.FC<Props> = (props) => {
   const pictogram = usePictogram(language ?? 'en', pictogramId);
   const keywords: string[] = !pictogram.data ? [] : pictogram.data.keywords.map(data => data.keyword);
 
-  const [state, dispatch] = useReducer(process.env.NODE_ENV === 'development' ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
+  const [state, dispatch] = useReducer(import.meta.env.DEV ? pictogramStateReducerWithLogger : pictogramStateReducer, initialPictogramState);
 
   const url = usePictogramUrl(pictogramId, state.options.colorized, state.options.resolution, state.options.skinColor, state.options.hairColor);
 

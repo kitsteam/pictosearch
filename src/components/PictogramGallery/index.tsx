@@ -1,4 +1,4 @@
-import { Box, Button, FormControlLabel, FormGroup, Grid, Switch } from '@mui/material';
+import { Box, Button, FormControlLabel, FormGroup, GridLegacy as Grid, Switch } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Collection } from "../../hooks/collection";
