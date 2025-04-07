@@ -43,7 +43,7 @@
   "scripts": {
     "start": "vite",
     "build": "LAYOUT=element vite build",
-    "build:app": "vite build",
+    "build:app": "tsc && vite build",
     "pack": "tar -czf wp-pictogram-viewer_git.$(git rev-parse --short HEAD).tar.gz js arasaac-pictogram-viewer.php",
     "pack:app": "tar -czf pictosearch_git.$(git rev-parse --short HEAD).tar.gz build",
     "test": "npm run test"
