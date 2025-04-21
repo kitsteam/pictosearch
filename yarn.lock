@@ -2767,12 +2767,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-browser-languagedetector@npm:^8.0.4":
-  version: 8.0.4
-  resolution: "i18next-browser-languagedetector@npm:8.0.4"
+"i18next-browser-languagedetector@npm:^8.0.5":
+  version: 8.0.5
+  resolution: "i18next-browser-languagedetector@npm:8.0.5"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/82fb7333af5afdda6c31679713571a28095635a2120c95446e57d29cc1792afec42c437e2926f770c760ea58c372980c299233245c54756069b2e3fd6a05e53a
+  checksum: 10c0/a57e4a152c63d76e28ca58a59ab57cab5b813cf03503ef89e6ac7c1bccb4ac45272785dd9b3c3dab609b1ae3b38c44e3782132d83c0e1e80e5e366ec41a8d5ad
   languageName: node
   linkType: hard
 
@@ -3874,7 +3874,7 @@ __metadata:
     dequal: "npm:^2.0.3"
     file-saver: "npm:^2.0.5"
     i18next: "npm:^24.2.3"
-    i18next-browser-languagedetector: "npm:^8.0.4"
+    i18next-browser-languagedetector: "npm:^8.0.5"
     i18next-parser: "npm:^9.0.2"
     jspdf: "npm:^3.0.1"
     jszip: "npm:^3.10.1"
