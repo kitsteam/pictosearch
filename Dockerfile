@@ -1,4 +1,4 @@
-FROM node:23.5.0-alpine AS install
+FROM node:24.0.1-alpine AS install
 WORKDIR /app
 
 ENV PATH=/app/node_modules/.bin:$PATH
