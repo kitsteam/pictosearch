@@ -36,7 +36,7 @@
     "react-router-dom": "^7.1.1",
     "swr": "^2.3.3",
     "typescript": "^5.8.3",
-    "use-image": "^1.1.1",
+    "use-image": "^1.1.4",
     "uuid": "^11.0.3",
     "web-vitals": "^4.2.4"
   },

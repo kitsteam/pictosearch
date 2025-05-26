@@ -3887,7 +3887,7 @@ __metadata:
     react-router-dom: "npm:^7.1.1"
     swr: "npm:^2.3.3"
     typescript: "npm:^5.8.3"
-    use-image: "npm:^1.1.1"
+    use-image: "npm:^1.1.4"
     uuid: "npm:^11.0.3"
     vite: "npm:^6.2.5"
     web-vitals: "npm:^4.2.4"
@@ -4900,13 +4900,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-image@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "use-image@npm:1.1.1"
+"use-image@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "use-image@npm:1.1.4"
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: 10c0/062704b42348116720e31730821b80f5cdc2f3c3ee8a66a3b414a17baed47b0f7a628f86d7641a3f3e60303461792816211f94878d11e01faf8a327e745c3e2a
+  checksum: 10c0/13781ae9f6214ec9c6d457ac62cc54a508466e821656fe41ebb043addd6afe7ed830757a52972fb3e3b020104422f6ed1f16de727b4f41844c1749ff8b121915
   languageName: node
   linkType: hard
 
