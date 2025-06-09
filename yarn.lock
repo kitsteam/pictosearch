@@ -977,9 +977,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/styles@npm:^6.4.11":
-  version: 6.4.11
-  resolution: "@mui/styles@npm:6.4.11"
+"@mui/styles@npm:^6.4.12":
+  version: 6.4.12
+  resolution: "@mui/styles@npm:6.4.12"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
     "@emotion/hash": "npm:^0.9.2"
@@ -1004,7 +1004,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/f0c768f9e58e2a26af5aeea1aba0cd165313e328530813ac94ddcfdfe1c5822fade6fdc40181279a0eb17f4a39b56d159617763ef721cf582734da87bac50d8f
+  checksum: 10c0/38e1f024b709f31d7fa0d1da4ffb9589343f334bbc63ba0a53a0138d894ab01e7916707c6f3750df11d4df1ae86ced9c8845f5429f5b84eb51a36d6b3b419144
   languageName: node
   linkType: hard
 
@@ -3988,7 +3988,7 @@ __metadata:
     "@fontsource/roboto": "npm:^5.2.5"
     "@mui/icons-material": "npm:^7.1.0"
     "@mui/material": "npm:^7.1.0"
-    "@mui/styles": "npm:^6.4.11"
+    "@mui/styles": "npm:^6.4.12"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.3.0"
     "@testing-library/user-event": "npm:^14.6.1"
