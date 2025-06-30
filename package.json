@@ -69,7 +69,7 @@
     "@types/react-color": "^3.0.13",
     "@vitejs/plugin-react": "^4.5.0",
     "i18next-parser": "^9.0.2",
-    "vite": "^6.3.5"
+    "vite": "^7.0.0"
   },
   "packageManager": "yarn@4.5.3"
 }
