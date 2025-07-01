@@ -255,6 +255,7 @@ const Pictogram: React.FC<Props> = (props) => {
                     {textTop.enabled &&
                         <Text fontFamily={textTop.style.fontFamily}
                             fontSize={textTop.style.fontSize}
+                            fontStyle={textTop.style.fontStyle}
                             fill={textTop.style.color}
                             text={textTop.style.uppercase ? textTop.value.toUpperCase() : textTop.value}
                             x={0}
@@ -266,6 +267,7 @@ const Pictogram: React.FC<Props> = (props) => {
 
                     {textBottom.enabled &&
                         <Text fontFamily={textBottom.style.fontFamily}
+                            fontStyle={textBottom.style.fontStyle}
                             fontSize={textBottom.style.fontSize}
                             fill={textBottom.style.color}
                             text={textBottom.style.uppercase ? textBottom.value.toUpperCase() : textBottom.value}
