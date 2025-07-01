@@ -40,6 +40,7 @@
     "fontColor": "Font color",
     "fontSize": "Font size",
     "fontFamily": "Font family",
+    "fontStyle": "Font style",
     "verbalTenses": "Verbal tenses",
     "verbalTense": "Verbal tense",
     "past": "past",
@@ -74,7 +75,7 @@
     "result_plural": "We found {{count}} pictograms for \"{{query}}\".",
     "displayNew": "Below you find the latest {{number}} pictograms.",
     "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>.",
-    "example" : {
+    "example": {
       "food": "food",
       "animals": "animals",
       "furniture": "furniture",
