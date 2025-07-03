@@ -143,7 +143,10 @@ const Pictogram: React.FC<Props> = (props) => {
         pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
     const textTop = props.text.top;
     const textBottom = props.text.bottom;
-    const [image, imageStatus] = useImage(url);
+
+    // Set crossOrigin to 'Anonymous' to enable CORS and prevent canvas taint errors
+    // This allows canvas export/filtering while maintaining security (no credentials sent)
+    const [image, imageStatus] = useImage(url, 'anonymous');
     const containerRef = useRef<HTMLElement>(null);
 
     const topTextRef = useRef<Konva.Text>(null);
