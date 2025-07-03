@@ -41,7 +41,7 @@
     "web-vitals": "^4.2.4"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --host 0.0.0.0",
     "build": "LAYOUT=element vite build",
     "build:app": "tsc && vite build",
     "pack": "tar -czf wp-pictogram-viewer_git.$(git rev-parse --short HEAD).tar.gz js arasaac-pictogram-viewer.php",
