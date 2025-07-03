@@ -1,7 +1,7 @@
 import { SkinColor, HairColor, backgroundColors, borderColors, pluralColors, identifierColors, tenseColors } from "../../../data/colors";
 import { Identifier, IdentifierPosition } from "../options/IdentifierOptions";
 import { Tense } from "../options/VerbalTenseOptions";
-import { fontFamilies } from '../options/TextOptions';
+import { fontFamilies, FontStyle } from '../options/TextOptions';
 import { PictogramCustomization } from "../Pictogram";
 import { Action, ActionType } from "./actions";
 
@@ -30,6 +30,7 @@ export const initialTextState = {
         color: '#000000',
         fontSize: 46,
         fontFamily: fontFamilies[0],
+        fontStyle: FontStyle.normal,
     },
 };
 
@@ -155,7 +156,7 @@ export function pictogramStateReducer(state: PictogramState, action: Action): Pi
         case ActionType.position:
             return {
                 ...state,
-                customizations: { ...state.customizations, position: {...action.data} },
+                customizations: { ...state.customizations, position: { ...action.data } },
             };
         case ActionType.dragAndDrop:
             return {

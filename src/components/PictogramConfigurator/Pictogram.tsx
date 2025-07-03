@@ -143,7 +143,10 @@ const Pictogram: React.FC<Props> = (props) => {
         pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
     const textTop = props.text.top;
     const textBottom = props.text.bottom;
-    const [image, imageStatus] = useImage(url);
+
+    // Set crossOrigin to 'Anonymous' to enable CORS and prevent canvas taint errors
+    // This allows canvas export/filtering while maintaining security (no credentials sent)
+    const [image, imageStatus] = useImage(url, 'anonymous');
     const containerRef = useRef<HTMLElement>(null);
 
     const topTextRef = useRef<Konva.Text>(null);
@@ -255,6 +258,7 @@ const Pictogram: React.FC<Props> = (props) => {
                     {textTop.enabled &&
                         <Text fontFamily={textTop.style.fontFamily}
                             fontSize={textTop.style.fontSize}
+                            fontStyle={textTop.style.fontStyle}
                             fill={textTop.style.color}
                             text={textTop.style.uppercase ? textTop.value.toUpperCase() : textTop.value}
                             x={0}
@@ -266,6 +270,7 @@ const Pictogram: React.FC<Props> = (props) => {
 
                     {textBottom.enabled &&
                         <Text fontFamily={textBottom.style.fontFamily}
+                            fontStyle={textBottom.style.fontStyle}
                             fontSize={textBottom.style.fontSize}
                             fill={textBottom.style.color}
                             text={textBottom.style.uppercase ? textBottom.value.toUpperCase() : textBottom.value}

@@ -12,18 +12,22 @@
 
 @font-face {
   font-family: FiraSans;
-  src: url("/assets/fonts/firasans/FiraSans-Regular.otf") format("opentype");
-}
-
-@font-face {
-  font-family: FiraSans;
-  font-weight: light;
+  font-weight: 300;
+  font-display: swap;
   src: url("/assets/fonts/firasans/FiraSans-Light.otf") format("opentype");
 }
 
 @font-face {
   font-family: FiraSans;
-  font-weight: bold;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/firasans/FiraSans-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: FiraSans;
+  font-weight: 700;
+  font-display: swap;
   src: url("/assets/fonts/firasans/FiraSans-Bold.otf") format("opentype");
 }
 
@@ -45,7 +49,7 @@ a {
 }
 
 .kits-content-left {
-  display: flex; 
+  display: flex;
   position: absolute;
   width: 50%;
   top: 0;
@@ -136,7 +140,7 @@ h1.header-kits-h {
 }
 
 .kits-footer-container {
-  display: flex;  
+  display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
@@ -225,7 +229,7 @@ h1.header-kits-h {
 }
 
 .app-header-wrapper {
-  display: flex; 
+  display: flex;
   margin-bottom: 25px !important;
   border-bottom: 1px solid var(--border);
 }

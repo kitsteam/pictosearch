@@ -40,6 +40,7 @@
     "fontColor": "Schriftfarbe",
     "fontSize": "Schriftgröße",
     "fontFamily": "Schriftart",
+    "fontStyle": "Schriftstil",
     "verbalTenses": "Zeitformen",
     "verbalTense": "Zeitform",
     "past": "Vergangenheit",
@@ -75,7 +76,7 @@
     "result_plural": "Es wurden {{count}} Piktogramme bei der Suche nach \"{{query}}\" gefunden.",
     "displayNew": "Es werden die {{number}} neusten Piktogramme angezeigt.",
     "license": "Sergio Palao (Urheber), ARASAAC (<1>arasaac.org</1>), Regierung von Aragón in Spanien (Eigentümer), <3>CC BY-SA-NC 4.0</3>",
-    "example" : {
+    "example": {
       "food": "Lebensmittel",
       "animals": "Tiere",
       "furniture": "Möbel",
