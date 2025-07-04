@@ -90,7 +90,7 @@ function IdentifierIcon({ identifier, identifierColor, x, y }: { identifier: Ide
     return <Image image={image} x={x} y={y} width={iconSize} height={iconSize} />
 }
 
-function fitStageIntoParentContainer(ref: RefObject<Konva.Stage>, container: RefObject<HTMLElement>) {
+function fitStageIntoParentContainer(ref: RefObject<Konva.Stage | null>, container: RefObject<HTMLElement | null>) {
     if (!ref.current || !container.current) {
         return;
     }
@@ -132,15 +132,30 @@ export type PictogramCustomization = {
 }
 
 type Props = PictogramCustomization & {
-    stageRef: RefObject<Konva.Stage>,
+    stageRef: RefObject<Konva.Stage | null>,
     url: string,
     dispatch?: React.Dispatch<Action>,
     onLoaded?: () => void,
 }
 
 const Pictogram: React.FC<Props> = (props) => {
-    const { stageRef, url, border, backgroundColor, crossedOut, plural,
-        pluralColor, tense, tenseColor, identifier, zoom, dragAndDrop, position, dispatch, onLoaded } = props;
+    const {
+        stageRef,
+        url,
+        border,
+        backgroundColor,
+        crossedOut,
+        plural,
+        pluralColor,
+        tense,
+        tenseColor,
+        identifier,
+        zoom,
+        dragAndDrop,
+        position,
+        dispatch,
+        onLoaded
+    } = props;
     const textTop = props.text.top;
     const textBottom = props.text.bottom;
 
