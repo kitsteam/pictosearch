@@ -44,7 +44,12 @@ const ListItem: React.FC<Props> = React.memo(({ id, item, deleteItem, shouldRend
                 <ListItemIcon>
                     <Avatar src={url.href} sx={{ borderRadius: 0 }}></Avatar>
                     {shouldRender && <Box sx={{ position: 'absolute', top: -9999, left: -9999 }}>
-                        <Pictogram {...{ url: url.href, stageRef, onLoaded: onLoadedPictogram, ...item.state.customizations }} />
+                        <Pictogram
+                            url={url.href}
+                            stageRef={stageRef}
+                            onLoaded={onLoadedPictogram}
+                            {...item.state.customizations}
+                        />
                     </Box>}
                 </ListItemIcon>
                 <ListItemText primary={item.title} secondary={item.modified.toLocaleString()} />
