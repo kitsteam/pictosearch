@@ -3056,7 +3056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.5.1 || ^24.2.0, i18next@npm:^24.2.3":
+"i18next@npm:^23.5.1 || ^24.2.0":
   version: 24.2.3
   resolution: "i18next@npm:24.2.3"
   dependencies:
@@ -3067,6 +3067,20 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/7ac11a67d618ec714beef303aa497c1249bf5f1977dd3ebe9ca2673dfa6cadbba9e2d39ec1337688903ae3866ce9c1bc22cd6b265e66cce54c5db3a9bbedd390
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^25.3.1":
+  version: 25.3.1
+  resolution: "i18next@npm:25.3.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.27.6"
+  peerDependencies:
+    typescript: ^5
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 10c0/99a744a1c4471047af24c53628fa863988b88ffa1c5aed0c81121f76f7f65f28383715671a0668c90e4b61ca3662be228ae6e5f62aeda98120bd677b6d212798
   languageName: node
   linkType: hard
 
@@ -4137,7 +4151,7 @@ __metadata:
     clipboardy: "npm:^4.0.0"
     dequal: "npm:^2.0.3"
     file-saver: "npm:^2.0.5"
-    i18next: "npm:^24.2.3"
+    i18next: "npm:^25.3.1"
     i18next-browser-languagedetector: "npm:^8.2.0"
     i18next-parser: "npm:^9.0.2"
     jspdf: "npm:^3.0.1"
