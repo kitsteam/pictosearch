@@ -1,9 +1,18 @@
 {
   "language": "Idioma",
   "browse": "",
+  "search": {
+    "license": "Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para <1>ARASAAC</1>, que los distribuye bajo Licencia Creative Commons <3>BY-NC-SA 4.0</3>.",
+    "term": "Buscar término",
+    "action": "Buscar",
+    "loading": "Estamos buscando \"{{query}}\"...",
+    "result_plural_one": "",
+    "result_plural_many": "",
+    "result_plural_other": "",
+    "displayNew": "En la parte inferior te mostramos los últimos {{number}} pictogramas."
+  },
   "config": {
     "clipboardLicense": "",
-    "license": "The pictographic symbol displayed above is the property of the Government of Aragón and have been created by Sergio Palao for <1>ARASAAC</1>, that distributes them under Creative Commons License <3>BY-NC-SA 4.0</3>.",
     "design": "Diseño",
     "addition": "Añadir",
     "textOptions": "Optiones de texto",
@@ -13,6 +22,13 @@
     "background": "Fondo",
     "backgroundColor": "Color de fondo",
     "border": "Marco",
+    "borderWidth": {
+      "none": "ninguno",
+      "thin": "fino",
+      "narrow": "estrecho",
+      "wide": "ancho",
+      "extraWide": "extra ancho"
+    },
     "borderColor": "Color de marco",
     "colorized": "En color",
     "skinColor": "Color de piel",
@@ -61,32 +77,13 @@
   "back": "Volver",
   "Collection": "",
   "download": "Descargar",
+  "copied": "",
   "copy": "Copiar",
   "meta": {
     "categories": "Categorías",
     "tags": "Etiquetas"
   },
-  "search": {
-    "clipboardLicense": "",
-    "term": "Buscar término",
-    "action": "Buscar",
-    "loading": "Estamos buscando \"{{query}}\"...",
-    "result": "Hemos encontrado un pictograma relativo a \"{{query}}\".",
-    "result_plural": "Hemos encontrado {{count}} pictogramas relativos a \"{{query}}\".",
-    "displayNew": "En la parte inferior te mostramos los últimos {{number}} pictogramas.",
-    "license": "Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para <1>ARASAAC</1>, que los distribuye bajo Licencia Creative Commons <3>BY-NC-SA 4.0</3>.",
-    "example": {
-      "food": "Comestibles",
-      "animals": "Animales",
-      "furniture": "Muebles",
-      "plants": "Planta",
-      "leisure_time": "Ocio",
-      "seasons": "Estaciones",
-      "family": "Familia",
-      "school": "Escuela",
-      "schooling_material": "Material de enseñanza"
-    }
-  },
+  "more": "Ver más",
   "category": {
     "core-vocabulary": "",
     "movement": "",

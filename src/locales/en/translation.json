@@ -1,9 +1,17 @@
 {
   "language": "Language",
   "browse": "Browse",
+  "search": {
+    "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>.",
+    "term": "Search term",
+    "action": "Search",
+    "loading": "We are currently searching for \"{{query}}\"...",
+    "result_plural_one": "",
+    "result_plural_other": "",
+    "displayNew": "Below you find the latest {{number}} pictograms."
+  },
   "config": {
     "clipboardLicense": "Sergio Palao (author), ARASAAC (arasaac.org), Government of Aragón in Spain (owner), CC BY-SA-NC 4.0.",
-    "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>.",
     "design": "Design",
     "addition": "Addition",
     "textOptions": "Text options",
@@ -13,6 +21,13 @@
     "background": "Background",
     "backgroundColor": "Background color",
     "border": "Border",
+    "borderWidth": {
+      "none": "none",
+      "thin": "thin",
+      "narrow": "narrow",
+      "wide": "wide",
+      "extraWide": "extra wide"
+    },
     "borderColor": "Border color",
     "colorized": "Colorized",
     "skinColor": "Skin color",
@@ -61,32 +76,13 @@
   "back": "Back",
   "Collection": "Collection",
   "download": "Download",
+  "copied": "",
   "copy": "Copy",
   "meta": {
     "categories": "Categories",
     "tags": "Tags"
   },
-  "search": {
-    "clipboardLicense": "Sergio Palao (author), ARASAAC (arasaac.org), Government of Aragón in Spain (owner), CC BY-SA-NC 4.0.",
-    "term": "Search term",
-    "action": "Search",
-    "loading": "We are currently searching for \"{{query}}\"...",
-    "result": "We found one pictogram for \"{{query}}\".",
-    "result_plural": "We found {{count}} pictograms for \"{{query}}\".",
-    "displayNew": "Below you find the latest {{number}} pictograms.",
-    "license": "Sergio Palao (author), ARASAAC (<1>arasaac.org</1>), Government of Aragón in Spain (owner), <3>CC BY-SA-NC 4.0</3>.",
-    "example": {
-      "food": "food",
-      "animals": "animals",
-      "furniture": "furniture",
-      "plants": "plants",
-      "leisure_time": "leisure time",
-      "seasons": "seasons",
-      "family": "family",
-      "school": "school",
-      "schooling_material": "schooling material"
-    }
-  },
+  "more": "Show more",
   "category": {
     "core-vocabulary": "",
     "movement": "",

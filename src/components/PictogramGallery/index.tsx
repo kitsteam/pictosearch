@@ -38,7 +38,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
             search: '?' + searchParams.toString(),
         });
     }, [items, page, queryParams, navigate]);
-    
+
     useEffect(() => {
         const onScroll = () => {
             const scrollTop = document.documentElement.scrollTop;
@@ -67,7 +67,7 @@ const PictogramGallery: React.FC<Props> = ({ items, language, collection }) => {
                 disabled={itemsPerPage > pageItems.length}
                 startIcon={<SearchIcon />}
                 onClick={() => changeItemsPerPage(itemsPerPage + 12)}>
-                {t('More')}
+                {t('more')}
             </Button>
         </Box>
     )
