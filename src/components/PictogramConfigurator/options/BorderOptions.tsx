@@ -23,7 +23,20 @@ const BorderOptions: React.FC<Props> = ({ borderWidth, borderColor, dispatch }) 
             <Stack spacing={2} sx={{ marginLeft: 3, marginTop: 2 }}>
                 <Box>
                     <Box sx={{ paddingLeft: 3, paddingRight: 4, marginTop: 2 }}>
-                        <Slider value={borderWidth} onChange={(ev, newValue) => setBorderWidth(newValue as number)} step={10} min={0} max={40} marks={[{ value: 0, label: 'keiner' }, { value: 10, label: 'dünn' }, { value: 20, label: 'schmal' }, { value: 30, label: 'breit' }, { value: 40, label: 'extra breit' }]} />
+                        <Slider
+                            value={borderWidth}
+                            onChange={(ev, newValue) => setBorderWidth(newValue as number)}
+                            step={10}
+                            min={0}
+                            max={40}
+                            marks={[
+                                { value: 0, label: t('config.borderWidth.none') },
+                                { value: 10, label: t('config.borderWidth.thin') },
+                                { value: 20, label: t('config.borderWidth.narrow') },
+                                { value: 30, label: t('config.borderWidth.wide') },
+                                { value: 40, label: t('config.borderWidth.extraWide') }
+                            ]}
+                        />
                     </Box>
                 </Box>
                 <Collapse in={borderWidth > 0}>
