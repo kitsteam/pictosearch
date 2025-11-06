@@ -8,7 +8,18 @@
     "loading": "We are currently searching for \"{{query}}\"...",
     "result_plural_one": "",
     "result_plural_other": "",
-    "displayNew": "Below you find the latest {{number}} pictograms."
+    "displayNew": "Below you find the latest {{number}} pictograms.",
+    "example": {
+      "food": "food",
+      "animals": "animals",
+      "furniture": "furniture",
+      "plants": "plants",
+      "leisure_time": "leisure time",
+      "seasons": "seasons",
+      "family": "family",
+      "school": "school",
+      "schooling_material": "schooling material"
+    }
   },
   "config": {
     "clipboardLicense": "Sergio Palao (author), ARASAAC (arasaac.org), Government of Aragón in Spain (owner), CC BY-SA-NC 4.0.",
