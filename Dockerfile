@@ -1,4 +1,4 @@
-FROM node:24.3.0-alpine AS install
+FROM node:25.1.0-alpine AS install
 WORKDIR /app
 
 # --- build deps for node-gyp & canvas on Alpine ---
