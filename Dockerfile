@@ -1,15 +1,28 @@
 FROM node:24.3.0-alpine AS install
 WORKDIR /app
 
+# --- build deps for node-gyp & canvas on Alpine ---
+RUN apk add --no-cache \
+  python3 \
+  build-base \
+  pkgconfig \
+  cairo-dev pango-dev pixman-dev \
+  libjpeg-turbo-dev giflib-dev librsvg-dev
+
+# make sure node-gyp sees python
+ENV PYTHON=/usr/bin/python3
+
 ENV PATH=/app/node_modules/.bin:$PATH
 
+# Yarn 4 needs the .yarn dir in the image
+# COPY .yarn ./.yarn
 COPY .yarnrc.yml ./
 COPY package.json ./
 COPY yarn.lock ./
 
 # https://yarnpkg.com/corepack
 RUN corepack enable
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable
 
 FROM install AS development
 ENV INLINE_RUNTIME_CHUNK=false
