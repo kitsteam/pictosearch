@@ -4551,7 +4551,7 @@ __metadata:
     react: "npm:^19.1.0"
     react-color: "npm:^2.19.3"
     react-dom: "npm:^19.1.0"
-    react-i18next: "npm:^15.5.3"
+    react-i18next: "npm:^16.0.0"
     react-konva: "npm:^19.0.7"
     react-router-dom: "npm:^7.6.3"
     swr: "npm:^2.3.4"
@@ -4729,14 +4729,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.5.3":
-  version: 15.5.3
-  resolution: "react-i18next@npm:15.5.3"
+"react-i18next@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "react-i18next@npm:16.0.0"
   dependencies:
     "@babel/runtime": "npm:^7.27.6"
     html-parse-stringify: "npm:^3.0.1"
   peerDependencies:
-    i18next: ">= 23.2.3"
+    i18next: ">= 25.5.2"
     react: ">= 16.8.0"
     typescript: ^5
   peerDependenciesMeta:
@@ -4746,7 +4746,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/495d98a738e966cd655a378d953e45cfd1a810ccfaf4894a63c37b7a9043e69b55c5e14044d54290c91512e7fa37835c7e4637bfb8d68b6fc88bc493a5ffd9ee
+  checksum: 10c0/c6c83959fa6aac2ed899ec1d3b682fe12b6b00cc60498fe55a08077db3eb81b529213ad389ba45efd6b43dd23c7f982bd990a52d0422724eb4db116e416405a0
   languageName: node
   linkType: hard
 
