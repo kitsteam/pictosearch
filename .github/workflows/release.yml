@@ -53,7 +53,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7
         with:
-          # Single-arch amd64 preserved: picto has never built arm64.
           platforms: linux/amd64
           target: production
           push: true
