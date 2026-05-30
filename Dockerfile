@@ -1,4 +1,8 @@
-FROM node:25.2.1-alpine AS install
+ARG NODE_VERSION=24
+ARG ALPINE_VERSION=3.21
+ARG PNPM_VERSION=10.33.4
+
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS install
 WORKDIR /app
 
 # --- build deps for node-gyp & canvas on Alpine ---
@@ -14,15 +18,15 @@ ENV PYTHON=/usr/bin/python3
 
 ENV PATH=/app/node_modules/.bin:$PATH
 
-# Yarn 4 needs the .yarn dir in the image
-# COPY .yarn ./.yarn
-COPY .yarnrc.yml ./
-COPY package.json ./
-COPY yarn.lock ./
+# https://pnpm.io/installation#using-corepack
+ARG PNPM_VERSION
+RUN corepack enable \
+ && corepack prepare pnpm@${PNPM_VERSION} --activate
 
-# https://yarnpkg.com/corepack
-RUN corepack enable
-RUN yarn install --immutable
+# Copy manifests + lockfile first for layer caching
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+
+RUN pnpm install --frozen-lockfile
 
 FROM install AS development
 ENV INLINE_RUNTIME_CHUNK=false
@@ -43,7 +47,7 @@ ENV INLINE_RUNTIME_CHUNK=false
 ENV REACT_APP_API=/arasaac/api
 ENV REACT_APP_API_IMAGES=/arasaac/images
 
-RUN yarn build:app
+RUN pnpm run build:app
 
 FROM nginxinc/nginx-unprivileged:stable-alpine3.19-slim AS production
 COPY --from=build /app/build /usr/share/nginx/html

@@ -30,7 +30,7 @@ This application provides the following features:
 
 ## :rocket: Install it
 ### Single page application
-To use this app as single page application, just run `yarn install && yarn
+To use this app as single page application, just run `pnpm install && pnpm run
 build:app` and serve the content of `build/` with your favorite web server. Of
 course you can also use `docker-compose up --build` to do it all in once. The
 resulting web server is listing on port 8070 (http://localhost:8070/).
@@ -49,7 +49,7 @@ OR
 git clone https://github.com/kitsteam/wp-pictogram-viewer.git arasaac-pictogram-viewer
 
 cd arasaac-pictogram-viewer
-yarn install && yarn build
+pnpm install && pnpm run build
 ```
 
 After you installed the plugin you have to go to your Wordpress admin dashboard
@@ -61,11 +61,11 @@ Currently this application is available in german and english. To add another
 language, the following steps have to been taken:
 
 * add the language short code to the `locales` short code in `i18next-parser.config.js`
-* run `yarn i18next`
+* run `pnpm exec i18next` (the `i18next` binary is provided by the `i18next-parser` devDependency)
 * translate everything in `src/locales/SHORT_CODE/translation.json`
 * include the new data file in `src/locales/index.ts` like the existing
 
-If a new translatable key is added to the code, `yarn i18next` will add it to all
+If a new translatable key is added to the code, `pnpm exec i18next` will add it to all
 language files.
 
 ## :train2: Protect user privacy
@@ -84,7 +84,7 @@ To release a new version a few things should be done:
 
 * Bump the version in `package.json`
 * Add a version header field in `arasaac-pictogram-viewer.php`, like `* Version:           0.1.0`
-* Run `yarn build && yarn run pack` and `yarn build:app && yarn run pack:app`
+* Run `pnpm run build && pnpm run pack` and `pnpm run build:app && pnpm run pack:app`
 * Create a signed commit `git commit -S -am "release 0.1.0 :tada:"`
 * Push all commits `git push`
 * Create a [new Github release](https://github.com/kitsteam/wp-pictogram-viewer/releases/new) and attach the previous packed archive

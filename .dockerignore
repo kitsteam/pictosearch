@@ -12,5 +12,6 @@
 !package.json
 !README.md
 !tsconfig.json
-!yarn.lock
-!.yarnrc.yml
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!.npmrc
