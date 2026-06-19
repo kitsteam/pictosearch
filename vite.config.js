@@ -6,6 +6,11 @@ export default defineConfig(() => {
     build: {
       outDir: 'build',
     },
+    server: {
+      watch: {
+        ignored: ['**/.pnpm-store/**'],
+      },
+    },
     plugins: [react()],
     test: {
       globals: true,
