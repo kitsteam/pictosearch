@@ -1,0 +1,19 @@
+# Settings-only workspace file. The `packages:` key is intentionally omitted —
+# this is a single-package repo. pnpm only reads the knobs below when this file
+# exists, which is why it is present despite there being no workspace members.
+# 7-day quarantine on newly published versions (mitigates fast-revoked malicious releases).
+# Added LAST, after the lockfile was generated and is stable — frozen installs do not
+# re-resolve, so this never blocks CI/Docker.
+minimumReleaseAge: 10080
+strictDepBuilds: true
+allowBuilds:
+  # esbuild: native binary fetched/linked by its postinstall; required by Vite at build time.
+  esbuild: true
+  # canvas: native module (jsdom/vitest devDep only). Built in CI/Docker where cairo/pango
+  # toolchain is present. Never imported by src/ and not used by the production image build.
+  canvas: true
+  # core-js: postinstall only prints a funding banner (no compilation). Set true because
+  # pnpm 10.33's strictDepBuilds treats ANY ignored build script as a fatal install error
+  # even when listed false — so running this no-op script is the way to keep installs green.
+  core-js: true
+overrides: {}
