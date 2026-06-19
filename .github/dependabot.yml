@@ -1,8 +1,27 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
+# Dependabot policy for this repo.
+# Reference: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+#
+# Policy: turn off Dependabot's automatic update PRs, but keep its vulnerability
+# notifications. A uniform 7-day quarantine applies to every dependency change
+# (enforced by `minimumReleaseAge: 10080` in pnpm-workspace.yaml), and routine
+# bumps are done by hand. Concretely:
+#
+#   * NO version-update PRs. `open-pull-requests-limit: 0` disables Dependabot
+#     version updates for each ecosystem below.
+#
+#   * NO automatic security-fix PRs. Dependabot "security updates" are IMMEDIATE
+#     by design (`cooldown` does not apply to them), so they would bypass the
+#     7-day quarantine. Disable them at the repo level: Settings -> Code security
+#     -> "Dependabot security updates" -> Disabled.
+#
+#   * Dependabot ALERTS stay ENABLED — these are the notifications, not PRs.
+#     Keep Settings -> Code security -> "Dependabot alerts" -> Enabled. High and
+#     critical CVEs are triaged from the alert list and patched by hand once the
+#     fixed version clears the 7-day quarantine.
+#
+# The blocks below exist only to disable version-update PRs. `schedule` is
+# required syntax but inert while updates are off; `cooldown` documents the
+# 7-day intent should version updates ever be re-enabled.
 version: 2
 updates:
   # npm ecosystem covers pnpm-lock.yaml.
@@ -10,62 +29,22 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "08:00"
-      timezone: "Europe/Berlin"
-    open-pull-requests-limit: 15
-    labels:
-      - "dependencies"
-      - "npm"
-    commit-message:
-      prefix: "chore(deps)"
-      prefix-development: "chore(deps-dev)"
-      include: "scope"
-    # 7-day cooldown mirrors pnpm-workspace.yaml minimumReleaseAge: 10080.
-    # Security updates ignore cooldown (Dependabot rule).
+    open-pull-requests-limit: 0
     cooldown:
       default-days: 7
-    groups:
-      production-dependencies:
-        dependency-type: "production"
-        update-types: ["minor", "patch"]
-      development-dependencies:
-        dependency-type: "development"
-        update-types: ["minor", "patch"]
 
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "08:00"
-      timezone: "Europe/Berlin"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "docker"
-    commit-message:
-      prefix: "chore(docker)"
-      include: "scope"
+    open-pull-requests-limit: 0
     cooldown:
       default-days: 7
-    # Node base image is bumped manually on the Node LTS cycle.
-    ignore:
-      - dependency-name: "node"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "08:00"
-      timezone: "Europe/Berlin"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "github-actions"
-    commit-message:
-      prefix: "chore(actions)"
-      include: "scope"
+    open-pull-requests-limit: 0
     cooldown:
       default-days: 7
