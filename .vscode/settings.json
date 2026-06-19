@@ -1,5 +1,8 @@
 {
     "i18n-ally.localesPaths": [
         "src/locales"
-    ]
+    ],
+    "files.exclude": {
+        "**/.git": false
+    }
 }
