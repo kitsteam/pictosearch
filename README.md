@@ -74,7 +74,7 @@ To protect the privacy of users, you can configure a proxy for all endpoints.
 1. Configure a proxy for `https://api.arasaac.org/api` and
    `https://static.arasaac.org/images`. E.g. use can use [mod_proxy] (`ProxyPass
    "/api" "https://api.arasaac.org/api"`).
-2. Set the environment variables `REACT_APP_API` and `REACT_APP_API_IMAGES` to
+2. Set the environment variables `VITE_API` and `VITE_API_IMAGES` to
    the new absolute proxy url. The easiest way to do so, is to copy the file
    `.env` to `.env.local` and modify it accordantly.
 3. Rebuild the project.
