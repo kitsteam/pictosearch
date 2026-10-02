@@ -39,6 +39,14 @@ jobs:
       - uses: ./.github/actions/setup-pnpm
       - run: pnpm exec tsc --noEmit
 
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: ./.github/actions/setup-pnpm
+      - run: pnpm run lint
+
   test:
     runs-on: ubuntu-latest
 
@@ -62,3 +70,20 @@ jobs:
           # period. License enforcement stays on.
           vulnerability-check: false
           allow-licenses: MIT, MIT-0, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, CC0-1.0, Unlicense, BlueOak-1.0.0, Zlib, CC-BY-4.0, OFL-1.1, Python-2.0
+          # Per-package exceptions for build tooling that never ships in the bundle:
+          # - lightningcss (MPL-2.0): hard dependency of vite 8, used unmodified.
+          # - uri-js (BSD-2-Clause AND BSD-2-Clause-Views): pulled in by eslint via ajv 6.
+          allow-dependencies-licenses: >-
+            pkg:npm/lightningcss,
+            pkg:npm/lightningcss-android-arm64,
+            pkg:npm/lightningcss-darwin-arm64,
+            pkg:npm/lightningcss-darwin-x64,
+            pkg:npm/lightningcss-freebsd-x64,
+            pkg:npm/lightningcss-linux-arm-gnueabihf,
+            pkg:npm/lightningcss-linux-arm64-gnu,
+            pkg:npm/lightningcss-linux-arm64-musl,
+            pkg:npm/lightningcss-linux-x64-gnu,
+            pkg:npm/lightningcss-linux-x64-musl,
+            pkg:npm/lightningcss-win32-arm64-msvc,
+            pkg:npm/lightningcss-win32-x64-msvc,
+            pkg:npm/uri-js

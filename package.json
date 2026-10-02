@@ -7,6 +7,7 @@
     "name": "Klaus Herberth",
     "email": "klaus@jsxc.org"
   },
+  "packageManager": "pnpm@10.33.4",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -15,11 +16,6 @@
     "@mui/material": "^7.3.5",
     "@mui/styles": "^6.5.0",
     "@mui/system": "^7.3.11",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.6",
-    "@types/react-dom": "^19.2.3",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/uuid": "^10.0.0",
     "clipboardy": "^4.0.0",
     "dequal": "^2.0.3",
     "file-saver": "^2.0.5",
@@ -33,23 +29,25 @@
     "react-dom": "^19.2.0",
     "react-i18next": "^15.5.3",
     "react-konva": "^19.2.0",
-    "react-router": "^7.9.6",
-    "react-router-dom": "^7.9.6",
+    "react-router": "^7.18.3",
+    "react-router-dom": "^7.18.3",
     "swr": "^2.3.6",
-    "typescript": "^5.9.3",
     "use-image": "^1.1.4",
     "uuid": "^11.0.3",
     "web-vitals": "^5.1.0"
   },
   "scripts": {
-    "start": "vite --host 0.0.0.0",
     "build": "LAYOUT=element vite build",
     "build:app": "tsc && vite build",
+    "dev": "vite --host 0.0.0.0",
+    "install:frozen": "pnpm install --frozen-lockfile",
+    "lint": "eslint .",
     "pack": "tar -czf wp-pictogram-viewer_git.$(git rev-parse --short HEAD).tar.gz js arasaac-pictogram-viewer.php",
     "pack:app": "tar -czf pictosearch_git.$(git rev-parse --short HEAD).tar.gz build",
-    "test": "vitest",
+    "start": "vite --host 0.0.0.0",
+    "test": "vitest run",
     "test:run": "vitest run",
-    "install:frozen": "pnpm install --frozen-lockfile"
+    "test:watch": "vitest"
   },
   "browserslist": {
     "production": [
@@ -65,20 +63,32 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.27.1",
+    "@eslint/js": "^10.0.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/file-saver": "^2.0.7",
     "@types/jsdom": "^27",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.6",
     "@types/react-color": "^3.0.13",
-    "@vitejs/plugin-react": "^5.1.1",
-    "@vitest/ui": "^4.0.13",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/ui": "^4.1.7",
     "canvas": "^3.2.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
     "i18next-parser": "^9.0.2",
     "jsdom": "^27.2.0",
-    "vite": "^7.2.4",
-    "vitest": "^4.0.13"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.7"
   },
   "engines": {
     "node": "^24.0"

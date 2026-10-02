@@ -16,4 +16,6 @@ allowBuilds:
   # pnpm 10.33's strictDepBuilds treats ANY ignored build script as a fatal install error
   # even when listed false — so running this no-op script is the way to keep installs green.
   core-js: true
-overrides: {}
+overrides:
+  # GHSA-g7r4-m6w7-qqqr. Vite's optional peer range accepts ^0.28.0.
+  "esbuild@>=0.27.3 <0.28.1": ^0.28.1

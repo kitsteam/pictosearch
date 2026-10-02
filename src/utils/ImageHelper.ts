@@ -4,20 +4,20 @@ export default class ImageHelper {
         let sWidth: number;
         let sx: number;
         let sy: number;
-        let dHeight = size;
-        let dWidth = size;
-        let canvas = document.createElement('canvas');
+        const dHeight = size;
+        const dWidth = size;
+        const canvas = document.createElement('canvas');
 
         canvas.width = dWidth;
         canvas.height = dHeight;
 
-        let ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
         if (!ctx) {
             throw new Error('Could not get 2d context.');
         }
 
-        let img = new Image();
+        const img = new Image();
 
         return new Promise((resolve, reject) => {
             img.onload = () => {
@@ -35,7 +35,7 @@ export default class ImageHelper {
 
                 ctx?.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, dWidth, dHeight);
 
-                let thumbnailData = canvas.toDataURL('image/png');
+                const thumbnailData = canvas.toDataURL('image/png');
 
                 resolve(thumbnailData);
             };
