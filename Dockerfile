@@ -44,8 +44,8 @@ COPY .env ./
 COPY arasaac-pictogram-viewer.php ./
 
 ENV INLINE_RUNTIME_CHUNK=false
-ENV REACT_APP_API=/arasaac/api
-ENV REACT_APP_API_IMAGES=/arasaac/images
+ENV VITE_API=/arasaac/api
+ENV VITE_API_IMAGES=/arasaac/images
 
 RUN pnpm run build:app
 
