@@ -1,5 +1,5 @@
-ARG NODE_VERSION=24
-ARG ALPINE_VERSION=3.21
+ARG NODE_VERSION=24.22.1
+ARG ALPINE_VERSION=3.24
 ARG PNPM_VERSION=10.33.4
 
 FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION} AS install
@@ -49,7 +49,7 @@ ENV VITE_API_IMAGES=/arasaac/images
 
 RUN pnpm run build:app
 
-FROM nginxinc/nginx-unprivileged:stable-alpine3.19-slim AS production
+FROM nginxinc/nginx-unprivileged:stable-alpine3.24-slim AS production
 COPY --from=build /app/build /usr/share/nginx/html
 COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 
