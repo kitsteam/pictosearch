@@ -49,7 +49,7 @@ ENV VITE_API_IMAGES=/arasaac/images
 
 RUN pnpm run build:app
 
-FROM nginxinc/nginx-unprivileged:stable-alpine3.24-slim AS production
+FROM nginx/nginx-unprivileged:1.30.7-alpine3.24-slim AS production
 COPY --from=build /app/build /usr/share/nginx/html
 COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 
